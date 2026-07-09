@@ -1,0 +1,145 @@
+.windows {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-windows);
+  pointer-events: none;
+}
+
+.win {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: min(520px, 92vw);
+  min-height: 280px;
+  max-height: min(72vh, 640px);
+  background: var(--os-window-bg);
+  border-radius: var(--os-radius);
+  box-shadow: var(--os-shadow);
+  border: 1px solid var(--os-chrome-border);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: winIn 0.35s var(--os-ease) both;
+}
+
+.win.is-focused {
+  box-shadow: 0 32px 100px rgba(28, 25, 22, 0.22);
+}
+
+.win.is-minimized {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.win.is-genie {
+  resize: none !important;
+  overflow: visible;
+}
+
+.win.is-maximized {
+  resize: none !important;
+  max-height: none !important;
+  border-radius: 10px;
+}
+
+@keyframes winIn {
+  from { opacity: 0; transform: scale(0.94) translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+.win-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: var(--os-titlebar-bg);
+  border-bottom: 1px solid var(--os-chrome-border);
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.win-titlebar:active { cursor: grabbing; }
+
+.win-traffic {
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0.42;
+  transition: opacity 0.15s;
+}
+
+.win:hover .win-traffic,
+.win.is-focused .win-traffic {
+  opacity: 1;
+}
+
+.win-traffic button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  transition: filter 0.1s, transform 0.1s;
+}
+
+.win-close { background: #ff5f57; }
+.win-min { background: #febc2e; }
+.win-max { background: #28c840; }
+
+.win-traffic button:hover {
+  filter: brightness(0.92);
+  transform: scale(1.12);
+}
+
+.win-title {
+  flex: 1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--os-ink-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.win-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.win--app {
+  width: min(720px, 94vw);
+  max-height: min(86vh, 780px);
+}
+
+.win--wide {
+  width: min(900px, 94vw) !important;
+  max-height: min(88vh, 820px) !important;
+}
+
+.win--system {
+  width: min(440px, 92vw);
+}
+
+.win-body:has(.app-panel) {
+  padding: 0;
+  overflow: hidden;
+}
+
+.win-body:has(.sys-panel--apps) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.win-body:has(.app-panel) .app-panel {
+  overflow: auto;
+  max-height: 100%;
+  height: 100%;
+}
+
+.win.is-maximized .app-panel {
+  max-height: none;
+}
