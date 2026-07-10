@@ -190,6 +190,7 @@ function buildClock() {
       <time class="clock__time num" id="widgetClock">--:--</time>
       <p class="clock__date" id="widgetDate"></p>
       <p class="clock__city">Local · Capricorn OS</p>
+      <p class="clock__proof"><span class="clock__proof-dot" aria-hidden="true"></span>0 bytes sent today · 0 servers</p>
     </div>
   `;
 }

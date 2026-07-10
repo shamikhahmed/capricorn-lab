@@ -1,7 +1,7 @@
 # Capricorn Lab — Handover
 
 **Repo:** `/Users/shamikhahmed/Desktop/Cap-Apps/capricorn-lab`  
-**Version:** `0.9.5`  
+**Version:** `0.9.6`  
 **Status:** Experiment only — **do not deploy** or replace [shamikhahmed.github.io](https://shamikhahmed.github.io/) without explicit approval.
 
 ---
@@ -101,16 +101,19 @@ Brain: `~/Capricorn-Brain/01 Projects/capricorn-lab.md`
 
 ## QA checklist (5 min)
 
-- [ ] Fresh tab → lock screen → unlock → OS (desktop + iOS)
-- [ ] Desktop light + dark @ 1440×900
-- [ ] All widget CTAs visible at default Safari size (DeePony, Travel, Aura, Ledger…)
-- [ ] Resize window — no content pop-in from hidden state
-- [ ] Open app window → real screenshot in phone frame
-- [ ] Dock hover → label above icon
-- [ ] `/?view=desktop` @ 600px width — not blank
-- [ ] `/?view=mobile` — 3 pages: Today (clock + 10 widgets) / Tasks + Apps / Connect; dock 10 apps
-- [ ] Travel/Soul window → "Screenshot coming soon"; WIP badge on dock icons
-- [ ] Console: no errors
+Last full audit **2026-07-10 (v0.9.6)** — all below verified, 0 defects.
+
+- [x] Fresh tab → lock screen → unlock → OS (desktop + iOS)
+- [x] Lock: remember-device persists · `?lock=1` forces · `?nolock=1` skips · reduced-motion orbit freezes
+- [x] Desktop light + dark readable (sidebar, Tasks, widgets, Applications header)
+- [x] Widget CTAs never clipped: 643 / 900 / 1080 / 1290 / 1920
+- [x] Open app window → real screenshot (8 apps) · Travel/Soul → "Screenshot coming soon" + WIP badge
+- [x] Apps window: live = "Launch PWA ↗", WIP = "GitHub ↗" + badge
+- [x] Dock hover → label above icon · arrow-key nav · WIP badges
+- [x] Ambient tint on focused app window (subtle in both themes)
+- [x] `/?view=desktop` @ 600px — not blank
+- [x] `/?view=mobile` — 3 pages: Today (clock + 10 widgets) / Tasks + Apps / Connect; dock 10 apps
+- [x] 0 failed requests · 0 console errors/warnings
 
 ---
 

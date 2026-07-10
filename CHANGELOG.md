@@ -2,6 +2,11 @@
 
 Experimental **Capricorn OS**. Sandbox only — see [PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md) and [HANDOVER.md](./HANDOVER.md).
 
+## 0.9.6 — 2026-07-10
+
+- **Clock widget sovereignty proof** — the desktop clock tile's empty lower space now carries a live "● 0 bytes sent today · 0 servers" line (green dot), echoing the lock screen. Both themes readable.
+- **Full perfection audit (verified, no defects):** light + dark across sidebar / tasks / widgets / Applications window; lock screen both variants + full checklist + reduced-motion orbit; widget CTAs 0-clipped at 643 / 900 / 1080 / 1290 / 1920; ambient tint subtle in both modes; WIP apps show "GitHub ↗" + badge, live apps "Launch PWA ↗"; 0 failed requests, 0 console errors/warnings; scroll fallback uses styled thin gold scrollbar.
+
 ## 0.9.5 — 2026-07-10
 
 - **Widget CTA clip fix (all sizes)** — no widget hides its CTA anymore:

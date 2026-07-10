@@ -169,7 +169,7 @@ HANDOVER.md           quick session handoff
 
 ## VERSION
 
-**0.9.5** — see [CHANGELOG.md](./CHANGELOG.md)
+**0.9.6** — see [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 

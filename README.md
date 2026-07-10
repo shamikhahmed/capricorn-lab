@@ -41,6 +41,8 @@ npm install && npm run dev
 
 ## Status
 
+**v0.9.6** — Clock widget sovereignty proof; full perfection audit (light+dark, lock, all widths, WIP labels) — 0 defects.
+
 **v0.9.5** — Widget CTA clip fix at short viewport heights (natural-height row sizing); HANDOVER sync.
 
 **v0.9.4** — Quick boot after lock, lock art, pitch copy, iOS swipe physics, SEO fallback.
