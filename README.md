@@ -16,7 +16,7 @@ Live hub: [shamikhahmed.github.io](https://shamikhahmed.github.io/)
 
 Website *is* fake macOS + iOS — not a landing page about one.
 
-- Boot → desktop or iOS home
+- Boot → **lock screen** → desktop or iOS home
 - 10 Cap apps: widgets, dock, windows with **real mobile screenshots**
 - Tap widget → toast; CTA → app window
 - Sovereignty prefs = cloud off
@@ -35,10 +35,15 @@ npm install && npm run dev
 | `/?view=desktop` | macOS (any width) |
 | `/?view=mobile` | iOS (any width) |
 | `/?view=desktop&pitch=1` | Desktop + Applications window |
+| `/?nolock=1` | Skip lock screen |
+| `/?lock=1` | Force lock screen |
+| `/?boot=full` | Full BIOS boot (desktop) |
 
 ## Status
 
-**v0.9.0** — WIP badges, tasks toggle, iOS 3-page layout, full audit polish.
+**v0.9.5** — Widget CTA clip fix at short viewport heights (natural-height row sizing); HANDOVER sync.
+
+**v0.9.4** — Quick boot after lock, lock art, pitch copy, iOS swipe physics, SEO fallback.
 
 **v0.8.5** — widget redesign: Tasks tile, cleaner hero/CTA cards, bigger rows.
 

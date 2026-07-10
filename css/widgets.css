@@ -569,6 +569,8 @@ body.cc-open .notify-stack {
     height: auto;
   }
   :root { --widget-h-sys: auto; }
+  /* Un-flex cells so tiles size to their content (no CTA clip at narrow width) */
+  .widget-cell { display: block; }
   .widget-row--system .mw,
   .widget-row--apps .mw {
     height: auto;

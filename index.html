@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Capricorn OS — ten apps. One device. Your rules.">
+  <meta name="description" content="Capricorn OS — ten sovereign apps by Capricorn Systems. Finance, performance, recovery, and wellness software encrypted on your device. Zero servers. Zero analytics.">
   <meta name="theme-color" content="#e8e2d6">
   <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Capricorn OS">
+  <meta property="og:description" content="Ten apps. One device. Your rules. Sovereign software by Capricorn Systems.">
   <title>Capricorn OS</title>
   <script>
     try {
@@ -20,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/boot.css">
+  <link rel="stylesheet" href="css/lock-screen.css">
   <link rel="stylesheet" href="css/desktop.css">
   <link rel="stylesheet" href="css/windows.css">
   <link rel="stylesheet" href="css/widgets.css">
@@ -27,9 +30,27 @@
   <link rel="stylesheet" href="css/control-center.css">
   <link rel="stylesheet" href="css/apps.css">
   <link rel="stylesheet" href="css/mobile.css">
+  <style>
+    .seo-fallback {
+      max-width: 42rem;
+      margin: 2rem auto;
+      padding: 0 1.25rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
-  <div id="boot" class="boot" role="dialog" aria-label="System boot" aria-modal="true">
+  <noscript>
+    <article class="seo-fallback">
+      <h1>Capricorn OS</h1>
+      <p>Capricorn Systems builds sovereign software — ten apps for finance, performance, recovery, wealth, travel, and wellness. Encrypted on your device. No cloud rent. No analytics.</p>
+      <p>Built by Shamikh Ahmed. VaultCap, PulseCap, PrismCap, SteadyCap, LedgerCap, DeePonyCap, ScentCap, SoulCap, TravelCap, AuraCap.</p>
+    </article>
+  </noscript>
+  <div id="lockScreen" class="lock-screen" hidden role="dialog" aria-label="Lock screen" aria-modal="true"></div>
+
+  <div id="boot" class="boot" role="dialog" aria-label="System boot" aria-modal="true" hidden>
     <div class="boot-terminal">
       <pre class="boot-log" id="bootLog" aria-live="polite"></pre>
     </div>

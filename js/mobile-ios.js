@@ -22,11 +22,11 @@ function startIOSClock() {
 }
 
 function buildIOSWidgets() {
-  const appTile = (a) => {
+  const appTile = (a, i) => {
     const snap = IOS_WIDGET_SNAPSHOTS[a.slug] || { big: a.symbol, small: a.tagline, extra: '' };
     const href = launchHref(a);
     return `
-    <a class="ios-widget ios-widget--app${a.wip ? ' ios-widget--wip' : ''}" style="--w-accent:${a.accent}" href="${href}" target="_blank" rel="noopener" aria-label="${a.name}${a.wip ? ' — in development' : ''}">
+    <a class="ios-widget ios-widget--app${a.wip ? ' ios-widget--wip' : ''}" style="--w-accent:${a.accent};--live-i:${i + 1}" href="${href}" target="_blank" rel="noopener" aria-label="${a.name}${a.wip ? ' — in development' : ''}">
       <header><img src="${a.icon}" alt="" width="20" height="20"><span>${a.name}</span>${a.wip ? wipBadgeHTML() : ''}</header>
       <strong>${snap.big}</strong>
       <small>${snap.small}</small>
@@ -36,12 +36,12 @@ function buildIOSWidgets() {
 
   return `
     <div class="ios-widgets" aria-label="Widgets">
-      <div class="ios-widget ios-widget--clock ios-widget--span2">
+      <div class="ios-widget ios-widget--clock ios-widget--span2" style="--live-i:0">
         <time id="iosWidgetTime">--:--</time>
         <p id="iosWidgetDate"></p>
         <span>Local · Capricorn OS</span>
       </div>
-      ${APPS.map(appTile).join('')}
+      ${APPS.map((a, i) => appTile(a, i)).join('')}
     </div>`;
 }
 
@@ -125,8 +125,8 @@ export function initIOSHome() {
   }
 
   if (dock) {
-    dock.innerHTML = APPS.map((app) => `
-      <a href="${launchHref(app)}" class="ios-dock__icon${app.wip ? ' ios-dock__icon--wip' : ''}" target="_blank" rel="noopener" aria-label="${app.name}${app.wip ? ' — WIP' : ''}">
+    dock.innerHTML = APPS.map((app, i) => `
+      <a href="${launchHref(app)}" class="ios-dock__icon${app.wip ? ' ios-dock__icon--wip' : ''}" style="--dock-i:${i}" target="_blank" rel="noopener" aria-label="${app.name}${app.wip ? ' — WIP' : ''}">
         <img src="${app.icon}" alt="" width="54" height="54">
         ${app.wip ? '<span class="ios-dock__wip">WIP</span>' : ''}
       </a>

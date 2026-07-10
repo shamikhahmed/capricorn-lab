@@ -341,10 +341,36 @@ export function initWidgets({ onOpen }) {
 }
 
 /** Fit system + app rows — generous mins, per-row tracks, scroll if short viewport */
+/** Dev-only guard: warn if any widget CTA is clipped by a too-short tile. Stripped in prod. */
+function warnClippedCTAs(appsRow) {
+  if (!(import.meta.env && import.meta.env.DEV)) return;
+  requestAnimationFrame(() => {
+    const clipped = [...appsRow.querySelectorAll('.mw__cta')].filter((c) => {
+      const mw = c.closest('.mw');
+      if (!mw) return false;
+      const r = c.getBoundingClientRect();
+      const box = mw.getBoundingClientRect();
+      return r.bottom > box.bottom + 1 || r.width === 0 || r.height === 0;
+    }).map((c) => c.textContent.trim());
+    if (clipped.length) console.warn('[widgets] CTA clipped — tile too short:', clipped);
+  });
+}
+
 export function layoutWidgetHeights() {
   const grid = document.getElementById('widgetGrid');
   const appsRow = grid?.querySelector('.widget-row--apps');
   if (!grid || !appsRow || grid.offsetParent === null) return;
+
+  // Below ~1100px the grid reflows to 1–2 columns (CSS media queries) with
+  // content-sized auto-rows. The 4-row budget logic only applies to the 4-col
+  // layout — otherwise clear the inline rows and let CSS handle it (no clip).
+  const colCount = getComputedStyle(appsRow).gridTemplateColumns.split(' ').filter(Boolean).length;
+  if (colCount < 4) {
+    appsRow.style.gridTemplateRows = '';
+    grid.classList.remove('widget-grid--scroll');
+    warnClippedCTAs(appsRow);
+    return;
+  }
 
   const gap = parseFloat(getComputedStyle(grid).gap) || 8;
   const appsGap = parseFloat(getComputedStyle(appsRow).gap) || gap;
@@ -358,24 +384,30 @@ export function layoutWidgetHeights() {
   const gapsTotal = gap + appsGap * 3;
   const appBudget = gridH - SYS_H - gap - gapsTotal;
 
+  // Measure each row group's true natural content height (unconstrained), so a
+  // tile with a meta row / bars never has its CTA clipped by a too-short row.
+  appsRow.style.gridTemplateRows = 'repeat(4, min-content)';
+  const natural = ROW_GROUPS.map((idxs) => {
+    let m = 0;
+    idxs.forEach((i) => {
+      const mw = cells[i]?.querySelector('.mw');
+      if (mw) m = Math.max(m, mw.scrollHeight);
+    });
+    return m;
+  });
+
   let rowH = Math.max(ROW_MIN, Math.floor(appBudget / 4));
   const extra = appBudget - rowH * 4;
   if (extra > 0) rowH += Math.floor(extra / 4);
 
-  const rowHeights = ROW_GROUPS.map((idxs) => {
-    const hasMedium = idxs.some((i) => cells[i]?.classList.contains('widget-cell--medium'));
-    return hasMedium ? rowH + 8 : rowH;
-  });
+  // Final = the larger of the budget-based height and the tile's natural height.
+  const finalHeights = natural.map((n) => Math.max(rowH, n + 4));
 
   document.documentElement.style.setProperty('--widget-h-sys', `${SYS_H}px`);
   document.documentElement.style.setProperty('--widget-app-row-h', `${rowH}px`);
-  appsRow.style.gridTemplateRows = rowHeights.map((h) => `${h}px`).join(' ');
+  appsRow.style.gridTemplateRows = finalHeights.map((h) => `${h}px`).join(' ');
 
-  requestAnimationFrame(() => {
-    let clipped = false;
-    appsRow.querySelectorAll('.mw').forEach((mw) => {
-      if (mw.scrollHeight > mw.clientHeight + 2) clipped = true;
-    });
-    grid.classList.toggle('widget-grid--scroll', clipped || appBudget < ROW_MIN * 4);
-  });
+  const totalH = finalHeights.reduce((a, b) => a + b, 0) + appsGap * 3;
+  grid.classList.toggle('widget-grid--scroll', totalH > gridH - SYS_H - gap || appBudget < ROW_MIN * 4);
+  warnClippedCTAs(appsRow);
 }

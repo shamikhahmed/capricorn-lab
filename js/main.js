@@ -1,4 +1,5 @@
 import { runBoot } from './boot.js';
+import { runLockScreen, isLockSkipped } from './lock-screen.js';
 import { initWallpaper } from './wallpaper.js';
 import { openApp, openSystem } from './window-manager.js';
 import { initDock } from './dock.js';
@@ -97,7 +98,6 @@ function enterDesktop({ welcome = false } = {}) {
 
   if (!desktopReady) {
     initSounds();
-    initTheme();
     initWallpaper(document.getElementById('wallpaper'));
     initDock({ onOpen: openApp });
     initWidgets({ onOpen: openApp });
@@ -121,7 +121,7 @@ function enterDesktop({ welcome = false } = {}) {
   requestAnimationFrame(() => layoutWidgetHeights());
 }
 
-function enterMobile() {
+function enterMobile({ welcome = false } = {}) {
   document.getElementById('boot').hidden = true;
   document.getElementById('desktop').hidden = true;
   document.getElementById('mobile').hidden = false;
@@ -131,23 +131,54 @@ function enterMobile() {
 
   if (!mobileReady) {
     initSounds();
-    initTheme();
     initIOSHome();
     mobileReady = true;
     document.title = `${SYSTEM.name}`;
+    if (welcome) welcomeToOS();
   }
 }
 
-applyViewMode(currentMode);
+function signalLive() {
+  document.body.classList.add('os-live');
+  document.dispatchEvent(new CustomEvent('cap:os-live'));
+}
 
-if (currentMode === 'mobile') {
-  enterMobile();
-} else {
+function startOS() {
+  if (currentMode === 'mobile') {
+    enterMobile({ welcome: true });
+    return;
+  }
+  const boot = document.getElementById('boot');
+  if (boot) boot.hidden = false;
+  const fullBoot = new URLSearchParams(location.search).get('boot') === 'full';
   runBoot({
+    quick: !fullBoot,
     onDone: () => enterDesktop({ welcome: true }),
     onChime: () => { initSounds(); sfx.boot(); },
   });
 }
+
+function bootstrap() {
+  applyViewMode(currentMode);
+  initTheme();
+
+  if (isLockSkipped()) {
+    signalLive();
+    startOS();
+    return;
+  }
+
+  runLockScreen({
+    mode: currentMode,
+    onUnlock: () => {
+      initSounds();
+      signalLive();
+      startOS();
+    },
+  });
+}
+
+bootstrap();
 
 window.addEventListener('resize', () => {
   if (new URLSearchParams(location.search).get('view')) return;

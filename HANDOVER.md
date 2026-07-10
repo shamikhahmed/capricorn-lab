@@ -1,7 +1,7 @@
 # Capricorn Lab — Handover
 
 **Repo:** `/Users/shamikhahmed/Desktop/Cap-Apps/capricorn-lab`  
-**Version:** `0.9.0`  
+**Version:** `0.9.5`  
 **Status:** Experiment only — **do not deploy** or replace [shamikhahmed.github.io](https://shamikhahmed.github.io/) without explicit approval.
 
 ---
@@ -26,21 +26,45 @@ npm install && npm run dev
 | `/?view=desktop` | macOS at **any** width |
 | `/?view=mobile` | iOS at any width |
 | `/?view=desktop&pitch=1` | Desktop + Applications window on load |
+| `/?nolock=1` | Skip lock screen (dev/QA) |
+| `/?lock=1` | Force lock screen even if session unlocked |
+| `/?boot=full` | Full BIOS boot after lock (desktop) |
 
 Safari phone: `open -a Safari 'http://localhost:4322/?view=mobile'`
 
 ---
 
-## What shipped (v0.8.0 → v0.8.3)
+## Lock screen (v0.9.2)
+
+First visit per **browser session**: lock → unlock → OS.
+
+| View | Unlock copy | Then |
+|------|-------------|------|
+| Desktop | Unlock device | Boot terminal → macOS |
+| iOS | Enter Capricorn OS | Home (no boot) |
+
+Files: `js/lock-screen.js`, `css/lock-screen.css`, `#lockScreen` in `index.html`.
+
+After unlock: `body.os-live` + widget/dock stagger + welcome toast.
+
+**v0.9.3 extras:** parallax lock wallpaper, orbiting app constellation, unlock chime, “Remember this device”, “0 bytes sent today” proof.
+
+**v0.9.4:** quick post-lock boot, lock star art, pitch paragraph, iOS swipe physics, SEO noscript, `?boot=full`.
+
+---
+
+## What shipped (through v0.9.4)
 
 | Area | Done |
 |------|------|
-| **10 apps** | All in dock, widgets, iOS grid; boot scan from `APPS` |
-| **Widgets** | Hero + CTA cards; **Tasks** (not Reminders) wide tile; per-app accent |
+| **Lock** | Constellation lock → unlock → quick boot → OS; parallax art; remember-device; `?nolock` / `?lock` / `?boot=full` |
+| **10 apps** | All in dock, widgets, iOS grid; boot scan from `APPS.length` |
+| **Widgets** | Hero + CTA cards; per-app accent; medium = meta/bars, small = lean |
+| **Tasks** | **17 tasks** (7 social + 10 app); toggle done (localStorage); desktop + iOS |
 | **Dock** | Floating pill only (`<div class="dock">`); tip **above** icon; arrow keys |
 | **Windows** | Real PNG screenshots (8 apps); WIP placeholder for Travel/Soul |
 | **Toasts** | `#notifyStackDesktop` / `#notifyStackMobile` — no dup id bug |
-| **Mobile** | iOS Today: clock + **all 10 app widgets** + Tasks strip; social page 2 + dock 5 |
+| **Mobile** | iOS **3 pages** — Today (clock + all 10 app widgets) / Tasks + Apps / Connect; dock **all 10 apps** |
 | **Theme** | Light/dark; Applications header fixed; ambient tint on focus |
 | **Social** | Sidebar Connect grid; coming-soon toast on disabled icons |
 
@@ -52,7 +76,8 @@ Full history: [CHANGELOG.md](./CHANGELOG.md)
 
 | File | Role |
 |------|------|
-| `js/products.js` | `APPS`, `SOCIAL`, screenshots, `wip` flags |
+| `js/products.js` | `APPS`, `SOCIAL`, `TASKS`, `SYSTEM.pitch`, screenshots, `wip` flags |
+| `js/lock-screen.js` | Lock UI, constellation, swipe physics, remember device |
 | `js/widgets.js` | Widget renderers, teases, `IOS_WIDGET_SNAPSHOTS`, layout |
 | `js/tasks.js` | Desktop + iOS Tasks from `TASKS` |
 | `js/control-center.js` | CC panel; Wi‑Fi lock + Bluetooth toggle |
@@ -76,14 +101,15 @@ Brain: `~/Capricorn-Brain/01 Projects/capricorn-lab.md`
 
 ## QA checklist (5 min)
 
+- [ ] Fresh tab → lock screen → unlock → OS (desktop + iOS)
 - [ ] Desktop light + dark @ 1440×900
 - [ ] All widget CTAs visible at default Safari size (DeePony, Travel, Aura, Ledger…)
 - [ ] Resize window — no content pop-in from hidden state
 - [ ] Open app window → real screenshot in phone frame
 - [ ] Dock hover → label above icon
 - [ ] `/?view=desktop` @ 600px width — not blank
-- [ ] `/?view=mobile` — Today widgets + 10 apps + page 2 social
-- [ ] Travel/Soul window → "Screenshot coming soon"
+- [ ] `/?view=mobile` — 3 pages: Today (clock + 10 widgets) / Tasks + Apps / Connect; dock 10 apps
+- [ ] Travel/Soul window → "Screenshot coming soon"; WIP badge on dock icons
 - [ ] Console: no errors
 
 ---
@@ -98,8 +124,8 @@ Brain: `~/Capricorn-Brain/01 Projects/capricorn-lab.md`
 
 ## Future (only if asked)
 
-- Travel/Soul screenshots when PWAs ship
-- Optional `?pitch=1` polish (skip boot, etc.)
+- Travel/Soul screenshots when those PWAs ship
+- Live-hub swap (replace shamikhahmed.github.io) — needs explicit approval
 - Service worker / lab PWA (out of scope today)
 
 *Capricorn Systems — Your device. Your rules.*

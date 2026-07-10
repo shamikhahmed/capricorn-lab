@@ -245,6 +245,7 @@ export const SYSTEM = {
   build: 'sovereign-2026',
   founder: 'Shamikh Ahmed',
   tagline: 'Software that lives on your device.',
+  pitch: 'Capricorn Systems builds sovereign software — ten apps for finance, performance, recovery, wealth, travel, and wellness. Encrypted on your phone. No cloud rent. No analytics daemon. One founder. Your rules.',
   logo: 'assets/logo.svg',
 };
 

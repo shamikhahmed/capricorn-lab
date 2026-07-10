@@ -24,6 +24,7 @@ export function initDock({ onOpen }) {
     sfx.dock();
     document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'about' } }));
   });
+  sysBtn.style.setProperty('--dock-i', '0');
   dock.appendChild(sysBtn);
 
   const sep = document.createElement('div');
@@ -31,11 +32,12 @@ export function initDock({ onOpen }) {
   sep.setAttribute('aria-hidden', 'true');
   dock.appendChild(sep);
 
-  APPS.forEach((app) => {
+  APPS.forEach((app, i) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'dock-item';
     btn.dataset.slug = app.slug;
+    btn.style.setProperty('--dock-i', String(i + 1));
     btn.setAttribute('aria-label', `Open ${app.name}${app.wip ? ' (in development)' : ''}`);
     btn.innerHTML = `
       <span class="dock-tip">${app.name}${app.wip ? ' · WIP' : ''}</span>

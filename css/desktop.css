@@ -238,6 +238,7 @@
   display: flex;
   justify-content: center;
   pointer-events: none;
+  overflow: visible;
 }
 
 .dock-inner {
@@ -247,9 +248,7 @@
   padding: 0.35rem 0.5rem;
   max-width: min(96vw, 820px);
   flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
+  overflow: visible;
   background: var(--os-dock-bg);
   backdrop-filter: blur(28px) saturate(1.7);
   border: 1px solid var(--os-chrome-border);
@@ -269,9 +268,15 @@
   gap: 0.25rem;
   padding: 0.35rem;
   border-radius: 12px;
+  overflow: visible;
   transition: transform 0.2s var(--os-ease);
   transform-origin: bottom center;
   will-change: transform;
+}
+
+.dock-item:hover,
+.dock-item:focus-visible {
+  z-index: 2;
 }
 
 .dock-icon {
@@ -395,7 +400,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.14s var(--os-ease), transform 0.14s var(--os-ease);
-  z-index: 5;
+  z-index: 10;
 }
 
 .dock-tip::after {

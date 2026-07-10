@@ -1,6 +1,6 @@
 {
   "name": "capricorn-lab",
-  "version": "0.9.0",
+  "version": "0.9.5",
   "private": true,
   "description": "Capricorn OS — experimental marketing experience",
   "scripts": {

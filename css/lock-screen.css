@@ -1,0 +1,419 @@
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-boot) + 100);
+  display: grid;
+  place-items: center;
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+  color: #f4f0e8;
+  font-family: var(--os-font-ui);
+  overflow: hidden;
+  transition: opacity 0.65s var(--os-ease), transform 0.65s var(--os-ease), visibility 0.65s;
+}
+
+[data-theme="light"] .lock-screen--desktop {
+  color: #1a1816;
+}
+
+.lock-screen__wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.lock-screen__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.42) 75%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+[data-theme="light"] .lock-screen--desktop .lock-screen__scrim {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(255, 255, 255, 0.15), rgba(255, 252, 248, 0.55) 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(212, 203, 184, 0.45) 100%);
+}
+
+.lock-screen--ios .lock-screen__scrim {
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 38%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.38) 72%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.42) 100%);
+}
+
+.lock-screen.is-unlocking {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+.lock-screen.is-done {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lock-screen__panel {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: min(440px, 100%);
+  will-change: transform;
+}
+
+.lock-screen__inner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  padding-bottom: 0.25rem;
+}
+
+.lock-screen__time {
+  margin: 0 0 0.5rem;
+  font-size: clamp(3rem, 14vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.lock-screen__date {
+  margin: -0.35rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.82;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lock-screen--desktop .lock-screen__time,
+.lock-screen--desktop .lock-screen__date {
+  display: none;
+}
+
+/* Constellation orbit */
+.lock-screen__orbit {
+  position: relative;
+  width: min(240px, 62vw);
+  height: min(240px, 62vw);
+  margin: 0.25rem auto 0.35rem;
+}
+
+.lock-screen__constellation {
+  position: absolute;
+  inset: 0;
+}
+
+.lock-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(calc(var(--orbit-i) * 36deg));
+  animation: lockOrbitSpin 26s linear infinite;
+}
+
+.lock-orbit__icon {
+  position: absolute;
+  left: -18px;
+  top: -102px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 0 0 1px color-mix(in srgb, var(--orbit-accent) 35%, transparent);
+  display: grid;
+  place-items: center;
+  animation: lockOrbitCounter 26s linear infinite;
+}
+
+.lock-orbit__icon img {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+}
+
+.lock-screen__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(72px, 18vw, 96px);
+  height: clamp(72px, 18vw, 96px);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.4));
+  animation: lockLogoPulse 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes lockOrbitSpin {
+  from { transform: rotate(calc(var(--orbit-i) * 36deg)); }
+  to { transform: rotate(calc(360deg + var(--orbit-i) * 36deg)); }
+}
+
+@keyframes lockOrbitCounter {
+  from { transform: rotate(calc(var(--orbit-i) * -36deg)); }
+  to { transform: rotate(calc(-360deg - var(--orbit-i) * 36deg)); }
+}
+
+.lock-screen__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--os-gold);
+}
+
+.lock-screen__title {
+  margin: 0;
+  font-family: var(--os-font-display);
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.lock-screen__tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  opacity: 0.88;
+  max-width: 28ch;
+}
+
+.lock-screen__pitch {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  opacity: 0.68;
+  max-width: 36ch;
+}
+
+.lock-screen__proof {
+  margin: 0.15rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(22, 163, 74, 0.14);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  color: #bbf7d0;
+}
+
+[data-theme="light"] .lock-screen--desktop .lock-screen__proof {
+  background: rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.25);
+  color: #166534;
+}
+
+.lock-screen__proof-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+  animation: lockProofPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockProofPulse {
+  0%, 100% { opacity: 0.65; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.lock-screen__stats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+.lock-screen__stats li::after {
+  content: '·';
+  margin-left: 0.65rem;
+  opacity: 0.45;
+}
+
+.lock-screen__stats li:last-child::after {
+  content: none;
+}
+
+.lock-screen__founder {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.55;
+}
+
+.lock-screen__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lock-screen__remember input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--os-gold);
+  cursor: pointer;
+}
+
+.lock-screen__unlock {
+  margin-top: 0.35rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1a1816;
+  background: linear-gradient(180deg, #f4f0e8 0%, #e8e0d4 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s var(--os-ease), box-shadow 0.2s;
+}
+
+[data-theme="light"] .lock-screen--desktop .lock-screen__unlock {
+  color: #f4f0e8;
+  background: linear-gradient(180deg, #2a2622 0%, #1a1816 100%);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.lock-screen__unlock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.32);
+}
+
+.lock-screen__unlock:active {
+  transform: translateY(0);
+}
+
+.lock-screen__hint {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.45;
+}
+
+.lock-screen__swipe-zone {
+  margin-top: 1.1rem;
+  padding-top: 0.75rem;
+  width: 100%;
+  touch-action: none;
+}
+
+.lock-screen__swipe-rail {
+  width: 3.25rem;
+  height: 5px;
+  margin: 0 auto;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: visible;
+  position: relative;
+}
+
+.lock-screen__swipe-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.75rem;
+  height: 4px;
+  margin: -2px 0 0 -1.375rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, calc(0.45 + var(--lock-lift, 0) * 0.45));
+  box-shadow: 0 0 calc(8px + var(--lock-lift, 0) * 12px) rgba(255, 255, 255, 0.25);
+  will-change: transform;
+}
+
+.lock-screen__swipe-label {
+  margin: 0.55rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: calc(0.35 + var(--lock-lift, 0) * 0.45);
+}
+
+.lock-screen--desktop .lock-screen__swipe-zone {
+  display: none;
+}
+
+@keyframes lockLogoPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.04); }
+}
+
+@keyframes lockSwipe {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-screen__logo,
+  .lock-orbit,
+  .lock-orbit__icon,
+  .lock-screen__proof-dot {
+    animation: none;
+  }
+  .lock-screen.is-unlocking {
+    transition-duration: 0.15s;
+  }
+}
+
+/* Post-unlock “alive” stagger */
+@keyframes osLiveIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+body.os-live .desktop .widget-cell,
+body.os-live .desktop .sidebar .widget {
+  animation: osLiveIn 0.55s var(--os-ease) both;
+  animation-delay: calc(var(--delay, 0ms) + 100ms);
+}
+
+body.os-live .ios-widget {
+  animation: osLiveIn 0.5s var(--os-ease) both;
+  animation-delay: calc(var(--live-i, 0) * 45ms + 120ms);
+}
+
+body.os-live .dock-item,
+body.os-live .ios-dock__icon {
+  animation: osLiveIn 0.4s var(--os-ease) both;
+  animation-delay: calc(var(--dock-i, 0) * 35ms + 280ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.os-live .desktop .widget-cell,
+  body.os-live .desktop .sidebar .widget,
+  body.os-live .ios-widget,
+  body.os-live .dock-item,
+  body.os-live .ios-dock__icon {
+    animation: none;
+  }
+}

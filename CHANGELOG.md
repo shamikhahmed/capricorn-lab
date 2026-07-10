@@ -2,6 +2,44 @@
 
 Experimental **Capricorn OS**. Sandbox only — see [PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md) and [HANDOVER.md](./HANDOVER.md).
 
+## 0.9.5 — 2026-07-10
+
+- **Widget CTA clip fix (all sizes)** — no widget hides its CTA anymore:
+  - **Short heights (≤900px):** `layoutWidgetHeights()` measures each row group's true natural height at `min-content` and sizes rows to `max(budget, natural)`; grid scrolls when total exceeds budget. Dropped the redundant `+8` medium-row bonus that forced needless scroll at tall heights (1290px now fits with no scroll).
+  - **Narrow widths (≤900px, 1–2 col reflow):** JS now defers to CSS when the grid isn't 4-col; and cells are un-flexed (`display:block`) so `height:auto` tiles size to content instead of collapsing under `flex:1; min-height:0` and clipping.
+- **HANDOVER sync** — corrected drift: iOS dock is 10 apps (not 5), 3 pages, Tasks = 17; added `lock-screen.js` to key files; refreshed QA checklist + Future.
+
+## 0.9.4 — 2026-07-10
+
+Lock + boot completion pass:
+
+- **Quick boot** after lock — 5-line fast sequence (~0.9s); full boot only via `?boot=full`
+- **Lock art** — star field + gold rings + spoke lines on parallax canvas
+- **Why Capricorn** — `SYSTEM.pitch` paragraph on lock screen
+- **iOS swipe physics** — drag panel up, rubber-band, velocity unlock, swipe rail
+- **SEO fallback** — richer meta + `<noscript>` article for crawlers (still `noindex`)
+- **Remember device** — session default; optional `localStorage` via checkbox
+
+## 0.9.3 — 2026-07-10
+
+Lock screen polish:
+
+- **Parallax wallpaper** — canvas blobs on lock; desktop theme-aware, iOS purple palette; mouse/touch parallax
+- **Constellation** — 10 app icons orbit logo pre-unlock
+- **Unlock sound** — `sfx.unlock()` distinct from boot chime
+- **Remember device** — checkbox → `localStorage` skip on return visits
+- **Social proof** — “0 bytes sent today” pill with live dot
+
+## 0.9.2 — 2026-07-10
+
+**Lock screen** — first layer before OS (desktop + iOS):
+
+- Big logo, Capricorn Systems copy, ecosystem stats, founder line
+- Desktop: **Unlock device** → boot sequence → desktop
+- iOS: clock + date, **Enter Capricorn OS**, tap / swipe-up / Enter
+- After unlock: `body.os-live` stagger on widgets + dock; welcome toast
+- Session skip via `sessionStorage` (same tab session); `?nolock=1` / `?lock=1` for QA
+
 ## 0.9.0 — 2026-07-10
 
 Full polish pass from audit:
