@@ -2,7 +2,7 @@
 
 **Repo:** `/Users/shamikhahmed/Desktop/Cap-Apps/capricorn-lab`  
 **Version:** `0.10.1`  
-**Status:** Local experiment ahead of hub. Hub root = Capricorn OS ~v0.9.6 era. **Do not push hub** until user asks.
+**Status:** **Live on hub** — [shamikhahmed.github.io](https://shamikhahmed.github.io/) = Capricorn OS v0.10.1 (deployed 2026-07-10).
 
 ---
 
@@ -131,7 +131,7 @@ Last lock visual pass **2026-07-10 (v0.9.9)** — Fable polish shipped; success 
 ## Still WIP (by design)
 
 - TravelCap / SoulCap: `wip: true`, no screenshots
-- Hub deploy of 0.9.8 — wait for lock approval
+- Hub deploy of 0.10.1 — **done** 2026-07-10 (`762520d`); backup `backup/pre-capricorn-os-live-2026-07-10-v0101`
 
 ---
 

@@ -5,6 +5,7 @@ Experimental **Capricorn OS**. Sandbox only — see [PLOT_MASTER_PROMPT.md](./PL
 ## 0.10.1 — 2026-07-10
 
 - **Kill lock ambient drone** — removed `startLockAmbient` / `stopLockAmbient` (constant Web Audio hum on lock). Unlock click SFX kept. Docs synced.
+- **Hub live** — Capricorn OS v0.10.1 deployed to [shamikhahmed.github.io](https://shamikhahmed.github.io/) (`762520d`). Backup branch `backup/pre-capricorn-os-live-2026-07-10-v0101` + local `shamikhahmed.github.io-backup-pre-os-live-2026-07-10-v0101`. Legacy product HTML kept.
 
 ## 0.10.0 — 2026-07-10
 

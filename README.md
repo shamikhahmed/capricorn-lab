@@ -41,7 +41,7 @@ npm install && npm run dev
 
 ## Status
 
-**v0.10.1** — Removed lock ambient drone (constant hum). Unlock SFX only.
+**v0.10.1** — Removed lock ambient drone. **Live on hub** (shamikhahmed.github.io).
 
 **v0.10.0** — "Last 10%" batch: JetBrains Mono, live window demos (Prism playable), right-click menu, notification center, wallpaper picker, Mission Control, screensaver, `sovereignty` egg, `?tour=1`, sovereignty certificate, OG image, lock hover-whisper. Local; hub not pushed.
 
