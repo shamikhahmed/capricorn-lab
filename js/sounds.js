@@ -126,3 +126,4 @@ export const sfx = {
     tone(200, 0, 0.02, 'sine', 0.015);
   },
 };
+

@@ -74,6 +74,26 @@
   color: var(--os-ink);
 }
 
+.menubar-lock {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.menubar-lock:hover {
+  background: var(--os-surface-hover);
+  opacity: 1;
+}
+
+.menubar-lock__ico {
+  display: block;
+}
+
 .menubar-theme {
   width: 28px;
   height: 28px;
@@ -523,4 +543,204 @@
   background: var(--os-paper);
   border-radius: 4px;
   border: 1px solid var(--os-chrome-border);
+}
+
+/* ── Context menu (right-click on desktop) ── */
+.ctx-menu {
+  position: fixed;
+  z-index: 450;
+  min-width: 220px;
+  padding: 0.35rem;
+  background: var(--os-panel-bg);
+  border: 1px solid var(--os-chrome-border);
+  border-radius: 12px;
+  box-shadow: var(--os-shadow);
+  animation: paletteIn 0.16s var(--os-ease) both;
+}
+
+.ctx-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--os-ink);
+}
+
+.ctx-menu button:hover { background: var(--os-paper-deep); }
+
+.ctx-menu__sep {
+  height: 1px;
+  margin: 0.3rem 0.5rem;
+  background: var(--os-chrome-border);
+}
+
+/* ── Notification center (click menubar clock) ── */
+.notify-center {
+  position: fixed;
+  top: calc(var(--menubar-height) + 8px);
+  right: 12px;
+  z-index: 420;
+  width: min(340px, 92vw);
+  background: var(--os-panel-bg);
+  border: 1px solid var(--os-chrome-border);
+  border-radius: 14px;
+  box-shadow: var(--os-shadow);
+  overflow: hidden;
+  animation: paletteIn 0.2s var(--os-ease) both;
+}
+
+.notify-center header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--os-chrome-border);
+  font-size: 0.85rem;
+}
+
+.notify-center header span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--os-gold-dim);
+  font-family: var(--os-font-mono);
+}
+
+.nc-list { max-height: 320px; overflow-y: auto; }
+
+.nc-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--os-chrome-border);
+}
+
+.nc-row:last-child { border-bottom: none; }
+.nc-row img { border-radius: 7px; flex-shrink: 0; }
+.nc-row strong { display: block; font-size: 0.76rem; }
+.nc-row p { margin: 0.1rem 0 0; font-size: 0.68rem; line-height: 1.4; color: var(--os-ink-dim); }
+.nc-row time {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  color: var(--os-ink-dim);
+  font-family: var(--os-font-mono);
+}
+
+.nc-empty { margin: 0; padding: 1.2rem 0.9rem; font-size: 0.76rem; color: var(--os-ink-dim); text-align: center; }
+
+/* ── Screensaver (75s idle) ── */
+.screensaver {
+  position: fixed;
+  inset: 0;
+  z-index: 640;
+  display: grid;
+  place-items: center;
+  background: #0a0908;
+  opacity: 0;
+  transition: opacity 0.8s var(--os-ease);
+  cursor: none;
+}
+
+.screensaver.is-in { opacity: 1; }
+.screensaver.is-out { opacity: 0; }
+
+.screensaver__drift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  animation: saverDrift 24s ease-in-out infinite alternate;
+}
+
+.screensaver time {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  color: #f2efe8;
+  letter-spacing: -0.03em;
+}
+
+.screensaver p {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #6b645c;
+}
+
+@keyframes saverDrift {
+  from { transform: translate(-4vw, -3vh); }
+  to { transform: translate(4vw, 3vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screensaver__drift { animation: none; }
+}
+
+/* ── Mission Control ── */
+.mission-control {
+  position: fixed;
+  inset: 0;
+  z-index: 440;
+  display: grid;
+  grid-template-columns: repeat(var(--mc-cols, 2), minmax(0, 1fr));
+  gap: 2rem;
+  align-content: center;
+  padding: 4rem 5vw 5rem;
+  background: rgba(20, 18, 16, 0.55);
+  backdrop-filter: blur(18px) saturate(1.2);
+  opacity: 0;
+  transition: opacity 0.28s var(--os-ease);
+}
+
+.mission-control.is-in { opacity: 1; }
+
+.mission-control__hint {
+  position: absolute;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.mission-control__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 0;
+  cursor: pointer;
+  transition: transform 0.2s var(--os-ease);
+}
+
+.mission-control__cell:hover { transform: scale(1.03); }
+
+.mission-control__win {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 38vh;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.mission-control__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }

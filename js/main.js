@@ -1,5 +1,5 @@
 import { runBoot } from './boot.js';
-import { runLockScreen, isLockSkipped } from './lock-screen.js';
+import { runLockScreen, isLockSkipped, lockDevice } from './lock-screen.js';
 import { initWallpaper } from './wallpaper.js';
 import { openApp, openSystem } from './window-manager.js';
 import { initDock } from './dock.js';
@@ -11,6 +11,7 @@ import { initSounds, sfx } from './sounds.js';
 import { initControlCenter, initAppleMenu } from './control-center.js';
 import { initTheme } from './theme.js';
 import { welcomeToOS } from './notifications.js';
+import { initDesktopExtras } from './desktop-extras.js';
 import { SYSTEM, APPS } from './products.js';
 
 function isMobileViewport() {
@@ -110,6 +111,7 @@ function enterDesktop({ welcome = false } = {}) {
     bindMenus();
     initAmbient();
     startMenubarClock();
+    initDesktopExtras();
     desktopReady = true;
     if (welcome) welcomeToOS();
     if (new URLSearchParams(location.search).get('pitch')) {
@@ -138,6 +140,33 @@ function enterMobile({ welcome = false } = {}) {
   }
 }
 
+function onUnlockFromLock({ skipBoot = false } = {}) {
+  initSounds();
+  signalLive();
+  if (skipBoot && (desktopReady || mobileReady)) {
+    if (currentMode === 'mobile') enterMobile();
+    else enterDesktop();
+    return;
+  }
+  startOS();
+}
+
+function relockOS() {
+  lockDevice({ mode: currentMode, onUnlock: () => onUnlockFromLock({ skipBoot: true }) });
+}
+
+function bindLockControls() {
+  document.getElementById('menubarLock')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    relockOS();
+  });
+  document.getElementById('iosLockBtn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    relockOS();
+  });
+  document.addEventListener('cap:lock-device', relockOS);
+}
+
 function signalLive() {
   document.body.classList.add('os-live');
   document.dispatchEvent(new CustomEvent('cap:os-live'));
@@ -161,6 +190,7 @@ function startOS() {
 function bootstrap() {
   applyViewMode(currentMode);
   initTheme();
+  bindLockControls();
 
   if (isLockSkipped()) {
     signalLive();
@@ -170,11 +200,7 @@ function bootstrap() {
 
   runLockScreen({
     mode: currentMode,
-    onUnlock: () => {
-      initSounds();
-      signalLive();
-      startOS();
-    },
+    onUnlock: onUnlockFromLock,
   });
 }
 

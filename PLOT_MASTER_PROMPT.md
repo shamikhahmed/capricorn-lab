@@ -28,7 +28,7 @@ User may use `/caveman` — reply terse, keep technical terms exact.
 
 | Layer | Experience |
 |--------|------------|
-| Lock | Logo, constellation orbit, pitch, 0 bytes proof, remember device |
+| Lock | Three.js U-menu (Capricorn + marks ellipse); CSS fallback `?three=0`; no remember-device; Lock button |
 | Boot | Quick post-lock (~0.9s) or full BIOS via `?boot=full` |
 | Desktop | Menubar, wallpaper, sidebar, widget grid, floating dock, windows |
 | Mobile | iOS 3 pages (Today / Tasks+Apps / Social), dock, sheets |
@@ -78,7 +78,8 @@ npm install && npm run dev
 ```
 index.html            lock, boot, #mobile, #desktop, dock, palette, windows, noscript SEO
 js/products.js        APPS[10], SOCIAL, TASKS, SYSTEM.pitch, wip flags
-js/lock-screen.js     lock UI, constellation, swipe physics, remember device
+js/lock-screen.js     lock UI, Three import, swipe, whisper, ambient
+js/lock-sphere.js     Three.js U-menu ellipse (Capricorn + marks)
 js/boot.js            quick boot (default) + full boot (?boot=full)
 js/tasks.js           desktop + iOS Tasks (17 items)
 js/widgets.js         widgets, teases, layoutWidgetHeights, os-live animations
@@ -169,7 +170,7 @@ HANDOVER.md           quick session handoff
 
 ## VERSION
 
-**0.9.6** — see [CHANGELOG.md](./CHANGELOG.md)
+**0.10.0** — see [CHANGELOG.md](./CHANGELOG.md); last-10% batch shipped (mono type, live demos, context menu, notification center, Mission Control, screensaver, tour, certificate, OG image)
 
 ---
 

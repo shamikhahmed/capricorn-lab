@@ -6,7 +6,7 @@
   place-items: center;
   background: #0a0c0a;
   color: #6ee7a0;
-  font-family: var(--os-font-ui);
+  font-family: var(--os-font-mono);
   transition: opacity 0.6s var(--os-ease), visibility 0.6s;
 }
 

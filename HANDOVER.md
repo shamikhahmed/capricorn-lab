@@ -1,8 +1,8 @@
 # Capricorn Lab — Handover
 
 **Repo:** `/Users/shamikhahmed/Desktop/Cap-Apps/capricorn-lab`  
-**Version:** `0.9.6`  
-**Status:** Experiment only — **do not deploy** or replace [shamikhahmed.github.io](https://shamikhahmed.github.io/) without explicit approval.
+**Version:** `0.10.1`  
+**Status:** Local experiment ahead of hub. Hub root = Capricorn OS ~v0.9.6 era. **Do not push hub** until user asks.
 
 ---
 
@@ -29,44 +29,54 @@ npm install && npm run dev
 | `/?nolock=1` | Skip lock screen (dev/QA) |
 | `/?lock=1` | Force lock screen even if session unlocked |
 | `/?boot=full` | Full BIOS boot after lock (desktop) |
+| `/?three=0` | Disable Three.js lock carousel (CSS orbit fallback) |
 
-Safari phone: `open -a Safari 'http://localhost:4322/?view=mobile'`
-
----
-
-## Lock screen (v0.9.2)
-
-First visit per **browser session**: lock → unlock → OS.
-
-| View | Unlock copy | Then |
-|------|-------------|------|
-| Desktop | Unlock device | Boot terminal → macOS |
-| iOS | Enter Capricorn OS | Home (no boot) |
-
-Files: `js/lock-screen.js`, `css/lock-screen.css`, `#lockScreen` in `index.html`.
-
-After unlock: `body.os-live` + widget/dock stagger + welcome toast.
-
-**v0.9.3 extras:** parallax lock wallpaper, orbiting app constellation, unlock chime, “Remember this device”, “0 bytes sent today” proof.
-
-**v0.9.4:** quick post-lock boot, lock star art, pitch paragraph, iOS swipe physics, SEO noscript, `?boot=full`.
+Safari: `open -a Safari 'http://localhost:4321/?view=desktop&lock=1'`
 
 ---
 
-## What shipped (through v0.9.4)
+## Lock screen (current — v0.10.1)
+
+**Flow:** lock → unlock → OS (desktop: quick boot; iOS: home). Session skip via `sessionStorage` only — **no** “Remember this device”.
+
+**Layout (three bands):**
+1. Time / date (top)
+2. Stage — Capricorn logo + 10 Cap **marks** orbiting (Three.js)
+3. Copy — Capricorn Systems / Capricorn OS / tagline / 0-bytes proof / Unlock
+
+**Three.js (`js/lock-sphere.js`, dep `three`):**
+- Dynamic import (code-split chunk)
+- Full-bleed transparent canvas (no mid-screen white “picture box”)
+- Top-down ellipse: Capricorn center, marks on `RX`/`RZ` ring, drag + auto spin
+- Tap mark → whisper (name + hook)
+- Canvas opacity 0 until first good frame
+- Aspect-aware scale (mobile smaller / higher)
+- `?three=0` → hide WebGL, show CSS 3D carousel fallback
+- Marks: `assets/marks/*.svg` (incl. SoulCap + TravelCap)
+
+**Also:** sovereignty proof pulse, unlock bloom, menubar + iOS **Lock** buttons + Apple menu “Lock Screen…”  
+**No lock ambient drone** — constant Web Audio hum removed (0.10.1). Unlock SFX only.
+
+**Removed (do not bring back without ask):** remember-device checkbox, Face ID/PIN, screenshot glass, SVG constellation lines, pitch/stats/founder on lock, app-icon plates/borders on orbit marks, lock ambient drone.
+
+Files: `js/lock-screen.js`, `js/lock-sphere.js`, `css/lock-screen.css`, `js/sounds.js`, `#lockScreen` in `index.html`.
+
+---
+
+## What shipped (through v0.10.1)
 
 | Area | Done |
 |------|------|
-| **Lock** | Constellation lock → unlock → quick boot → OS; parallax art; remember-device; `?nolock` / `?lock` / `?boot=full` |
-| **10 apps** | All in dock, widgets, iOS grid; boot scan from `APPS.length` |
-| **Widgets** | Hero + CTA cards; per-app accent; medium = meta/bars, small = lean |
-| **Tasks** | **17 tasks** (7 social + 10 app); toggle done (localStorage); desktop + iOS |
-| **Dock** | Floating pill only (`<div class="dock">`); tip **above** icon; arrow keys |
-| **Windows** | Real PNG screenshots (8 apps); WIP placeholder for Travel/Soul |
-| **Toasts** | `#notifyStackDesktop` / `#notifyStackMobile` — no dup id bug |
-| **Mobile** | iOS **3 pages** — Today (clock + all 10 app widgets) / Tasks + Apps / Connect; dock **all 10 apps** |
-| **Theme** | Light/dark; Applications header fixed; ambient tint on focus |
-| **Social** | Sidebar Connect grid; coming-soon toast on disabled icons |
+| **Lock** | Three.js U-menu (depth, hover+tap whisper, mobile fit) + CSS fallback; session-only unlock; `?nolock` / `?lock` / `?three=0` / `?boot=full` |
+| **10 apps** | Dock, widgets, iOS grid; marks for all 10 |
+| **Widgets** | Hero + CTA; layout heights; clock sovereignty proof |
+| **Tasks** | 17 tasks; desktop + iOS |
+| **Dock** | Floating pill; tip above; magnify |
+| **Windows** | Real PNG screenshots (8); Travel/Soul WIP; **live demos** (Vault count-up, Pulse ring, Prism playable) |
+| **Desktop extras** | Right-click menu · notification center (clock) · wallpaper picker (CC) · Mission Control (F3/⌃↑) · screensaver (75s) · `sovereignty` egg · `?tour=1` · certificate download |
+| **Type** | JetBrains Mono (local) for terminal/numbers |
+| **Mobile** | iOS 3 pages; dock 10 apps |
+| **Theme** | Light/dark · OG/social meta (`assets/og.png`) |
 
 Full history: [CHANGELOG.md](./CHANGELOG.md)
 
@@ -76,59 +86,58 @@ Full history: [CHANGELOG.md](./CHANGELOG.md)
 
 | File | Role |
 |------|------|
-| `js/products.js` | `APPS`, `SOCIAL`, `TASKS`, `SYSTEM.pitch`, screenshots, `wip` flags |
-| `js/lock-screen.js` | Lock UI, constellation, swipe physics, remember device |
-| `js/widgets.js` | Widget renderers, teases, `IOS_WIDGET_SNAPSHOTS`, layout |
-| `js/tasks.js` | Desktop + iOS Tasks from `TASKS` |
-| `js/control-center.js` | CC panel; Wi‑Fi lock + Bluetooth toggle |
-| `js/window-manager.js` | Windows + device screenshot frame |
-| `js/main.js` | View mode, boot, ambient, pitch, ecosystem count |
-| `js/mobile-ios.js` | iOS home, Today widgets, sheets |
-| `js/dock.js` | Dock + tips + keyboard |
-| `js/notifications.js` | Toasts → active view stack |
-| `css/mobile.css` | `?view=desktop` wins over narrow viewport |
-| `assets/screenshots/*.png` | 8 live app shots (no travel/soul yet) |
+| `js/products.js` | `APPS`, `SOCIAL`, `TASKS`, `SYSTEM`, marks/icons |
+| `js/desktop-extras.js` | Context menu, notify center, screensaver, Mission Control, tour, egg |
+| `js/app-demos.js` | Live window demos (Vault / Pulse / Prism game) |
+| `js/lock-screen.js` | Lock HTML/layout, swipe, whisper, Three import |
+| `js/lock-sphere.js` | Three.js carousel (U-menu) |
+| `js/main.js` | Bootstrap, relock, view mode |
+| `js/sounds.js` | SFX (click / unlock / etc.) — no lock drone |
+| `js/widgets.js` | Widgets + layout |
+| `js/dock.js` | Dock magnify |
+| `css/lock-screen.css` | Lock + `lock-screen--three` bands |
+| `assets/marks/*.svg` | Borderless Cap marks for orbit |
 
 ---
 
-## Agent full audit
+## Agent prompts
 
-Paste **[PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md)** into new Cursor chat.
+| Prompt | Use |
+|--------|-----|
+| [PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md) | Full site audit |
+| [LOCK_FABLE_PROMPT.md](./LOCK_FABLE_PROMPT.md) | **Claude Code / Fable** — lock Three.js fix + polish only |
 
 Brain: `~/Capricorn-Brain/01 Projects/capricorn-lab.md`
 
 ---
 
-## QA checklist (5 min)
+## QA checklist
 
-Last full audit **2026-07-10 (v0.9.6)** — all below verified, 0 defects.
+Last lock visual pass **2026-07-10 (v0.9.9)** — Fable polish shipped; success criteria met.
 
-- [x] Fresh tab → lock screen → unlock → OS (desktop + iOS)
-- [x] Lock: remember-device persists · `?lock=1` forces · `?nolock=1` skips · reduced-motion orbit freezes
-- [x] Desktop light + dark readable (sidebar, Tasks, widgets, Applications header)
-- [x] Widget CTAs never clipped: 643 / 900 / 1080 / 1290 / 1920
-- [x] Open app window → real screenshot (8 apps) · Travel/Soul → "Screenshot coming soon" + WIP badge
-- [x] Apps window: live = "Launch PWA ↗", WIP = "GitHub ↗" + badge
-- [x] Dock hover → label above icon · arrow-key nav · WIP badges
-- [x] Ambient tint on focused app window (subtle in both themes)
-- [x] `/?view=desktop` @ 600px — not blank
-- [x] `/?view=mobile` — 3 pages: Today (clock + 10 widgets) / Tasks + Apps / Connect; dock 10 apps
-- [x] 0 failed requests · 0 console errors/warnings
+- [x] Fresh tab → lock → unlock → OS (desktop + iOS)
+- [x] No remember-device; Lock button returns to lock
+- [x] Three.js: Capricorn center + 10 marks; no white canvas box
+- [x] **Depth reads as 3D** — front mark full size/bright, back recedes (dynamic near/far)
+- [x] **Light theme** — marks legible on cream (baked soft shadow, no plates)
+- [x] **Mobile 390×844** — ring inside viewport, clear of copy, no icon pile
+- [x] **Drag rotates · tap mark → whisper** (travel-gated tap fix)
+- [x] `?three=0` → CSS orbit fallback **with** tilt + whisper
+- [x] No iOS status bleed over lock (`.ios:not([hidden])` restored)
+- [x] Widget CTAs 0-clipped desktop 1440×900 · console 0 errors
 
 ---
 
 ## Still WIP (by design)
 
-- **TravelCap / SoulCap** — apps under development; GitHub URLs, no live PWA screenshots yet.
-- **Deploy / GitHub push** — wait for Shamikh approval.
-- **noindex** — stays until swap approved.
+- TravelCap / SoulCap: `wip: true`, no screenshots
+- Hub deploy of 0.9.8 — wait for lock approval
 
 ---
 
-## Future (only if asked)
+## Do not
 
-- Travel/Soul screenshots when those PWAs ship
-- Live-hub swap (replace shamikhahmed.github.io) — needs explicit approval
-- Service worker / lab PWA (out of scope today)
-
-*Capricorn Systems — Your device. Your rules.*
+- Push hub / force-push main without ask
+- Re-add remember-device or Face ID/PIN
+- Put rounded app-icon plates back on orbit marks
+- Mid-screen opaque canvas “picture frame”

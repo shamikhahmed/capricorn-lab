@@ -645,3 +645,104 @@
   .app-panel__device { order: -1; }
   .device-frame { max-width: 180px; margin: 0 auto; }
 }
+
+/* ── Live demos inside app windows ── */
+.app-demo {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-panel--light .app-demo {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(45, 18, 53, 0.1);
+}
+
+.app-demo__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-demo__rows { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.app-demo__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.app-demo__row strong {
+  font-family: var(--os-font-mono);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.app-demo--pulse .app-demo__ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+}
+
+.app-demo--pulse svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.app-demo--pulse circle { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 6; }
+.app-demo--pulse .app-demo__ring-fill { stroke: var(--accent); stroke-linecap: round; }
+.app-demo--pulse strong {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  font-family: var(--os-font-mono);
+}
+
+.app-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+}
+
+.app-demo__cell {
+  aspect-ratio: 1;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.12s, transform 0.12s;
+}
+
+.app-demo__cell:active { transform: scale(0.94); }
+
+.app-demo__cell.is-lit {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.app-demo__score {
+  font-family: var(--os-font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+/* ── Sovereignty certificate button ── */
+.sys-cert-btn {
+  margin-top: 0.85rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--os-ink);
+  color: var(--os-paper);
+  transition: transform 0.2s var(--os-ease), background 0.2s;
+}
+
+.sys-cert-btn:hover { background: var(--os-btn-hover); transform: translateY(-1px); }

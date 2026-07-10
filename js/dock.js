@@ -25,7 +25,10 @@ export function initDock({ onOpen }) {
     document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'about' } }));
   });
   sysBtn.style.setProperty('--dock-i', '0');
+  sysBtn.addEventListener('mouseenter', () => magnify(sysBtn, dockItems));
+  sysBtn.addEventListener('mouseleave', () => resetMagnify(dockItems));
   dock.appendChild(sysBtn);
+  dockItems.push(sysBtn);
 
   const sep = document.createElement('div');
   sep.className = 'dock-sep';
@@ -48,12 +51,8 @@ export function initDock({ onOpen }) {
       <span class="dock-dot" aria-hidden="true"></span>
     `;
 
-    btn.addEventListener('mouseenter', () => {
-      magnify(btn, dockItems);
-    });
-    btn.addEventListener('mouseleave', () => {
-      resetMagnify(dockItems);
-    });
+    btn.addEventListener('mouseenter', () => magnify(btn, dockItems));
+    btn.addEventListener('mouseleave', () => resetMagnify(dockItems));
     btn.addEventListener('click', () => {
       sfx.dock();
       btn.classList.add('is-bounce');
@@ -80,12 +79,12 @@ export function initDock({ onOpen }) {
     e.preventDefault();
     const next = e.key === 'ArrowRight' ? Math.min(i + 1, items.length - 1) : Math.max(i - 1, 0);
     items[next].focus();
-    magnify(items[next], dockItems.filter((d) => d.dataset.slug !== 'system'));
+    magnify(items[next], dockItems);
   });
 
   dockItems.forEach((item) => {
-    item.addEventListener('focus', () => magnify(item, dockItems.filter((d) => d.dataset.slug !== 'system')));
-    item.addEventListener('blur', () => resetMagnify(dockItems.filter((d) => d.dataset.slug !== 'system')));
+    item.addEventListener('focus', () => magnify(item, dockItems));
+    item.addEventListener('blur', () => resetMagnify(dockItems));
   });
 
   document.addEventListener('cap:window-focus', () => updateDots());

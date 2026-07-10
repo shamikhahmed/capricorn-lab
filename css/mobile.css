@@ -21,7 +21,9 @@ html[data-view="mobile"] body {
   }
 }
 
-.ios {
+/* :not([hidden]) is load-bearing — a bare `.ios` with !important would beat
+   the global [hidden] rule and paint the iOS home behind the lock screen. */
+.ios:not([hidden]) {
   display: flex !important;
   flex-direction: column;
   position: fixed;
@@ -251,6 +253,22 @@ html[data-view="mobile"] body {
 .ios-tasks .task__detail { color: rgba(255, 255, 255, 0.62); }
 .ios-tasks .task__tag { color: rgba(251, 191, 36, 0.85); }
 .ios-tasks .task__check { border-color: rgba(251, 191, 36, 0.7); }
+
+.ios-lock-btn {
+  border: none;
+  background: none;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.25rem;
+  opacity: 0.85;
+  line-height: 1;
+}
+
+.ios-lock-btn:hover {
+  opacity: 1;
+}
 
 .ios-theme-btn {
   border: none;

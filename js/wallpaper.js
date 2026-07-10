@@ -27,6 +27,71 @@ const DESKTOP_PALETTES = {
   },
 };
 
+/* Alternate desktop palettes — Control Center wallpaper picker */
+const DESKTOP_VARIANTS = {
+  warm: DESKTOP_PALETTES,
+  cool: {
+    light: {
+      ...DESKTOP_PALETTES.light,
+      base: ['#c9d2d8', '#bcc8d2', '#aebdc9'],
+      blobs: [
+        { x: 0.25, y: 0.35, r: 0.42, color: [175, 195, 215], speed: 0.15 },
+        { x: 0.72, y: 0.28, r: 0.38, color: [195, 210, 230], speed: 0.12 },
+        { x: 0.55, y: 0.72, r: 0.45, color: [160, 190, 210], speed: 0.1 },
+        { x: 0.15, y: 0.78, r: 0.32, color: [170, 185, 200], speed: 0.18 },
+      ],
+      mesh: [80, 130, 190, 0.06],
+    },
+    dark: {
+      ...DESKTOP_PALETTES.dark,
+      base: ['#0e1218', '#0d1116', '#0a0e13'],
+      blobs: [
+        { x: 0.22, y: 0.32, r: 0.48, color: [35, 55, 90], speed: 0.12 },
+        { x: 0.78, y: 0.22, r: 0.42, color: [30, 60, 80], speed: 0.1 },
+        { x: 0.58, y: 0.75, r: 0.5, color: [40, 45, 75], speed: 0.14 },
+        { x: 0.12, y: 0.82, r: 0.36, color: [28, 38, 55], speed: 0.16 },
+      ],
+      mesh: [90, 150, 220, 0.08],
+    },
+  },
+  mono: {
+    light: {
+      ...DESKTOP_PALETTES.light,
+      base: ['#d6d4d0', '#ccc9c4', '#c0bcb6'],
+      blobs: [
+        { x: 0.25, y: 0.35, r: 0.42, color: [200, 198, 194], speed: 0.15 },
+        { x: 0.72, y: 0.28, r: 0.38, color: [214, 212, 208], speed: 0.12 },
+        { x: 0.55, y: 0.72, r: 0.45, color: [188, 185, 180], speed: 0.1 },
+        { x: 0.15, y: 0.78, r: 0.32, color: [178, 176, 172], speed: 0.18 },
+      ],
+      mesh: [120, 118, 114, 0.05],
+    },
+    dark: {
+      ...DESKTOP_PALETTES.dark,
+      base: ['#121212', '#101010', '#0c0c0c'],
+      blobs: [
+        { x: 0.22, y: 0.32, r: 0.48, color: [52, 52, 54], speed: 0.12 },
+        { x: 0.78, y: 0.22, r: 0.42, color: [40, 40, 44], speed: 0.1 },
+        { x: 0.58, y: 0.75, r: 0.5, color: [58, 56, 54], speed: 0.14 },
+        { x: 0.12, y: 0.82, r: 0.36, color: [36, 36, 38], speed: 0.16 },
+      ],
+      mesh: [160, 158, 154, 0.06],
+    },
+  },
+};
+
+const WALLPAPER_KEY = 'cap-wallpaper';
+
+export function getWallpaperVariant() {
+  try { return localStorage.getItem(WALLPAPER_KEY) || 'warm'; } catch { return 'warm'; }
+}
+
+export function setWallpaperVariant(name) {
+  if (!DESKTOP_VARIANTS[name]) return;
+  try { localStorage.setItem(WALLPAPER_KEY, name); } catch { /* private mode */ }
+  document.dispatchEvent(new CustomEvent('cap:wallpaper', { detail: { variant: name } }));
+}
+
 const IOS_PALETTE = {
   base: ['#1a1f3a', '#2d1f3d', '#1a2848'],
   blobs: [
@@ -58,10 +123,18 @@ export function initWallpaper(canvas, { surface = 'desktop', art = false } = {})
     tw: 0.4 + (i % 11) * 0.15,
   })) : [];
 
+  let variant = getWallpaperVariant();
+
   function palette() {
     if (surface === 'ios') return IOS_PALETTE;
-    return DESKTOP_PALETTES[theme];
+    return (DESKTOP_VARIANTS[variant] || DESKTOP_PALETTES)[theme];
   }
+
+  const onVariant = (e) => {
+    variant = e.detail?.variant || 'warm';
+    draw();
+  };
+  document.addEventListener('cap:wallpaper', onVariant);
 
   function resize() {
     canvas.width = window.innerWidth * devicePixelRatio;
@@ -200,6 +273,7 @@ export function initWallpaper(canvas, { surface = 'desktop', art = false } = {})
   return () => {
     cancelAnimationFrame(raf);
     document.removeEventListener('cap:theme', onTheme);
+    document.removeEventListener('cap:wallpaper', onVariant);
     window.removeEventListener('mousemove', onMouse);
     window.removeEventListener('touchmove', onTouch);
   };

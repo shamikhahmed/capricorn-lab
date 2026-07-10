@@ -1,5 +1,6 @@
 import { APPS, SYSTEM } from './products.js';
 import { wipBadgeHTML, launchLabel, launchHref } from './ui-helpers.js';
+import { demoHTML, initAppDemo } from './app-demos.js';
 import {
   genieToDock,
   genieToMenubar,
@@ -50,6 +51,7 @@ function appPanelHTML(app) {
         <div class="app-panel__info">
           <p class="app-panel__pitch">${app.pitch}</p>
           <ul class="app-panel__features">${features}</ul>
+          ${demoHTML(app)}
           <div class="app-highlights">${highlights}</div>
           <div class="app-panel__actions">
             <a class="app-launch${app.wip ? ' app-launch--wip' : ''}" href="${href}" target="_blank" rel="noopener">
@@ -88,9 +90,58 @@ function sovereigntyHTML() {
       <div class="sys-toggle"><span>Local encryption</span><div class="sys-switch" aria-hidden="true"></div></div>
       <div class="sys-toggle"><span>UI sounds</span><div class="sys-switch" aria-hidden="true"></div></div>
       <p class="sys-manifesto">"Your data belongs to you. That's not a tagline — it's the only rule we have."</p>
+      <button type="button" class="sys-cert-btn" data-download-cert>Download sovereignty certificate</button>
       <p class="sys-build">Build ${SYSTEM.build} · ${APPS.length} apps · 0 servers</p>
     </div>
   `;
+}
+
+/** Client-side "0 bytes leaked" certificate — canvas → PNG download. */
+function downloadCertificate() {
+  const W = 1200;
+  const H = 675;
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d');
+
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#141210');
+  bg.addColorStop(1, '#0e0d0c');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(28, 28, W - 56, H - 56);
+
+  ctx.fillStyle = '#d4af37';
+  ctx.font = '600 26px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('CAPRICORN SYSTEMS · DEVICE SOVEREIGNTY CERTIFICATE', W / 2, 120);
+
+  ctx.fillStyle = '#f2efe8';
+  ctx.font = '700 64px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('0 bytes leaked', W / 2, 260);
+
+  ctx.fillStyle = '#9c958c';
+  ctx.font = '400 24px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('This session ran entirely on your device.', W / 2, 330);
+  ctx.fillText('No cloud sync. No analytics. No account. No telemetry.', W / 2, 368);
+
+  ctx.fillStyle = '#4ade80';
+  ctx.font = '600 22px "JetBrains Mono", monospace';
+  const now = new Date();
+  ctx.fillText(`VERIFIED ${now.toISOString().slice(0, 10)} · ${APPS.length} APPS · 0 SERVERS`, W / 2, 452);
+
+  ctx.fillStyle = '#5a544c';
+  ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText(`Issued by ${SYSTEM.name} ${SYSTEM.version} · generated client-side, like everything else`, W / 2, 560);
+
+  const a = document.createElement('a');
+  a.download = `capricorn-sovereignty-${now.toISOString().slice(0, 10)}.png`;
+  a.href = c.toDataURL('image/png');
+  a.click();
 }
 
 function aboutHTML() {
@@ -217,6 +268,15 @@ function createWindow({ id, title, content, app = false, system = false, wide = 
       openApp(card.dataset.openApp);
     });
   });
+
+  el.querySelector('[data-download-cert]')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sfx.click();
+    downloadCertificate();
+  });
+
+  const demoApp = APPS.find((a) => a.slug === id);
+  if (demoApp) initAppDemo(el, demoApp);
 
   bindWindow(el, id);
 

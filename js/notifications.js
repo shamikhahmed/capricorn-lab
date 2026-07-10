@@ -7,7 +7,18 @@ function activeStack() {
   return root?.querySelector('.notify-stack') || document.querySelector('.notify-stack');
 }
 
+/** Session-only toast history for the notification center (max 20). */
+const HISTORY = [];
+
+export function getNotifyHistory() {
+  return HISTORY;
+}
+
 export function notify({ title, body, icon, duration = 4500 }) {
+  HISTORY.unshift({ title, body, icon, at: new Date() });
+  if (HISTORY.length > 20) HISTORY.pop();
+  document.dispatchEvent(new CustomEvent('cap:notify-history'));
+
   const stack = activeStack();
   if (!stack) return;
 
@@ -36,9 +47,11 @@ export function notify({ title, body, icon, duration = 4500 }) {
 }
 
 export function welcomeToOS() {
+  const h = new Date().getHours();
+  const daypart = h < 5 ? 'Up late. Respect.' : h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   setTimeout(() => {
     notify({
-      title: 'Capricorn OS',
+      title: `${daypart} Capricorn OS ready.`,
       body: `${APPS.length} apps loaded. Zero servers contacted.`,
       icon: 'assets/logo.svg',
     });

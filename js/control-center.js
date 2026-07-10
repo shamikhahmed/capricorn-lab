@@ -1,5 +1,6 @@
 import { sfx, isSoundEnabled, setSounds } from './sounds.js';
 import { notify } from './notifications.js';
+import { setWallpaperVariant, getWallpaperVariant } from './wallpaper.js';
 
 const WIFI_BLOCKERS = [
   {
@@ -101,6 +102,23 @@ export function initControlCenter() {
   const vol = panel.querySelector('#ccVolume');
   vol?.addEventListener('input', () => { /* visual only */ });
 
+  // Wallpaper picker
+  const syncSwatches = () => {
+    const cur = getWallpaperVariant();
+    panel.querySelectorAll('[data-wallpaper]').forEach((s) => {
+      s.classList.toggle('is-active', s.dataset.wallpaper === cur);
+    });
+  };
+  panel.querySelectorAll('[data-wallpaper]').forEach((s) => {
+    s.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setWallpaperVariant(s.dataset.wallpaper);
+      syncSwatches();
+      sfx.click();
+    });
+  });
+  syncSwatches();
+
   if (!isSoundEnabled()) {
     soundTile?.classList.remove('is-on');
     setTileState(soundTile, false, 'Off');
@@ -130,6 +148,10 @@ export function initAppleMenu() {
   });
   menu.querySelector('[data-am="prefs"]')?.addEventListener('click', () => {
     document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'sovereignty' } }));
+  });
+  menu.querySelector('[data-am="lock"]')?.addEventListener('click', () => {
+    menu.hidden = true;
+    document.dispatchEvent(new CustomEvent('cap:lock-device'));
   });
   menu.querySelector('[data-am="restart"]')?.addEventListener('click', () => location.reload());
 }

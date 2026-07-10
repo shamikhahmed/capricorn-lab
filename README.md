@@ -41,7 +41,13 @@ npm install && npm run dev
 
 ## Status
 
-**v0.9.6** — Clock widget sovereignty proof; full perfection audit (light+dark, lock, all widths, WIP labels) — 0 defects.
+**v0.10.1** — Removed lock ambient drone (constant hum). Unlock SFX only.
+
+**v0.10.0** — "Last 10%" batch: JetBrains Mono, live window demos (Prism playable), right-click menu, notification center, wallpaper picker, Mission Control, screensaver, `sovereignty` egg, `?tour=1`, sovereignty certificate, OG image, lock hover-whisper. Local; hub not pushed.
+
+**v0.9.9** — Lock Three.js polish: real depth (dynamic near/far), light-theme mark shadows, mobile ring fit, tap→whisper fix, `?three=0` fallback interactivity; fixed `.ios[hidden]` bleed regression. Local; hub not pushed.
+
+**v0.9.8** — Lock Three.js U-menu ellipse (marks, no picture frame); Fable prompt in `LOCK_FABLE_PROMPT.md`. Local; hub not pushed.
 
 **v0.9.5** — Widget CTA clip fix at short viewport heights (natural-height row sizing); HANDOVER sync.
 

@@ -2,6 +2,64 @@
 
 Experimental **Capricorn OS**. Sandbox only — see [PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md) and [HANDOVER.md](./HANDOVER.md).
 
+## 0.10.1 — 2026-07-10
+
+- **Kill lock ambient drone** — removed `startLockAmbient` / `stopLockAmbient` (constant Web Audio hum on lock). Unlock click SFX kept. Docs synced.
+
+## 0.10.0 — 2026-07-10
+
+"Last 10%" feature batch — all review suggestions executed.
+
+- **Real mono font** — JetBrains Mono (local woff2, 400/700) behind `--os-font-mono`; boot terminal, hero numbers, clocks, notification timestamps. Typographic contrast against Jakarta UI.
+- **Live app demos** (`js/app-demos.js`) — windows stop being brochures: VaultCap balances count up, PulseCap recovery ring fills, **PrismCap is playable** (tap-the-lit-tile, speeds up with score).
+- **Right-click context menu** — About, Applications, Change Wallpaper (cycles), Mission Control, Lock Screen.
+- **Notification center** — click menubar clock → session toast history (max 20).
+- **Wallpaper picker** — Control Center swatches: warm / cool / mono desktop palettes (persisted, `cap:wallpaper` event).
+- **Mission Control** — F3 / ⌃↑ / context menu → blurred overview of open windows, click to focus.
+- **Idle screensaver** — 75s idle → drifting clock + "0 bytes sent · press any key"; any input wakes.
+- **Easter egg** — type `sovereignty` on the desktop → manifesto toast + System Preferences opens.
+- **Guided tour** — `?tour=1` auto-pilots 30s: windows, Mission Control, Applications.
+- **Sovereignty certificate** — button in System Preferences downloads a client-side canvas PNG ("0 bytes leaked", dated).
+- **Time-aware greeting** — welcome toast varies by hour.
+- **OG/social meta** — `assets/og.png` (1200×630) + og:/twitter: tags.
+- **Lock** — hover over a mark now whispers (raycast hover-pick, cursor feedback); tap still clicks. Killed THREE.Clock deprecation warning (manual delta).
+- `js/desktop-extras.js` — new module housing context menu / notify center / screensaver / Mission Control / tour / egg.
+
+## 0.9.9 — 2026-07-10
+
+Lock Three.js polish pass (LOCK_FABLE_PROMPT items) + one site-wide fix.
+
+- **Depth sells now** — per-frame dynamic near/far normalization (front mark always full size/opacity, back always recedes). Old fixed constants (3.2/6.2) capped front at ~63% so the whole ring read flat and faint. Scale curve 0.52→1.30×, opacity 0.30→1.0.
+- **Light-theme contrast** — marks rasterized at 512px with a baked soft grounding shadow (theme-aware strength) + a second pass that thickens hairline strokes. No plates, no borders.
+- **Tap-to-whisper fixed (WebGL path)** — tap gate compared `spinVel < 0.003`, but auto-spin cruise keeps it ~0.24, so taps never picked. Now gated on pointer travel (<6px). Verified: tap mark → whisper.
+- **Mobile ring fits** — aspect-aware `fitRoot` scale (clamped 0.42–0.7); marks no longer clip at 390px viewport edges.
+- **`?three=0` fallback interactivity** — `initLockSphere` returns `null` when disabled/WebGL-missing; lock-screen falls back to CSS carousel *with* tilt + whisper (before, a successful import meant the fallback handlers never bound).
+- **Reveal robustness** — canvas reveal moved out of the rAF tick (throttled/hidden tabs left the carousel invisible).
+- **Site-wide: `.ios` hidden regression** — 0.9.7 dropped `:not([hidden])` from `.ios{display:flex !important}`, which beats the global `[hidden]` rule → iOS home painted behind the lock screen (status bar bleed: stuck `--:--`, battery) and behind desktop. Restored the guard with a load-bearing comment.
+
+## 0.9.8 — 2026-07-10
+
+Lock Three.js polish (local; hub not pushed):
+
+- **U-menu ellipse** — top-down camera, Capricorn center, 10 Cap **marks** on `RX`/`RZ` ring; drag + auto spin; depth scale/opacity
+- **No picture frame** — full-bleed transparent canvas; opacity 0 until first frame; no mid-screen white box
+- **Layout bands** — time / stage / copy; company name no longer overlaps logo
+- **Marks** — added `soulcap.svg` + `travelcap.svg`; borderless orbit (no app-icon plates)
+- **Aspect fit** — mobile scales/lifts cluster clear of unlock
+- **Wallpaper** — lock art rings off (less fake borders)
+- **Fable prompt** — [LOCK_FABLE_PROMPT.md](./LOCK_FABLE_PROMPT.md) for next Claude Code pass
+- Still open: stronger depth, light-theme mark contrast, reference-match polish
+
+## 0.9.7 — 2026-07-10
+
+Lock wow pass (iterated heavily; see 0.9.8 for current Three.js state):
+
+- Removed remember-device; added Lock controls (menubar / iOS / Apple menu)
+- Three.js experiment (`three` dep, `js/lock-sphere.js`, dynamic import)
+- Unlock bloom, app whisper, sovereignty pulse, lock ambient, hero time
+- Dropped over-lock chrome (glass shots, SVG lines, pitch/stats/founder, Face ID/PIN)
+- Early Three.js attempts had white canvas box + flat icon pile — fixed toward ellipse in 0.9.8
+
 ## 0.9.6 — 2026-07-10
 
 - **Clock widget sovereignty proof** — the desktop clock tile's empty lower space now carries a live "● 0 bytes sent today · 0 servers" line (green dot), echoing the lock screen. Both themes readable.
