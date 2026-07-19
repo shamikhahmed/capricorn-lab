@@ -46,7 +46,7 @@ export const APPS = [
     name: 'PrismCap',
     symbol: '✦',
     category: 'Play',
-    ver: '3.0',
+    ver: '4.3.7',
     tagline: '38 games. One phone. Zero Wi‑Fi.',
     pitch: 'Party arcade on your phone — 38 pass-and-play games, achievements, daily challenges. No accounts, no ads.',
     hook: 'The living room becomes an arcade. Pass the phone, not your data.',
