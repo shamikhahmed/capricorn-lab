@@ -1,3 +1,5 @@
+Superseded on 2026-09-15 by Cap Fleet Finish Program / Website Tier 1 (CURSOR-MASTER-PROMPT.md).
+
 # LOCK FABLE PROMPT — Capricorn OS lock carousel
 
 > Paste into **Claude Code (Fable)** or Cursor. Scope: **lock screen Three.js only**.  

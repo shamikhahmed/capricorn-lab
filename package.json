@@ -1,13 +1,15 @@
 {
   "name": "capricorn-lab",
-  "version": "0.10.1",
+  "version": "1.0.0",
   "private": true,
-  "description": "Capricorn OS — experimental marketing experience",
+  "description": "Capricorn OS — canonical hub source (D-13)",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/copy-static-assets.mjs",
     "build:pages": "npm run build",
-    "preview": "vite preview"
+    "deploy:hub": "node scripts/deploy-hub.mjs",
+    "preview": "vite preview",
+    "test": "node scripts/smoke-hub.mjs"
   },
   "devDependencies": {
     "playwright-core": "^1.61.1",
