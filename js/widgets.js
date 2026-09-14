@@ -109,7 +109,7 @@ const WIDGET_RENDERERS = {
 
   deeponycap: (a) => widgetRoot(a.slug, 'mw--pony', a.accent, 'medium', `
       ${wHead(a)}
-      ${wHero('<span class="num">127</span>', 'ponies · G1–G5')}
+      ${wHero('<span class="num">127</span>', 'figures · your series')}
       <div class="mw__bars">${wBar('G4 shelf', 82, '41/50')}</div>
       ${wLine('<strong>3 grails</strong> on wishlist · 2 pre-orders live')}
       ${wFoot(a, 'Open stable')}`),
@@ -164,7 +164,7 @@ export const IOS_WIDGET_SNAPSHOTS = {
   prismcap: { big: '38', small: 'games offline', extra: '<em>Cipher Duel · Lv 4</em>' },
   steadycap: { big: 'Day 47', small: 'steady · 0 relapses', extra: '<em class="ok">Trigger forecast low</em>' },
   ledgercap: { big: '₨ 4.2M', small: 'net worth', extra: '<em class="up">ENGRO ▲ 2.1%</em>' },
-  deeponycap: { big: '127', small: 'ponies · G1–G5', extra: '<em>3 grails on wishlist</em>' },
+  deeponycap: { big: '127', small: 'figures · your series', extra: '<em>3 grails on wishlist</em>' },
   scentcap: { big: 'Oud Wood', small: 'worn today', extra: '<em>Bleu de Chanel 22%</em>' },
   auracap: { big: '84', small: 'Aura Score', extra: '<em>12/16 modules</em>' },
   travelcap: { big: '12 days', small: 'to Barcelona', extra: '<em class="info">Packed 78%</em>' },
