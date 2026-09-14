@@ -1,3 +1,11 @@
+## 1.0.0 — 2026-09-15
+
+- **HUB Tier 1:** capricorn-lab is canonical (D-13). Catalog synced to finished Cap versions + §4.1 copy. DeeFoodie private beta (no install).
+- Performance: CSS/poster lock first; three.js after idle on capable devices; Google Fonts removed (system UI + local JetBrains Mono).
+- Dock widened for 15 Caps (320–2560).
+- `npm run deploy:hub` → shamikhahmed.github.io. os-next archived (Future OS modules not ported).
+
+
 # Changelog — Capricorn Lab
 
 Experimental **Capricorn OS**. Sandbox only — see [PLOT_MASTER_PROMPT.md](./PLOT_MASTER_PROMPT.md) and [HANDOVER.md](./HANDOVER.md).

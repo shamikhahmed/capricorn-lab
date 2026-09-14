@@ -1,3 +1,10 @@
+# Capricorn OS (capricorn-lab) — HANDOVER
+
+**Canonical hub source (D-13).** Version **1.0.0**. Deploy: `npm run deploy:hub` → `../shamikhahmed.github.io`.
+
+Live: https://shamikhahmed.github.io/
+
+
 # Capricorn Lab — Handover
 
 **Repo:** `/Users/shamikhahmed/Desktop/Cap-Apps/capricorn-lab`  

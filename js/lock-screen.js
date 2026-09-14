@@ -359,22 +359,44 @@ export function runLockScreen({ mode = 'desktop', onUnlock } = {}) {
     stopTilt = initOrbitTilt(el, carousel);
     stopWhisper = initWhisper(el);
   };
-  import('./lock-sphere.js')
-    .then(({ initLockSphere }) => {
-      if (done || el.hidden) return;
-      const stop = initLockSphere(sphereCanvas, {
-        reduced,
-        onSelectApp: (app, _i, fromTap) => {
-          showWhisper(app);
-          if (app && fromTap) sfx.click();
-        },
-      });
-      // null = WebGL disabled (?three=0) or unavailable — CSS carousel
-      // must still get tilt + whisper interactivity.
-      if (stop) stopSphere = stop;
-      else useCSSFallback();
-    })
-    .catch(useCSSFallback);
+
+  // HUB-P1-02: poster/CSS first; three.js after idle and only on capable devices.
+  const canThree =
+    !reduced &&
+    sphereCanvas &&
+    typeof WebGLRenderingContext !== 'undefined' &&
+    !window.matchMedia('(max-width: 480px)').matches &&
+    new URLSearchParams(location.search).get('three') !== '0';
+
+  useCSSFallback();
+
+  const loadSphere = () => {
+    if (done || el.hidden || !canThree) return;
+    import('./lock-sphere.js')
+      .then(({ initLockSphere }) => {
+        if (done || el.hidden) return;
+        const stop = initLockSphere(sphereCanvas, {
+          reduced,
+          onSelectApp: (app, _i, fromTap) => {
+            showWhisper(app);
+            if (app && fromTap) sfx.click();
+          },
+        });
+        if (stop) {
+          stopTilt();
+          stopWhisper();
+          stopSphere = stop;
+          stopTilt = () => {};
+          stopWhisper = () => {};
+        }
+      })
+      .catch(() => {});
+  };
+
+  if (canThree) {
+    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 600));
+    idle(() => loadSphere(), { timeout: 1800 });
+  }
 
   const stopPulse = initSovereigntyPulse(document.getElementById('lockBytesProof'));
   const clockTimer = startLockClock(el);

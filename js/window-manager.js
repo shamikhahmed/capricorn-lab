@@ -1,5 +1,5 @@
 import { APPS, SYSTEM } from './products.js';
-import { wipBadgeHTML, launchLabel, launchHref } from './ui-helpers.js';
+import { wipBadgeHTML, launchLabel, launchHref, statusBadgeHTML, secondaryLabel, secondaryHref } from './ui-helpers.js';
 import { demoHTML, initAppDemo } from './app-demos.js';
 import {
   genieToDock,
@@ -24,26 +24,29 @@ function appPanelHTML(app) {
   const highlights = app.highlights.map((h) => `<span>${h}</span>`).join('');
   const features = app.features.map((f) => `<li>${f}</li>`).join('');
 
-  const hasShot = Boolean(app.screenshot) && !app.wip;
+  const hasShot = Boolean(app.screenshot) && !app.wip && !app.privateBeta;
   const deviceInner = hasShot
     ? `<img class="device-preview__shot" src="${app.screenshot}" alt="${app.name} app screenshot" loading="lazy">`
     : `<div class="device-preview__status" aria-hidden="true"><span>9:41</span><span class="device-preview__sig"></span></div>
        <img class="device-preview__icon" src="${app.icon}" alt="" width="60" height="60" loading="lazy">
        <p class="device-preview__name">${app.name}</p>
        <p class="device-preview__hook">${app.hook}</p>
-       <p class="device-preview__soon">${app.wip ? 'In development' : 'Screenshot coming soon'}</p>
+       <p class="device-preview__soon">${app.privateBeta ? 'Private beta' : app.wip ? 'In development' : 'Screenshot coming soon'}</p>
        <span class="device-preview__home" aria-hidden="true"></span>`;
 
   const launch = launchLabel(app);
   const href = launchHref(app);
+  const secHref = secondaryHref(app);
+  const secLabel = secondaryLabel(app);
+  const statusNote = app.privateBeta ? ' · Private beta' : app.wip ? ' · In development' : '';
 
   return `
-    <div class="app-panel app--${app.vibe}${app.light ? ' app-panel--light' : ''}${app.wip ? ' app-panel--wip' : ''}" style="--accent:${app.accent};--accent2:${app.accent2}">
+    <div class="app-panel app--${app.vibe}${app.light ? ' app-panel--light' : ''}${app.wip || app.privateBeta ? ' app-panel--wip' : ''}" style="--accent:${app.accent};--accent2:${app.accent2}">
       <header class="app-panel__head">
         <img class="app-panel__icon" src="${app.icon}" alt="" width="64" height="64" loading="lazy">
         <div class="app-panel__titles">
-          <p class="app-panel__eyebrow">${app.category} · v${app.ver}${app.wip ? ' · In development' : ''}</p>
-          <h2>${app.name}${app.wip ? wipBadgeHTML() : ''}</h2>
+          <p class="app-panel__eyebrow">${app.category} · v${app.ver}${statusNote}</p>
+          <h2>${app.name}${statusBadgeHTML(app)}</h2>
           <p class="app-panel__tagline">${app.tagline}</p>
         </div>
       </header>
@@ -54,10 +57,10 @@ function appPanelHTML(app) {
           ${demoHTML(app)}
           <div class="app-highlights">${highlights}</div>
           <div class="app-panel__actions">
-            <a class="app-launch${app.wip ? ' app-launch--wip' : ''}" href="${href}" target="_blank" rel="noopener">
+            <a class="app-launch${app.wip || app.privateBeta ? ' app-launch--wip' : ''}" href="${href}" ${app.privateBeta ? '' : 'target="_blank" rel="noopener"'}>
               <img src="${app.icon}" alt="" width="20" height="20"> ${launch}
             </a>
-            <a class="app-secondary" href="${app.pitchUrl}" target="_blank" rel="noopener">${app.wip ? 'Repository' : 'Pitch deck'}</a>
+            <a class="app-secondary" href="${secHref}" target="_blank" rel="noopener">${secLabel}</a>
           </div>
         </div>
         <figure class="app-panel__device">
@@ -65,7 +68,7 @@ function appPanelHTML(app) {
             <div class="device-frame__island" aria-hidden="true"></div>
             <div class="device-preview${hasShot ? ' device-preview--shot' : ''}">${deviceInner}</div>
           </div>
-          <figcaption class="device-caption">${hasShot ? 'On your device · live PWA' : app.wip ? 'In development · preview only' : 'On your device · offline'}</figcaption>
+          <figcaption class="device-caption">${hasShot ? 'On your device · live PWA' : app.privateBeta ? 'Private beta · no public install' : app.wip ? 'In development · preview only' : 'On your device · offline'}</figcaption>
         </figure>
       </div>
     </div>
@@ -164,28 +167,28 @@ function aboutHTML() {
         <div><span>Analytics</span><strong>None</strong></div>
       </div>
       <p>Capricorn Systems builds premium personal software — ${APPS.length} Cap apps that live on your phone, work offline, and never phone home. Each app looks completely different. One rule ties them: <em>device sovereignty</em>.</p>
-      <p>Founded and built by <strong>${SYSTEM.founder}</strong> — one person, ten worlds, zero cloud dependency. Finance, performance, play, recovery, wealth, travel, wellness, fragrance, Apple ecosystem, and collection tools — all encrypted or stored locally before anything is saved.</p>
-      <p class="about-foot">Experimental lab · Production hub: <a href="https://shamikhahmed.github.io/" target="_blank" rel="noopener">shamikhahmed.github.io</a> · GitHub: <a href="https://github.com/shamikhahmed" target="_blank" rel="noopener">@shamikhahmed</a></p>
+      <p>Founded and built by <strong>${SYSTEM.founder}</strong> — Cap apps for finance, training, play, recovery, wealth, travel, wellness, fragrance, cooking, collection, and your Apple setup. Encrypted or stored locally. Capricorn OS is the hub.</p>
+      <p class="about-foot">Production hub: <a href="https://shamikhahmed.github.io/" target="_blank" rel="noopener">shamikhahmed.github.io</a> · Support: <a href="https://shamikhahmed.github.io/support.html" target="_blank" rel="noopener">support</a> · GitHub: <a href="https://github.com/shamikhahmed" target="_blank" rel="noopener">@shamikhahmed</a></p>
     </div>
   `;
 }
 
 function applicationsHTML() {
   const cards = APPS.map((a) => `
-    <article class="app-card${a.wip ? ' app-card--wip' : ''}" data-open-app="${a.slug}">
+    <article class="app-card${a.wip || a.privateBeta ? ' app-card--wip' : ''}" data-open-app="${a.slug}">
       <img class="app-card__icon" src="${a.icon}" alt="" width="72" height="72">
       <div class="app-card__body">
         <header>
-          <h3>${a.name}${a.wip ? wipBadgeHTML() : ''}</h3>
+          <h3>${a.name}${statusBadgeHTML(a)}</h3>
           <span class="app-card__ver">v${a.ver}</span>
         </header>
-        <p class="app-card__cat">${a.category}${a.wip ? ' · In development' : ''}</p>
+        <p class="app-card__cat">${a.category}${a.privateBeta ? ' · Private beta' : a.wip ? ' · In development' : ''}</p>
         <p class="app-card__tag">${a.tagline}</p>
         <p class="app-card__pitch">${a.pitch}</p>
         <ul class="app-card__features">${a.features.map((f) => `<li>${f}</li>`).join('')}</ul>
         <div class="app-card__actions">
           <button type="button" class="app-card__open" data-open-app="${a.slug}">Open</button>
-          <a href="${launchHref(a)}" target="_blank" rel="noopener" class="app-card__launch">${a.wip ? 'GitHub ↗' : 'Launch PWA ↗'}</a>
+          <a href="${launchHref(a)}" ${a.privateBeta ? '' : 'target="_blank" rel="noopener"'} class="app-card__launch">${a.privateBeta ? 'Private beta' : a.wip ? 'GitHub ↗' : 'Launch PWA ↗'}</a>
         </div>
       </div>
     </article>
@@ -195,7 +198,7 @@ function applicationsHTML() {
     <div class="sys-panel sys-panel--apps">
       <header class="apps-header">
         <h2>Applications</h2>
-        <p>${APPS.length} Cap apps — installed on your device. No App Store. No accounts. Click any app to open its window.</p>
+        <p>${APPS.filter((a) => !a.privateBeta).length} live Cap apps + DeeFoodie private beta. Click any app to open its window.</p>
       </header>
       <div class="apps-grid">${cards}</div>
     </div>

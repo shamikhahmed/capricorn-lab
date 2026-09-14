@@ -1,3 +1,5 @@
+Superseded on 2026-09-15 by Cap Fleet Finish Program / Website Tier 1 (CURSOR-MASTER-PROMPT.md).
+
 # PLOT MASTER PROMPT — Capricorn Lab (Capricorn OS)
 
 > **Copy everything below the line into Claude / Cursor** for full audit, rewrite, or iteration.  
