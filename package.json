@@ -1,8 +1,8 @@
 {
   "name": "capricorn-lab",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
-  "description": "Capricorn OS — canonical hub source (D-13)",
+  "description": "Capricorn OS \u2014 canonical hub source (D-13)",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/copy-static-assets.mjs",
