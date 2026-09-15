@@ -1,3 +1,7 @@
+## 1.0.3 — 2026-09-15
+
+- Catalog truth: closed Caps — Soul 8.2.0 · Scent 2.1.1 · Mastery 51.9.2 · Vault 5.2.2 · Cook 3.5.1 · Pulse 6.43.1 · Steady 2.5.4 · Travel 1.0.2 · Ledger 3.57.2 (+ Prism/DeePony/Aura/Idea/Car sync).
+
 ## 1.0.1 — 2026-09-15
 
 - C-15: TravelCap catalog version 1.0.1; SteadyCap catalog 2.5.2 (no TravelOS in source of truth).
