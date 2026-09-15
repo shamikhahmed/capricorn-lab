@@ -1,3 +1,7 @@
+## 1.0.1 — 2026-09-15
+
+- C-15: TravelCap catalog version 1.0.1; SteadyCap catalog 2.5.2 (no TravelOS in source of truth).
+
 ## 1.0.0 — 2026-09-15
 
 - **HUB Tier 1:** capricorn-lab is canonical (D-13). Catalog synced to finished Cap versions + §4.1 copy. DeeFoodie private beta (no install).

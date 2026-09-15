@@ -1,6 +1,6 @@
 {
   "name": "capricorn-lab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Capricorn OS — canonical hub source (D-13)",
   "scripts": {
