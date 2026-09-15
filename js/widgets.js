@@ -36,8 +36,8 @@ const WIDGET_TEASE = {
     body: 'ENGRO won\'t move in a widget. Download LedgerCap and track PSX wealth where it\'s real.',
   },
   deeponycap: {
-    title: 'Those ponies aren\'t yours.',
-    body: '127 catalogued friends need a real stable. Get DeePonyCap — G1 through G5, photos included.',
+    title: 'Those pieces aren\'t yours.',
+    body: 'A real collection needs DeePonyCap — series you define, photos on device.',
   },
   scentcap: {
     title: 'Oud Wood not detected.',
@@ -54,6 +54,26 @@ const WIDGET_TEASE = {
   soulcap: {
     title: 'Living Mind Model offline.',
     body: 'Soul can\'t read a marketing tile. Get SoulCap — wellness that actually remembers you.',
+  },
+  masterycap: {
+    title: 'Lesson not loaded.',
+    body: 'Bilingual learning needs the real app. Install MasteryCap — sessions stay on your device.',
+  },
+  ideacap: {
+    title: 'Sticky notes are theatre here.',
+    body: 'Capture for real in IdeaCap — voice or typed, private on device.',
+  },
+  carcap: {
+    title: 'Garage is empty on this tile.',
+    body: 'Service logs and fuel need CarCap — install and add your car.',
+  },
+  cookcap: {
+    title: 'Cookbook closed.',
+    body: 'Family recipes live in CookCap. Open it and start cooking.',
+  },
+  deefoodie: {
+    title: 'Private beta.',
+    body: 'DeeFoodie is a Karachi food journal for invited testers. Ask for access if you want in.',
   },
 };
 
@@ -109,9 +129,9 @@ const WIDGET_RENDERERS = {
 
   deeponycap: (a) => widgetRoot(a.slug, 'mw--pony', a.accent, 'medium', `
       ${wHead(a)}
-      ${wHero('<span class="num">127</span>', 'ponies · G1–G5')}
-      <div class="mw__bars">${wBar('G4 shelf', 82, '41/50')}</div>
-      ${wLine('<strong>3 grails</strong> on wishlist · 2 pre-orders live')}
+      ${wHero('<span class="num">127</span>', 'in your collection')}
+      <div class="mw__bars">${wBar('Shelf A', 82, '41/50')}</div>
+      ${wLine('<strong>3 favorites</strong> on wishlist · 2 pre-orders live')}
       ${wFoot(a, 'Open stable')}`),
 
   travelcap: (a) => widgetRoot(a.slug, 'mw--travel', a.accent, 'medium', `
@@ -155,6 +175,41 @@ const WIDGET_RENDERERS = {
       ${wMeta([{ k: 'Safety', v: 'Tier 2' }, { k: 'Journal', v: '4 days' }])}
       ${wLine('Check-in due · <strong>Living Mind</strong> updated', 'info')}
       ${wFoot(a, 'Open Soul')}`),
+
+  masterycap: (a) => widgetRoot(a.slug, 'mw--mastery', a.accent, 'small', `
+      ${wHead(a)}
+      ${wHero('<span class="num">15</span> min', 'today\'s session')}
+      ${wMeta([{ k: 'Track', v: 'Foundations' }, { k: 'Lang', v: 'EN · UR' }])}
+      ${wLine('Continue where you left off', 'info')}
+      ${wFoot(a, 'Start session')}`),
+
+  ideacap: (a) => widgetRoot(a.slug, 'mw--idea', a.accent, 'small', `
+      ${wHead(a)}
+      ${wHero('<span class="num">12</span>', 'ideas this week')}
+      ${wMeta([{ k: 'Voice', v: 'On-device' }, { k: 'Board', v: 'Clear' }])}
+      ${wLine('Capture · find · keep private', 'ok')}
+      ${wFoot(a, 'New idea')}`),
+
+  carcap: (a) => widgetRoot(a.slug, 'mw--car', a.accent, 'small', `
+      ${wHead(a)}
+      ${wHero('<strong>Service due</strong>', 'in 320 km')}
+      ${wMeta([{ k: 'Fuel', v: '12.4 L/100' }, { k: 'Docs', v: 'OK', tone: 'ok' }])}
+      ${wLine('Coming up · oil change', 'warn')}
+      ${wFoot(a, 'Open garage')}`),
+
+  cookcap: (a) => widgetRoot(a.slug, 'mw--cook', a.accent, 'medium', `
+      ${wHead(a)}
+      ${wHero('<span class="num">48</span>', 'family recipes')}
+      ${wMeta([{ k: 'Tonight', v: 'Biryani' }, { k: 'List', v: '6 items' }])}
+      ${wLine('Cook mode ready · shopping list synced', 'ok')}
+      ${wFoot(a, 'Open cookbook')}`),
+
+  deefoodie: (a) => widgetRoot(a.slug, 'mw--foodie', a.accent, 'small', `
+      ${wHead(a)}
+      ${wHero('<strong>Your Karachi</strong>', 'private beta')}
+      ${wMeta([{ k: 'Visits', v: '—' }, { k: 'Near me', v: 'Soon' }])}
+      ${wLine('Invited testers only', 'info')}
+      ${wFoot(a, 'Learn more')}`),
 };
 
 /** Compact hero copy for iOS Today widgets — mirrors desktop widget stats */
@@ -164,11 +219,16 @@ export const IOS_WIDGET_SNAPSHOTS = {
   prismcap: { big: '38', small: 'games offline', extra: '<em>Cipher Duel · Lv 4</em>' },
   steadycap: { big: 'Day 47', small: 'steady · 0 relapses', extra: '<em class="ok">Trigger forecast low</em>' },
   ledgercap: { big: '₨ 4.2M', small: 'net worth', extra: '<em class="up">ENGRO ▲ 2.1%</em>' },
-  deeponycap: { big: '127', small: 'ponies · G1–G5', extra: '<em>3 grails on wishlist</em>' },
+  deeponycap: { big: '127', small: 'in your collection', extra: '<em>3 favorites on wishlist</em>' },
   scentcap: { big: 'Oud Wood', small: 'worn today', extra: '<em>Bleu de Chanel 22%</em>' },
   auracap: { big: '84', small: 'Aura Score', extra: '<em>12/16 modules</em>' },
   travelcap: { big: '12 days', small: 'to Barcelona', extra: '<em class="info">Packed 78%</em>' },
   soulcap: { big: 'Steady', small: 'mood · LMM synced', extra: '<em class="info">Check-in due</em>' },
+  masterycap: { big: '15 min', small: "today's session", extra: '<em>Foundations · EN · UR</em>' },
+  ideacap: { big: '12', small: 'ideas this week', extra: '<em class="ok">On-device capture</em>' },
+  carcap: { big: '320 km', small: 'to service', extra: '<em class="warn">Oil change</em>' },
+  cookcap: { big: '48', small: 'family recipes', extra: '<em>Shopping list 6</em>' },
+  deefoodie: { big: 'Karachi', small: 'private beta', extra: '<em class="info">Invite only</em>' },
 };
 
 const WIDGET_SIZES = {
@@ -182,6 +242,11 @@ const WIDGET_SIZES = {
   soulcap: 'small',
   travelcap: 'medium',
   auracap: 'medium',
+  masterycap: 'small',
+  ideacap: 'small',
+  carcap: 'small',
+  cookcap: 'medium',
+  deefoodie: 'small',
 };
 
 function buildClock() {
