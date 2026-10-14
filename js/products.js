@@ -320,7 +320,7 @@ export const APPS = [
     github: 'https://github.com/shamikhahmed/CookCap',
     icon: 'assets/icons/cookcap.svg',
     mark: 'assets/marks/cookcap.svg',
-    screenshot: 'assets/screenshots/travelcap.png',
+    screenshot: 'assets/screenshots/cookcap.png',
     highlights: ['Recipes', 'Cook mode', 'Shopping', 'Family'],
     features: ['Family cookbook cover', 'Cook mode', 'Shopping list', 'Nutrition estimates only'],
   },
