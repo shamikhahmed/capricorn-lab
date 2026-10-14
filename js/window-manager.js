@@ -1,5 +1,5 @@
 import { APPS, SYSTEM } from './products.js';
-import { wipBadgeHTML, launchLabel, launchHref, statusBadgeHTML, secondaryLabel, secondaryHref } from './ui-helpers.js';
+import { wipBadgeHTML, launchLabel, launchHref, statusBadgeHTML, secondaryLabel, secondaryHref, screenshotFor } from './ui-helpers.js';
 import { demoHTML, initAppDemo } from './app-demos.js';
 import {
   genieToDock,
@@ -31,7 +31,7 @@ function appPanelHTML(app) {
 
   const hasShot = Boolean(app.screenshot) && !app.wip && !app.privateBeta;
   const deviceInner = hasShot
-    ? `<img class="device-preview__shot" src="${app.screenshot}" alt="${app.name} app screenshot" loading="lazy">`
+    ? `<img class="device-preview__shot" src="${screenshotFor(app)}" alt="${app.name} app screenshot" loading="lazy">`
     : `<div class="device-preview__status" aria-hidden="true"><span>9:41</span><span class="device-preview__sig"></span></div>
        <img class="device-preview__icon" src="${app.icon}" alt="" width="60" height="60" loading="lazy">
        <p class="device-preview__name">${app.name}</p>

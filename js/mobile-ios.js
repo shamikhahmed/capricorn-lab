@@ -1,7 +1,7 @@
 import { APPS, SYSTEM, SOCIAL, renderHomeIcon, bindSocialClicks } from './social.js';
 import { renderMobileTasks, bindTaskClicks } from './tasks.js';
 import { IOS_WIDGET_SNAPSHOTS } from './widgets.js';
-import { launchHref, launchLabel, statusBadgeHTML, shortBadgeHTML } from './ui-helpers.js';
+import { launchHref, launchLabel, statusBadgeHTML, shortBadgeHTML, screenshotFor } from './ui-helpers.js';
 import { sfx } from './sounds.js';
 import { getSkinDef } from './theme.js';
 import { initWallpaper } from './wallpaper.js';
@@ -225,7 +225,7 @@ function appSheetHTML(app) {
         <a class="ios-app__open ios-app__open--secondary" href="/apps/${app.slug}/" target="_blank" rel="noopener">Website</a>
       </div>
       <p class="ios-app__pitch">${app.pitch}</p>
-      ${shot ? `<figure class="ios-app__shot"><img src="${app.screenshot}" alt="${app.name} screenshot" loading="lazy"></figure>` : ''}
+      ${shot ? `<figure class="ios-app__shot"><img src="${screenshotFor(app)}" alt="${app.name} screenshot" loading="lazy"></figure>` : ''}
       <ul class="ios-app__features">${app.features.map((f) => `<li>${f}</li>`).join('')}</ul>
       <div class="ios-app__chips">${app.highlights.map((h) => `<span>${h}</span>`).join('')}</div>
     </div>`;

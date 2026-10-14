@@ -41,3 +41,10 @@ export function secondaryHref(app) {
   if (app.privateBeta) return 'https://shamikhahmed.github.io/support.html';
   return app.pitchUrl || app.url || 'https://shamikhahmed.github.io/support.html';
 }
+
+/** App screenshot matching the active theme (dark skins get the dark capture when one exists). */
+export function screenshotFor(app) {
+  if (!app?.screenshot) return '';
+  const dark = document.documentElement.dataset.theme === 'dark';
+  return dark && app.screenshotDark ? app.screenshotDark : app.screenshot;
+}

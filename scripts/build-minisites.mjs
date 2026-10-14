@@ -1,48 +1,44 @@
 /**
- * Capricorn mini-site generator (Perfection Loop v3 §10.2).
- * Inputs: products.js catalog + per-app VERSION/FEATURES/CHANGELOG/privacy/gallery/support FAQs.
- * Output: shamikhahmed.github.io/apps/<slug>/ (+ apps/index.html) and legacy <slug>.html → mini-site.
+ * Capricorn mini-sites — one page per Cap at shamikhahmed.github.io/apps/<slug>/.
  *
- * Wave A: skeleton pages (hero + placeholder sections). Gallery polish / OG / sitemap = later waves.
+ *   node scripts/build-minisites.mjs            (also run by npm run deploy:hub)
+ *
+ * Inputs (all local, sibling repos under Cap-Apps/):
+ *   - js/products.js                     catalog: name, accent, pitch, features, highlights
+ *   - <Repo>/VERSION.json                version (refreshed at runtime from the live app too)
+ *   - <Repo>/CHANGELOG.md                latest release version + date
+ *   - <Repo>/docs/screenshots/gallery/   v3 gallery manifest + WebP shots (light/dark × iphone/ipad/mac)
+ *   - copy below                         §4.1 descriptions, §4.2 disclaimers, privacy facts, FAQs
+ *
+ * Output: apps/<slug>/index.html + shots/ + og.png, apps/index.html, apps/assets/{minisite.css,
+ * minisite.js,icons/}, legacy <slug>.html redirects, sitemap entries.
+ *
+ * Every page: designed light AND dark from the app's own colours (contrast-checked here),
+ * device-framed scrollable gallery (iPhone · iPad · Mac, Light · Dark, lightbox), "every screen"
+ * tour, measured privacy, install guide, FAQ, latest release. No third-party requests, no frameworks.
  */
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-  cpSync,
-  readdirSync,
-} from 'node:fs';
-import { join, dirname, basename } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, cpSync, rmSync } from 'node:fs';
+import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const LAB = join(__dirname, '..');
+const LAB = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FLEET = join(LAB, '..');
 const HUB = join(FLEET, 'shamikhahmed.github.io');
-const APPS_OUT = join(HUB, 'apps');
+const OUT = join(HUB, 'apps');
 const BASE = 'https://shamikhahmed.github.io';
 
-const SLUG_TO_REPO = {
-  vaultcap: 'VaultCap',
-  pulsecap: 'PulseCap',
-  prismcap: 'PrismCap',
-  steadycap: 'SteadyCap',
-  ledgercap: 'LedgerCap',
-  deeponycap: 'DeePonyCap',
-  scentcap: 'ScentCap',
-  soulcap: 'SoulCap',
-  travelcap: 'TravelCap',
-  auracap: 'AuraCap',
-  masterycap: 'MasteryCap',
-  ideacap: 'IdeaCap',
-  carcap: 'CarCap',
-  cookcap: 'CookCap',
-  deefoodie: 'DeeFoodieApp',
+const REPO = {
+  vaultcap: 'VaultCap', pulsecap: 'PulseCap', prismcap: 'PrismCap', steadycap: 'SteadyCap',
+  ledgercap: 'LedgerCap', deeponycap: 'DeePonyCap', scentcap: 'ScentCap', soulcap: 'SoulCap',
+  travelcap: 'TravelCap', auracap: 'AuraCap', masterycap: 'MasteryCap', ideacap: 'IdeaCap',
+  carcap: 'CarCap', cookcap: 'CookCap', deefoodie: 'DeeFoodieApp',
 };
 
-/** §4.1 one-liners (DECISIONS.md) — override products.js tagline if present */
-const DESC_41 = {
+/* ── Approved copy (DECISIONS.md §4.1 / §4.2) ─────────────────────────── */
+
+const DESC = {
   auracap: 'Organize your iPhone, iPad and Mac setup.',
   carcap: 'Service, fuel and documents for your cars.',
   cookcap: 'Your family cookbook, kept like a real book.',
@@ -60,804 +56,433 @@ const DESC_41 = {
   vaultcap: 'Everything you own, encrypted on your device.',
 };
 
-/** §4.2 disclaimers */
-const DISCLAIMER_42 = {
-  soulcap:
-    'SoulCap offers self-help tools. It isn\'t therapy, medical advice, a diagnosis or a crisis service.',
-  steadycap:
-    'SteadyCap helps you keep track of routines and cravings. It isn\'t medical advice. Follow your doctor\'s or pharmacist\'s instructions for any medicine.',
-  pulsecap:
-    'PulseCap gives general training guidance, not medical advice. Stop and get medical help if you feel pain, dizziness or chest discomfort.',
-  ledgercap:
-    'LedgerCap is for tracking and education. Prices may be delayed or indicative. Nothing here is investment advice.',
-  masterycap:
-    'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.',
-  vaultcap:
-    'Your vault is encrypted on this device with your PIN. If you forget it, your data can\'t be recovered — keep an export somewhere safe.',
+const DISCLAIMER = {
+  soulcap: "SoulCap offers self-help tools. It isn't therapy, medical advice, a diagnosis or a crisis service.",
+  steadycap: "SteadyCap helps you keep track of routines and cravings. It isn't medical advice. Follow your doctor's or pharmacist's instructions for any medicine.",
+  pulsecap: 'PulseCap gives general training guidance, not medical advice. Stop and get medical help if you feel pain, dizziness or chest discomfort.',
+  ledgercap: 'LedgerCap is for tracking and education. Prices may be delayed or indicative. Nothing here is investment advice.',
+  masterycap: 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.',
+  vaultcap: "Your vault is encrypted on this device with your PIN. If you forget it, your data can't be recovered — keep an export somewhere safe.",
   cookcap: 'Nutrition values are estimates.',
   travelcap: 'Always check official sources for visas, entry rules and flight times.',
-  scentcap: 'Brand names belong to their owners. ScentCap isn\'t affiliated with any fragrance house.',
-  deeponycap:
-    'DeePonyCap is an independent collection tracker and isn\'t affiliated with or endorsed by any toy company.',
-  auracap:
-    'Apple, iPhone, iPad and Mac are trademarks of Apple Inc. AuraCap isn\'t affiliated with Apple.',
+  scentcap: "Brand names belong to their owners. ScentCap isn't affiliated with any fragrance house.",
+  deeponycap: "DeePonyCap is an independent collection tracker and isn't affiliated with or endorsed by any toy company.",
+  auracap: "Apple, iPhone, iPad and Mac are trademarks of Apple Inc. AuraCap isn't affiliated with Apple.",
 };
 
-function esc(s) {
-  return String(s ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
+/** Privacy, from each app's own privacy page (what may leave the device, and when). */
+const PRIVACY = {
+  vaultcap: { stays: 'Accounts, cards, documents, family profiles and backups — encrypted with AES-256-GCM before they are saved.', network: [['Nothing by default', 'Optional Smart Import parsing goes to a Capricorn Cloudflare Worker only if you turn it on in Settings → Import.']] },
+  pulsecap: { stays: 'Workouts, plans, PRs, body measurements, progress photos and nutrition.', network: [['Nothing for your data', 'Optional voice logging uses your browser’s speech service, which may process audio — type instead if you prefer.']] },
+  prismcap: { stays: 'Players, scores, XP, achievements and saved games.', network: [['Nothing', 'Games, saves and stats never leave the phone.']] },
+  steadycap: { stays: 'Routines, medicines, check-ins, journal and recovery timelines.', network: [['Nothing', 'No sync server, no analytics — SOS works offline.']] },
+  ledgercap: { stays: 'Holdings, transactions, watchlists, notes and settings.', network: [['Capricorn price Worker', 'Ticker queries for indicative PSX, fund, FX and news data when you open market screens. Your portfolio is never sent.']] },
+  deeponycap: { stays: 'Your catalog, series, shelf photos, wishlist and backups.', network: [['Nothing', 'Photos stay in this browser’s storage on your device.']] },
+  scentcap: { stays: 'Bottles, wear log, notes, layering combos and photos you add.', network: [['Open-Meteo', 'A city or your location — only after you enter a city or tap “Use my location” — for weather-aware picks.'], ['Optional catalog search', 'Search words, only when you look up a bottle.']] },
+  soulcap: { stays: 'Check-ins, journal, people map, techniques and favourites.', network: [['Nothing', 'The app makes no third-party requests. Help numbers ship inside the app.']] },
+  travelcap: { stays: 'Trips, tickets, documents, budgets, packing lists and memories.', network: [['Nominatim (OpenStreetMap)', 'Place and hotel searches you type.'], ['OpenStreetMap tiles', 'Map images for your stamps map.'], ['Open-Meteo', 'Weather for packing hints.'], ['AviationStack (optional)', 'Flight lookups — only with your own key.']] },
+  auracap: { stays: 'Your imported app list, profiles, scores and layouts.', network: [['Nothing', 'AuraCap makes no network calls for your data.']] },
+  masterycap: { stays: 'Progress, quiz answers, records and certificates.', network: [['Nothing', 'No third-party learning APIs.']] },
+  ideacap: { stays: 'Notes, recordings, tags, summaries, folders and reminders.', network: [['Nothing by default', 'Voice is transcribed on the device when your phone supports it. On the web you type.']] },
+  carcap: { stays: 'Vehicles, service log, fuel entries and documents.', network: [['Nothing', 'CarCap makes no network calls for your data.']] },
+  cookcap: { stays: 'Your cookbook, favourites, notes, shopping list, meal plan and profiles.', network: [['Nothing', 'Recipes and pictures ship with the app.']] },
+  deefoodie: { stays: 'Visits, photos, ratings and collections on your devices.', network: [['Private beta sync', 'Between invited devices only. Details in the beta privacy notice you receive with your invite.']] },
+};
 
-function readText(path) {
-  try {
-    return readFileSync(path, 'utf8');
-  } catch {
-    return '';
-  }
-}
+/** App-specific FAQ (shared ones are added for every app). */
+const FAQ = {
+  vaultcap: [['What if I forget my PIN?', DISCLAIMER.vaultcap], ['Can my family use it?', 'Yes — family vault profiles keep each person’s records separate and encrypted.']],
+  pulsecap: [['Is Smart Coach an AI?', 'No. Smart Coach is rules applied to your own training history, on your phone.'], ['Do I need a wearable?', 'No. Recovery readiness comes from your logs and check-ins.'], ['Is this medical advice?', DISCLAIMER.pulsecap]],
+  prismcap: [['How do we play?', 'Pick a game, add players, then pass the phone around. Hidden-role games only show each player their own screen.'], ['Does it need Wi-Fi?', 'No. Every game works offline once the app has loaded.']],
+  steadycap: [['Is this medical advice?', DISCLAIMER.steadycap], ['Does it count streaks?', 'No. SteadyCap tracks progress without streak pressure.'], ['Where is SOS?', 'The centre tab, from every screen — it works offline.']],
+  ledgercap: [['Are prices live?', 'Prices are indicative and may be delayed. ' + DISCLAIMER.ledgercap], ['Does it support Urdu?', 'Yes — English, اردو and Roman Urdu, in Settings → General.']],
+  deeponycap: [['Is it affiliated with a toy brand?', DISCLAIMER.deeponycap], ['Can I export my collection?', 'Yes — a full backup or a CSV, from Settings.']],
+  scentcap: [['Is ScentCap affiliated with perfume brands?', DISCLAIMER.scentcap], ['How does it pick today’s scent?', 'Rules that use your wardrobe, what you wore recently and — if you allow it — the weather.']],
+  soulcap: [['Is SoulCap therapy?', DISCLAIMER.soulcap], ['What if I need help now?', 'Open Help from any screen for region-aware crisis numbers. If you are in danger, call your local emergency number.']],
+  travelcap: [['Can I book flights in TravelCap?', 'No. TravelCap organises trips you have booked. ' + DISCLAIMER.travelcap], ['Can I lock my documents?', 'Yes — an optional app lock protects your travel documents.']],
+  auracap: [['Does AuraCap read my iPhone?', 'No. You import an app list yourself, and nothing is uploaded.'], ['Is AuraCap made by Apple?', DISCLAIMER.auracap]],
+  masterycap: [['Are the certificates accredited?', DISCLAIMER.masterycap], ['Which languages?', 'English and Roman Urdu, switchable in every lesson.']],
+  ideacap: [['Is my voice sent to the cloud?', 'Not by IdeaCap. Native apps transcribe on the device; on the web you type your idea.'], ['Can I organise ideas?', 'Yes — folders, tags and soft reminders.']],
+  carcap: [['Will it remind me about service?', 'Reminders work while CarCap is installed on your Home Screen. Your phone may delay them.'], ['Can I track more than one car?', 'Yes — add as many vehicles as you like.']],
+  cookcap: [['Are nutrition values exact?', DISCLAIMER.cookcap], ['Can I add our own recipes?', 'Yes — import or add family recipes, and they stay in your book on this device.']],
+  deefoodie: [['How do I join?', 'DeeFoodie is a private beta for invited devices. There is no public install.']],
+};
 
-function readJson(path) {
-  try {
-    return JSON.parse(readFileSync(path, 'utf8'));
-  } catch {
-    return null;
-  }
-}
+/* ── colour ──────────────────────────────────────────────────────────── */
 
-function parseFeaturesS(md) {
-  if (!md) return [];
-  const lines = md.split(/\r?\n/);
-  const out = [];
-  let inS = false;
-  for (const line of lines) {
-    if (/^##\s*S\b/i.test(line)) {
-      inS = true;
-      continue;
-    }
-    if (inS && /^##\s/.test(line)) break;
-    if (inS) {
-      const m = line.match(/^\s*[-*]\s+(.+)/);
-      if (m) out.push(m[1].replace(/\*\*/g, '').trim());
-    }
-  }
-  return out.slice(0, 8);
-}
-
-function parseChangelogLatest(md, n = 5) {
-  if (!md) return [];
-  const entries = [];
-  const blocks = md.split(/^##\s+/m).slice(1);
-  for (const block of blocks) {
-    const first = (block.split(/\r?\n/)[0] || '').trim();
-    // Prefer Keep-a-Changelog versions: ## [1.2.3] — date  or  ## 1.2.3 — date
-    // Avoid matching trailing digits in branch names (e.g. Unreleased — perfection/ideacap-v3).
-    const versionMatch = first.match(/^\[?(\d+\.\d+(?:\.\d+)?(?:\+\d+)?)\]?/);
-    const unreleased = /^unreleased\b/i.test(first);
-    if (!versionMatch && !unreleased) continue;
-    const dateMatch = first.match(/(\d{4}-\d{2}-\d{2})/);
-    const bullets = block
-      .split(/\r?\n/)
-      .slice(1)
-      .filter((l) => /^\s*[-*]\s+/.test(l))
-      .map((l) => l.replace(/^\s*[-*]\s+/, '').trim())
-      .slice(0, 4);
-    entries.push({
-      heading: versionMatch ? versionMatch[1] : 'Unreleased',
-      date: dateMatch ? dateMatch[1] : '',
-      bullets,
-    });
-    if (entries.length >= n) break;
-  }
-  return entries;
-}
-
-function extractNetworkList(privacyHtml, privacyMd) {
-  const src = privacyHtml || privacyMd || '';
-  const destinations = new Set();
-  const urlRe = /https?:\/\/[^\s"'<>)]+/gi;
-  let m;
-  while ((m = urlRe.exec(src))) {
-    try {
-      const host = new URL(m[0]).hostname;
-      if (host && !/shamikhahmed\.github\.io$/i.test(host)) destinations.add(host);
-    } catch {
-      /* ignore */
-    }
-  }
-  // Common known destinations from privacy copy (no URL)
-  if (/cloudflare/i.test(src)) destinations.add('Cloudflare Worker (opt-in / prices)');
-  if (/nominatim|openstreetmap/i.test(src)) destinations.add('Nominatim / OpenStreetMap');
-  if (/nothing leaves|no network|works offline|on your device/i.test(src) && destinations.size === 0) {
-    return ['Nothing — this Cap stays on your device by default'];
-  }
-  return [...destinations].slice(0, 12);
-}
-
-function parseSupportFaqs(supportHtml, appName) {
-  const faqs = [];
-  // Global common questions
-  const common = supportHtml.match(/<h2[^>]*>Common questions<\/h2>([\s\S]*?)(?:<\/div>\s*<\/section>|<\/main>)/i);
-  const block = common ? common[1] : supportHtml;
-  const parts = block.split(/<h3[^>]*>/i).slice(1);
-  for (const part of parts) {
-    const q = (part.match(/^([^<]+)/) || [])[1]?.trim();
-    const a = (part.match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1];
-    if (!q || !a) continue;
-    const text = a.replace(/<[^>]+>/g, '').trim();
-    const appSpecific =
-      new RegExp(appName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(q + text) ||
-      /Where is my data|erase everything|Privacy|DeeFoodie/i.test(q);
-    if (appSpecific) faqs.push({ q, a: text });
-  }
-  return faqs.slice(0, 6);
-}
-
-function loadGallery(repoPath) {
-  const candidates = [
-    join(repoPath, 'docs', 'screenshots', 'gallery', 'gallery-manifest.json'),
-    join(repoPath, 'assets', 'screenshots', 'gallery-manifest.json'),
-    join(repoPath, 'gallery-manifest.json'),
-    join(repoPath, 'qa', 'gallery-manifest.json'),
-    join(repoPath, 'docs', 'gallery-manifest.json'),
-  ];
-  for (const c of candidates) {
-    const j = readJson(c);
-    if (j?.shots?.length) return { manifest: j, path: c, dir: dirname(c) };
-  }
-  return null;
-}
-
-/** Pick a small set of hero shots (mobile-first, mixed themes). */
-function pickGalleryShots(manifest, max = 6) {
-  const shots = manifest?.shots || [];
-  if (!shots.length) return [];
-  const mobile = shots.filter((s) => s.viewport === 'mobile' && !s.scroll);
-  const desktop = shots.filter((s) => s.viewport === 'desktop' && !s.scroll);
-  const pool = [...mobile.slice(0, 4), ...desktop.slice(0, 2)];
-  const seen = new Set();
-  const out = [];
-  for (const s of pool.length ? pool : shots) {
-    if (seen.has(s.file) || out.length >= max) continue;
-    seen.add(s.file);
-    out.push(s);
-  }
+const hex2rgb = (h) => { const n = parseInt(h.replace('#', ''), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+const rgb2hex = (c) => '#' + c.map((v) => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => rgb2hex(hex2rgb(a).map((v, i) => v + (hex2rgb(b)[i] - v) * t));
+const lum = (h) => { const [r, g, b] = hex2rgb(h).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+/** Move `c` toward `toward` until it reaches `ratio` against `bg`. */
+function reach(c, bg, ratio, toward) {
+  let t = 0;
+  let out = c;
+  while (contrast(out, bg) < ratio && t < 1) { t += 0.04; out = mix(c, toward, t); }
   return out;
 }
 
-function copyGalleryAssets(gallery, outAssetsDir) {
-  if (!gallery?.dir) return [];
-  ensureDir(outAssetsDir);
-  const picked = pickGalleryShots(gallery.manifest);
-  const copied = [];
-  for (const shot of picked) {
-    const src = join(gallery.dir, shot.file);
+function palette(app) {
+  const accent = app.accent;
+  const darkBase = lum(app.bg) < 0.06 ? app.bg : mix(accent, '#07070a', 0.9);
+  const dark = {
+    bg: darkBase,
+    surface: mix(darkBase, '#ffffff', 0.05),
+    surface2: mix(darkBase, '#ffffff', 0.09),
+    line: mix(darkBase, '#ffffff', 0.14),
+    ink: '#f6f4ef',
+    dim: mix('#f6f4ef', darkBase, 0.34),
+    accent: reach(accent, darkBase, 4.6, '#ffffff'),
+  };
+  const lightBase = mix('#fbfaf7', accent, 0.045);
+  const light = {
+    bg: lightBase,
+    surface: '#ffffff',
+    surface2: mix('#f4f2ed', accent, 0.06),
+    line: mix('#e4e1da', accent, 0.08),
+    ink: '#16161a',
+    dim: '#55555d',
+    accent: reach(accent, lightBase, 4.6, '#000000'),
+  };
+  // Button fill: the brand colour itself, with whichever label colour reads best.
+  for (const p of [dark, light]) {
+    const fill = p === dark ? reach(accent, darkBase, 3, '#ffffff') : reach(accent, '#ffffff', 3, '#000000');
+    p.fill = fill;
+    p.onFill = contrast(fill, '#ffffff') >= 4.5 ? '#ffffff' : '#111114';
+    if (contrast(fill, p.onFill) < 4.5) p.fill = p.onFill === '#ffffff' ? reach(fill, '#ffffff', 4.5, '#000000') : reach(fill, '#111114', 4.5, '#ffffff');
+  }
+  return { dark, light, glow: accent, glow2: app.accent2 || accent };
+}
+
+/* ── helpers ─────────────────────────────────────────────────────────── */
+
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const readText = (p) => { try { return readFileSync(p, 'utf8'); } catch { return ''; } };
+const readJson = (p) => { try { return JSON.parse(readFileSync(p, 'utf8')); } catch { return null; } };
+const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function latestRelease(md) {
+  for (const block of md.split(/^##\s+/m).slice(1)) {
+    const head = (block.split(/\r?\n/)[0] || '').trim();
+    const v = head.match(/^\[?v?(\d+\.\d+(?:\.\d+)?(?:\+\d+)?)\]?/);
+    const date = (head.match(/(\d{4}-\d{2}-\d{2})/) || [])[1];
+    if (v) return [{ v: v[1], date: date || '' }];
+  }
+  return [];
+}
+
+const DEVICE_W = { iphone: 600, ipad: 1000, mac: 1200 };
+
+/** Copy + downsize gallery shots into apps/<slug>/shots/. Returns shot records for the page. */
+function ingestGallery(repoPath, slug) {
+  const dir = join(repoPath, 'docs', 'screenshots', 'gallery');
+  const man = readJson(join(dir, 'gallery-manifest.json'));
+  if (!man?.shots?.length) return [];
+  const dest = join(OUT, slug, 'shots');
+  rmSync(dest, { recursive: true, force: true });
+  const seen = new Set();
+  const pixels = new Set(); // identical captures (e.g. a language toggle that didn't change the screen)
+  const shots = [];
+  for (const s of man.shots) {
+    if (!['light', 'dark'].includes(s.theme) || !DEVICE_W[s.device]) continue;
+    const src = join(dir, s.file);
     if (!existsSync(src)) continue;
-    const destName = shot.file.replace(/[^a-zA-Z0-9._-]/g, '_');
-    cpSync(src, join(outAssetsDir, destName));
-    copied.push({ ...shot, localFile: destName });
+    const digest = `${s.theme}/${s.device}/${createHash('md5').update(readFileSync(src)).digest('hex')}`;
+    if (pixels.has(digest)) continue;
+    pixels.add(digest);
+    const id = slugify(s.id || `${s.group}-${s.screen}-${s.state || ''}`);
+    const key = `${s.theme}/${s.device}/${id}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const rel = `shots/${s.theme}/${s.device}/${id}.webp`;
+    mkdirSync(dirname(join(OUT, slug, rel)), { recursive: true });
+    const r = spawnSync('cwebp', ['-quiet', '-resize', String(DEVICE_W[s.device]), '0', '-q', '72', '-m', '6', src, '-o', join(OUT, slug, rel)]);
+    if (r.status !== 0) cpSync(src, join(OUT, slug, rel));
+    const ratio = s.w && s.h ? s.h / s.w : s.device === 'iphone' ? 2.164 : s.device === 'ipad' ? 0.695 : 0.625;
+    shots.push({
+      id, group: s.group || 'Screens', screen: s.screen || id, caption: s.caption || '',
+      theme: s.theme, device: s.device, src: rel, w: DEVICE_W[s.device], h: Math.round(DEVICE_W[s.device] * ratio),
+    });
   }
-  return copied;
+  shots.schemes = [...new Set(shots.map((x) => x.theme))];
+  shots.schemeNote = man.schemeNote || '';
+  return shots;
 }
 
-function supportHref(appName) {
-  const title = encodeURIComponent(`[${appName}] `);
-  return `https://github.com/shamikhahmed/shamikhahmed.github.io/issues/new?title=${title}`;
+/* ── page ────────────────────────────────────────────────────────────── */
+
+function themeVars(p) {
+  return `--bg:${p.bg};--surface:${p.surface};--surface2:${p.surface2};--line:${p.line};--ink:${p.ink};--dim:${p.dim};--accent:${p.accent};--fill:${p.fill};--on-fill:${p.onFill}`;
 }
 
-function renderGallerySection(shots, slug) {
-  if (!shots.length) {
-    return `<p class="section__lead">Screenshots from the v3 gallery land here as they are published.</p>
-      <div class="placeholder">Open the live app to explore every screen.</div>`;
-  }
-  const items = shots
-    .map(
-      (s) =>
-        `<figure class="gallery-shot"><img src="/apps/${esc(slug)}/assets/gallery/${esc(
-          s.localFile,
-        )}" alt="${esc(s.label || s.screenId || 'App screen')}" width="390" height="844" loading="lazy" decoding="async"><figcaption>${esc(
-          s.label || s.section || '',
-        )}</figcaption></figure>`,
-    )
-    .join('');
-  return `<p class="section__lead">A few screens from the shipped app (light/dark and device sizes in the full gallery).</p>
-    <div class="gallery-grid" role="list">${items}</div>`;
-}
-
-function sharedCss() {
-  return `/* Capricorn mini-sites — shared skeleton (Wave A). No third-party. */
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-:root {
-  color-scheme: light dark;
-  --accent: #5b8dee;
-  --accent2: #3d5a9e;
-  --bg: #0a0a0f;
-  --fg: #f2f2f7;
-  --muted: color-mix(in srgb, var(--fg) 62%, transparent);
-  --card: color-mix(in srgb, var(--fg) 6%, transparent);
-  --border: color-mix(in srgb, var(--fg) 14%, transparent);
-  --radius: 16px;
-  --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f5f5f7;
-    --fg: #1c1c1e;
-    --card: #fff;
-    --border: color-mix(in srgb, var(--fg) 12%, transparent);
-  }
-}
-html[data-scheme="light"] {
-  --bg: #f5f5f7;
-  --fg: #1c1c1e;
-  --card: #fff;
-  --border: color-mix(in srgb, var(--fg) 12%, transparent);
-}
-html[data-scheme="dark"] {
-  --bg: #0a0a0f;
-  --fg: #f2f2f7;
-  --card: color-mix(in srgb, #fff 6%, transparent);
-  --border: color-mix(in srgb, #fff 14%, transparent);
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  font-family: var(--font);
-  background:
-    radial-gradient(1200px 600px at 10% -10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 60%),
-    radial-gradient(900px 500px at 100% 0%, color-mix(in srgb, var(--accent2) 22%, transparent), transparent 55%),
-    var(--bg);
-  color: var(--fg);
-  line-height: 1.5;
-  min-height: 100vh;
-}
-a { color: var(--accent); }
-img { max-width: 100%; height: auto; }
-.wrap { width: min(1080px, calc(100% - 2rem)); margin-inline: auto; }
-.site-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 0; gap: 1rem;
-}
-.brand { display: flex; align-items: center; gap: .55rem; text-decoration: none; color: inherit; font-weight: 600; }
-.brand img { width: 28px; height: 28px; }
-.scheme-toggle {
-  appearance: none; border: 1px solid var(--border); background: var(--card);
-  color: var(--fg); border-radius: 999px; padding: .4rem .85rem; cursor: pointer; font: inherit;
-}
-.hero {
-  display: grid; gap: 1.25rem; padding: 2.5rem 0 3rem;
-  grid-template-columns: auto 1fr; align-items: center;
-}
-@media (max-width: 720px) {
-  .hero { grid-template-columns: 1fr; text-align: center; justify-items: center; }
-}
-.hero__icon {
-  width: 96px; height: 96px; border-radius: 24px;
-  box-shadow: 0 12px 40px color-mix(in srgb, var(--accent) 35%, transparent);
-  background: color-mix(in srgb, var(--accent) 18%, var(--card));
-  object-fit: contain; padding: 12px;
-}
-.hero h1 { margin: 0 0 .35rem; font-size: clamp(2rem, 4vw, 2.75rem); letter-spacing: -0.02em; }
-.hero__desc { margin: 0; color: var(--muted); font-size: 1.1rem; max-width: 36rem; }
-.badge {
-  display: inline-flex; align-items: center; gap: .35rem;
-  font-family: var(--mono); font-size: .75rem; padding: .25rem .55rem;
-  border-radius: 999px; border: 1px solid var(--border);
-  background: var(--card); margin-top: .75rem;
-}
-.ctas { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
-@media (max-width: 720px) { .ctas { justify-content: center; } }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: .65rem 1.15rem; border-radius: 12px;
-  text-decoration: none; font-weight: 600; border: 1px solid transparent;
-}
-.btn--primary { background: var(--accent); color: #fff; }
-.btn--secondary { background: var(--card); color: var(--fg); border-color: var(--border); }
-.btn--ghost { color: var(--muted); border-color: var(--border); }
-.section { padding: 2.25rem 0; border-top: 1px solid var(--border); }
-.section h2 { margin: 0 0 .5rem; font-size: 1.35rem; letter-spacing: -0.01em; }
-.section__lead { margin: 0 0 1rem; color: var(--muted); max-width: 40rem; }
-.placeholder {
-  border: 1px dashed var(--border); border-radius: var(--radius);
-  padding: 1.25rem; color: var(--muted); background: color-mix(in srgb, var(--card) 70%, transparent);
-}
-.grid {
-  display: grid; gap: .85rem;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-.tile {
-  border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--card); padding: 1rem;
-}
-.tile h3 { margin: 0 0 .35rem; font-size: 1rem; }
-.tile p { margin: 0; color: var(--muted); font-size: .92rem; }
-.list { margin: 0; padding-left: 1.1rem; color: var(--muted); }
-.list li { margin: .35rem 0; }
-.faq details {
-  border: 1px solid var(--border); border-radius: 12px; padding: .75rem 1rem;
-  background: var(--card); margin-bottom: .55rem;
-}
-.faq summary { cursor: pointer; font-weight: 600; }
-.changelog article {
-  border-left: 3px solid var(--accent); padding: .15rem 0 .15rem 1rem; margin-bottom: 1rem;
-}
-.changelog h3 { margin: 0; font-family: var(--mono); font-size: .95rem; }
-.changelog time { color: var(--muted); font-size: .8rem; }
-.rail {
-  display: flex; gap: .65rem; overflow-x: auto; padding-bottom: .35rem;
-  -webkit-overflow-scrolling: touch;
-}
-.rail a {
-  flex: 0 0 auto; text-decoration: none; color: inherit;
-  border: 1px solid var(--border); border-radius: 12px; padding: .55rem .8rem;
-  background: var(--card); white-space: nowrap; font-size: .9rem;
-}
-.site-footer {
-  padding: 2rem 0 3rem; border-top: 1px solid var(--border);
-  color: var(--muted); font-size: .9rem;
-}
-.site-footer nav { display: flex; flex-wrap: wrap; gap: .75rem 1rem; margin-bottom: 1rem; }
-.site-footer a { color: inherit; }
-.beta-banner {
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
-  background: color-mix(in srgb, var(--accent) 12%, var(--card));
-  border-radius: var(--radius); padding: 1rem 1.15rem; margin-top: 1rem;
-}
-.gallery-grid {
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-.gallery-shot {
-  margin: 0; border: 1px solid var(--border); border-radius: var(--radius);
-  overflow: hidden; background: var(--card);
-}
-.gallery-shot img {
-  display: block; width: 100%; height: auto; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top;
-}
-.gallery-shot figcaption {
-  padding: .5rem .75rem; font-size: .82rem; color: var(--muted);
-}
-.index-grid {
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  padding: 1rem 0 3rem;
-}
-.card-app {
-  display: flex; flex-direction: column; gap: .65rem;
-  text-decoration: none; color: inherit;
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 1.1rem; background: var(--card);
-  min-height: 140px;
-}
-.card-app img { width: 48px; height: 48px; border-radius: 12px; }
-.card-app strong { font-size: 1.05rem; }
-.card-app span { color: var(--muted); font-size: .9rem; }
-.card-app .ver { font-family: var(--mono); font-size: .72rem; opacity: .8; }
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-`;
-}
-
-function pageScript() {
-  return `<script>
-(function () {
-  var root = document.documentElement;
-  var key = 'cap-minisite-scheme';
-  function apply(v) {
-    if (v === 'light' || v === 'dark') root.setAttribute('data-scheme', v);
-    else root.removeAttribute('data-scheme');
-  }
-  apply(localStorage.getItem(key));
-  document.getElementById('schemeToggle')?.addEventListener('click', function () {
-    var cur = root.getAttribute('data-scheme');
-    var next = cur === 'dark' ? 'light' : cur === 'light' ? '' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
-    if (next) localStorage.setItem(key, next); else localStorage.removeItem(key);
-    apply(next || null);
-  });
-  var badge = document.getElementById('liveVersion');
-  if (badge && badge.dataset.versionUrl) {
-    fetch(badge.dataset.versionUrl, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
-      if (j && (j.version || j.ver)) badge.textContent = 'v' + (j.version || j.ver);
-    }).catch(function () {});
-  }
-})();
-</script>`;
-}
-
-function renderAppPage(app, ctx) {
-  const {
-    version,
-    features,
-    changelog,
-    network,
-    faqs,
-    galleryShots,
-    iconHref,
-    privateBeta,
-    ogImage,
-  } = ctx;
-  const desc = DESC_41[app.slug] || app.tagline;
-  const disclaimer = DISCLAIMER_42[app.slug];
-  const openUrl = app.url || '';
-  const osDeep = `${BASE}/?nolock=1&app=${encodeURIComponent(app.slug)}`;
-  const canonical = `${BASE}/apps/${app.slug}/`;
-  const accent = app.accent || '#5b8dee';
-  const accent2 = app.accent2 || accent;
-  const bg = app.bg || '#0a0a0f';
-
-  const featureTiles =
-    features.length > 0
-      ? `<div class="grid">${features
-          .map(
-            (f) =>
-              `<article class="tile"><h3>${esc(f.split(/[·—-]/)[0].trim().slice(0, 48))}</h3><p>${esc(f)}</p></article>`,
-          )
-          .join('')}</div>`
-      : `<div class="placeholder">Feature tiles will land from FEATURES.md (S) in a later wave.</div>`;
-
-  const changelogHtml =
-    changelog.length > 0
-      ? changelog
-          .map(
-            (e) => `<article>
-          <h3>${esc(/^unreleased$/i.test(e.heading) ? e.heading : `v${e.heading}`)}</h3>
-          ${e.date ? `<time datetime="${esc(e.date)}">${esc(e.date)}</time>` : ''}
-          <ul class="list">${(e.bullets.length ? e.bullets : ['See full changelog in the app repo.'])
-            .map((b) => `<li>${esc(b)}</li>`)
-            .join('')}</ul>
-        </article>`,
-          )
-          .join('')
-      : `<div class="placeholder">Changelog entries appear when CHANGELOG.md is present in the app repo.</div>`;
-
-  const faqHtml =
-    faqs.length > 0
-      ? faqs
-          .map(
-            (f) =>
-              `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`,
-          )
-          .join('')
-      : `<details open><summary>Where is my data?</summary><p>On your device (localStorage / IndexedDB), unless this Cap documents a specific optional network call.</p></details>
-         <details><summary>How do I get help?</summary><p>See <a href="/support.html">support</a> or <a href="${esc(
-           supportHref(app.name),
-         )}">report a problem</a> for ${esc(app.name)} (GitHub Issues — no personal email).</p></details>`;
-
-  const networkHtml =
-    network.length > 0
-      ? `<ul class="list">${network.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
-      : `<p class="section__lead">Network destinations will be filled from each Cap’s privacy page.</p>`;
-
-  const ctaBlock = privateBeta
-    ? `<div class="beta-banner">
-        <strong>Private beta</strong>
-        <p style="margin:.35rem 0 0;color:var(--muted)">DeeFoodie is invite-only. There is no public install link. Invited testers: open a DeeFoodie issue on <a href="/support.html#deefoodie">support</a>.</p>
-      </div>
-      <div class="ctas">
-        <a class="btn btn--secondary" href="${esc(osDeep)}">See listing in Capricorn OS</a>
-        <a class="btn btn--ghost" href="/support.html#deefoodie">Support</a>
-      </div>`
-    : `<div class="ctas">
-        <a class="btn btn--primary" href="${esc(openUrl)}">Open ${esc(app.name)}</a>
-        <a class="btn btn--secondary" href="${esc(osDeep)}">Try it in Capricorn OS</a>
-        <a class="btn btn--ghost" href="/support.html">Support</a>
-        <a class="btn btn--ghost" href="#install">Add to Home Screen</a>
-      </div>`;
-
+function head({ title, desc, canonical, og, pal, extra = '' }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${esc(app.name)} — Capricorn Systems</title>
-  <meta name="description" content="${esc(desc)}">
-  <link rel="canonical" href="${esc(canonical)}">
-  <meta property="og:title" content="${esc(app.name)}">
-  <meta property="og:description" content="${esc(desc)}">
-  <meta property="og:url" content="${esc(canonical)}">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
-  <link rel="stylesheet" href="/apps/assets/minisite.css">
-  <style>:root{--accent:${esc(accent)};--accent2:${esc(accent2)};--bg:${esc(bg)};}</style>
-  <script type="application/ld+json">
-  ${JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: app.name,
-    description: desc,
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Web, iOS, iPadOS, macOS, Android (PWA)',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    url: canonical,
-  })}
-  </script>
-</head>
-<body>
-  <div class="wrap">
-    <header class="site-header">
-      <a class="brand" href="/apps/"><img src="/assets/logo.svg" alt="" width="28" height="28">Capricorn</a>
-      <button type="button" class="scheme-toggle" id="schemeToggle" aria-label="Toggle colour scheme">Light / Dark</button>
-    </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${canonical}">
+<meta name="theme-color" content="${pal.light.bg}" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="${pal.dark.bg}" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Capricorn Systems">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${canonical}">
+${og ? `<meta property="og:image" content="${og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:image" content="${og}">` : ''}
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/apps/assets/minisite.css">
+<style>:root{${themeVars(pal.light)};--glow:${pal.glow};--glow2:${pal.glow2}}
+html[data-theme="dark"]{${themeVars(pal.dark)};color-scheme:dark}
+@media (prefers-color-scheme: dark){html:not([data-theme="light"]){${themeVars(pal.dark)};color-scheme:dark}}</style>
+<script>try{var t=localStorage.getItem('cap-ms-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+${extra}
+</head>`;
+}
 
-    <section class="hero" aria-labelledby="app-name">
-      <img class="hero__icon" src="${esc(iconHref)}" alt="" width="96" height="96">
-      <div>
-        <h1 id="app-name">${esc(app.name)}</h1>
-        <p class="hero__desc">${esc(desc)}</p>
-        <span class="badge" id="liveVersion" data-version-url="${
-          openUrl ? esc(openUrl.replace(/\/?$/, '/') + 'VERSION.json') : ''
-        }">v${esc(version)}</span>
-        ${ctaBlock}
-      </div>
-    </section>
-
-    <section class="section" id="gallery" aria-labelledby="gallery-h">
-      <h2 id="gallery-h">Screenshots</h2>
-      ${renderGallerySection(galleryShots || [], app.slug)}
-    </section>
-
-    <section class="section" id="features" aria-labelledby="features-h">
-      <h2 id="features-h">What it does</h2>
-      <p class="section__lead">Honest features from the shipped set.</p>
-      ${featureTiles}
-    </section>
-
-    <section class="section" id="privacy" aria-labelledby="privacy-h">
-      <h2 id="privacy-h">Privacy, plainly</h2>
-      <p class="section__lead">No analytics, no ads, no account required${
-        privateBeta ? ' for the public listing' : ''
-      }. What stays on device stays on device.</p>
-      <h3 style="font-size:1rem;margin:1rem 0 .4rem">Network destinations</h3>
-      ${networkHtml}
-      ${
-        openUrl
-          ? `<p style="margin-top:1rem"><a href="${esc(openUrl.replace(/\/?$/, '/') + 'privacy.html')}">Full privacy page</a></p>`
-          : ''
-      }
-    </section>
-
-    <section class="section" id="install" aria-labelledby="install-h">
-      <h2 id="install-h">How to install</h2>
-      ${
-        privateBeta
-          ? `<div class="placeholder">No public install. Private beta — invited devices only (D-10 / N-1).</div>`
-          : `<div class="placeholder">
-        <p><strong>iPhone / iPad (Safari):</strong> Open the app → Share → Add to Home Screen.</p>
-        <p><strong>Mac (Safari / Chrome):</strong> Open the app → browser install / Add to Dock when offered.</p>
-        <p><strong>Android (Chrome):</strong> Open the app → Install app / Add to Home screen.</p>
-        <p>Install screenshots from the gallery land in a later wave.</p>
-      </div>`
-      }
-    </section>
-
-    <section class="section faq" id="faq" aria-labelledby="faq-h">
-      <h2 id="faq-h">FAQ</h2>
-      ${faqHtml}
-      ${
-        disclaimer
-          ? `<details><summary>Important note</summary><p>${esc(disclaimer)}</p></details>`
-          : ''
-      }
-    </section>
-
-    <section class="section changelog" id="changelog" aria-labelledby="changelog-h">
-      <h2 id="changelog-h">What's new</h2>
-      ${changelogHtml}
-      ${
-        app.github
-          ? `<p><a href="${esc(app.github)}">Full changelog / source on GitHub</a></p>`
-          : ''
-      }
-    </section>
-
-    <footer class="site-footer">
-      <nav aria-label="Site">
-        <a href="/">Capricorn OS</a>
-        <a href="/support.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        ${app.github ? `<a href="${esc(app.github)}">GitHub</a>` : ''}
-        <a href="/apps/">All Caps</a>
-      </nav>
-      <p>Capricorn Systems · ${esc(app.name)}</p>
-      <div class="rail" aria-label="Other Caps" id="otherCaps"></div>
-    </footer>
+function topbar(app, links = true) {
+  return `<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="/" aria-label="Capricorn OS home"><img src="/assets/logo.svg" alt="" width="22" height="22"><span>Capricorn</span></a>
+  ${links ? `<nav class="top__nav" aria-label="Sections"><a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>` : '<nav class="top__nav" aria-label="Site"><a href="/">Capricorn OS</a><a href="/support.html">Support</a></nav>'}
+  <div class="seg seg--theme" role="group" aria-label="Colour scheme">
+    <button type="button" data-scheme="auto" aria-pressed="true">Auto</button><button type="button" data-scheme="light" aria-pressed="false">Light</button><button type="button" data-scheme="dark" aria-pressed="false">Dark</button>
   </div>
-  ${pageScript()}
-</body>
-</html>`;
+  ${app && !app.privateBeta ? `<a class="btn btn--fill btn--sm top__cta" href="${esc(app.url)}">Open</a>` : ''}
+</header>`;
 }
 
-function renderIndex(apps, versions) {
-  const cards = apps
-    .map((a) => {
-      const ver = versions[a.slug] || a.ver;
-      const badge = a.privateBeta ? ' · Private beta' : '';
-      return `<a class="card-app" href="/apps/${esc(a.slug)}/" style="--accent:${esc(a.accent)}">
-        <img src="/apps/${esc(a.slug)}/assets/icon.svg" alt="" width="48" height="48">
-        <strong>${esc(a.name)}${esc(badge)}</strong>
-        <span>${esc(DESC_41[a.slug] || a.tagline)}</span>
-        <span class="ver">v${esc(ver)}</span>
-      </a>`;
-    })
-    .join('\n');
-
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Cap apps — Capricorn Systems</title>
-  <meta name="description" content="Mini-sites for every Capricorn Cap app.">
-  <link rel="canonical" href="${BASE}/apps/">
-  <link rel="stylesheet" href="/apps/assets/minisite.css">
-</head>
-<body>
-  <div class="wrap">
-    <header class="site-header">
-      <a class="brand" href="/"><img src="/assets/logo.svg" alt="" width="28" height="28">Capricorn</a>
-      <button type="button" class="scheme-toggle" id="schemeToggle" aria-label="Toggle colour scheme">Light / Dark</button>
-    </header>
-    <h1 style="margin:1rem 0 .35rem;letter-spacing:-0.02em">Cap apps</h1>
-    <p style="color:var(--muted);margin:0 0 1rem;max-width:40rem">One mini-site per Cap. Open an app, try it in Capricorn OS, or read privacy and FAQ.</p>
-    <div class="index-grid">${cards}</div>
-    <footer class="site-footer">
-      <nav><a href="/">Home</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a></nav>
-      <p>Capricorn Systems</p>
-    </footer>
-  </div>
-  ${pageScript()}
-</body>
-</html>`;
+function deviceFigure(shot, cls = '') {
+  if (!shot) return '';
+  return `<figure class="dev dev--${shot.device} ${cls}">
+    ${shot.device === 'mac' ? '<span class="dev__bar" aria-hidden="true"><i></i><i></i><i></i></span>' : ''}
+    <img src="${esc(shot.src)}" alt="${esc(shot.screen)} screen" width="${shot.w}" height="${shot.h}" decoding="async" ${cls.includes('eager') ? 'fetchpriority="high"' : 'loading="lazy"'}>
+  </figure>`;
 }
 
-function redirectHtml(slug, name) {
-  const target = `${BASE}/apps/${slug}/`;
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="refresh" content="0;url=${target}">
-  <title>${esc(name)} → Capricorn Systems</title>
-  <link rel="canonical" href="${target}">
-  <script>location.replace(${JSON.stringify(target)});</script>
-</head>
-<body>
-  <p><a href="${target}">Continue to ${esc(name)}</a></p>
+function heroVisual(shots) {
+  const pick = (theme, device) => shots.find((s) => s.theme === theme && s.device === device)
+    || shots.find((s) => s.device === device); // single-scheme apps show their one look in both page schemes
+  const out = [];
+  for (const theme of ['light', 'dark']) {
+    const phone = pick(theme, 'iphone');
+    const mac = pick(theme, 'mac');
+    out.push(`<div class="hero__visual" data-shot-theme="${theme}" aria-hidden="true">
+      ${mac ? deviceFigure(mac, 'hero__mac eager') : ''}${phone ? deviceFigure(phone, 'hero__phone eager') : ''}
+    </div>`);
+  }
+  return out.join('');
+}
+
+function renderApp(app, ctx) {
+  const { version, shots, log, pal, others } = ctx;
+  const desc = DESC[app.slug] || app.tagline;
+  const priv = PRIVACY[app.slug];
+  const repo = REPO[app.slug];
+  const groups = [];
+  const tourTheme = shots.schemes?.includes('light') ? 'light' : 'dark';
+  for (const s of shots.filter((x) => x.theme === tourTheme && x.device === 'iphone')) {
+    let g = groups.find((x) => x.name === s.group);
+    if (!g) groups.push((g = { name: s.group, items: [] }));
+    if (!g.items.some((i) => i.screen === s.screen)) g.items.push(s);
+  }
+  const screenCount = groups.reduce((n, g) => n + g.items.length, 0);
+  const faq = [
+    ['Is it free?', app.privateBeta ? 'DeeFoodie is free for invited beta testers.' : 'Yes. Every feature, no ads, no subscriptions, no account.'],
+    ['Where is my data?', `${priv.stays} It lives in this browser on this device — clearing site data erases it, so export a backup first.`],
+    ...(FAQ[app.slug] || []),
+    ...(app.privateBeta ? [] : [['Does it work offline?', app.slug === 'ledgercap' ? 'Your portfolio does. Market prices need a connection.' : app.slug === 'travelcap' ? 'Your trips and documents do. Search, maps and weather need a connection.' : 'Yes, after the first visit.']]),
+  ];
+  const data = JSON.stringify(shots).replace(/</g, '\\u003c');
+  return `${head({ title: `${app.name} — ${desc}`, desc: `${desc} ${app.pitch}`, canonical: `${BASE}/apps/${app.slug}/`, og: `${BASE}/apps/${app.slug}/og.png`, pal,
+    extra: `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: app.name, description: desc, applicationCategory: app.category, operatingSystem: 'Web, iOS, iPadOS, macOS, Android (PWA)', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, softwareVersion: version, url: app.url || `${BASE}/apps/${app.slug}/`, publisher: { '@type': 'Organization', name: 'Capricorn Systems' } })}</script>` })}
+<body data-app="${esc(app.slug)}" data-repo="${esc(repo)}">
+${topbar(app)}
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero__text">
+      <img class="hero__icon" src="/apps/assets/icons/${esc(app.slug)}.svg" alt="" width="88" height="88">
+      <p class="eyebrow">${esc(app.category)}${app.privateBeta ? ' · Private beta' : ''}</p>
+      <h1 id="h1">${esc(app.name)}</h1>
+      <p class="hero__lead">${esc(desc)}</p>
+      <p class="hero__pitch">${esc(app.pitch)}</p>
+      <div class="hero__cta">
+        ${app.privateBeta
+          ? `<a class="btn btn--fill" href="/support.html#deefoodie">Ask about the beta</a>`
+          : `<a class="btn btn--fill" href="${esc(app.url)}">Open ${esc(app.name)}</a><a class="btn btn--ghost" href="/?app=${esc(app.slug)}">Try it in Capricorn OS</a>`}
+      </div>
+      <p class="hero__meta"><span class="chip"><span class="dot" aria-hidden="true"></span><span data-live-version="${esc(version)}">v${esc(version)}</span></span><span>Free</span><span>No account</span><span>No ads or analytics</span></p>
+    </div>
+    ${heroVisual(shots)}
+  </section>
+
+  <section class="band" aria-label="Highlights">
+    ${(app.highlights || []).map((h) => `<span>${esc(h)}</span>`).join('')}
+  </section>
+
+  ${shots.length ? `<section class="section" id="screens" aria-labelledby="screens-h">
+    <div class="section__head">
+      <div><h2 id="screens-h">Every screen</h2><p>${screenCount} screens from ${esc(app.name)} ${esc(version)}, captured ${shots.schemes.length > 1 ? 'in light and dark ' : ''}on iPhone${shots.some((x) => x.device === 'ipad') ? ', iPad' : ''} and Mac.${shots.schemeNote ? ` ${esc(shots.schemeNote)}` : ''}</p></div>
+      <div class="gallery__tools">
+        <div class="seg" role="group" aria-label="Device" data-gal="device"><button type="button" data-v="iphone" aria-pressed="true">iPhone</button><button type="button" data-v="ipad" aria-pressed="false">iPad</button><button type="button" data-v="mac" aria-pressed="false">Mac</button></div>
+        ${shots.schemes.length > 1 ? '<div class="seg" role="group" aria-label="Screenshot colours" data-gal="theme"><button type="button" data-v="light" aria-pressed="true">Light</button><button type="button" data-v="dark" aria-pressed="false">Dark</button></div>' : ''}
+      </div>
+    </div>
+    <div class="groups" role="tablist" aria-label="Screen groups" id="galGroups"></div>
+    <div class="rail-wrap">
+      <button type="button" class="rail__btn rail__btn--prev" aria-label="Previous screens" data-rail="-1">‹</button>
+      <ol class="rail" id="galRail" aria-label="${esc(app.name)} screens"></ol>
+      <button type="button" class="rail__btn rail__btn--next" aria-label="Next screens" data-rail="1">›</button>
+    </div>
+    <noscript><p>Turn on JavaScript to browse the screens, or open <a href="${esc(app.url)}">${esc(app.name)}</a>.</p></noscript>
+  </section>` : ''}
+
+  <section class="section" id="features" aria-labelledby="features-h">
+    <div class="section__head"><div><h2 id="features-h">What it does</h2><p>${esc(app.hook)}</p></div></div>
+    <ul class="features">${(app.features || []).map((f, i) => `<li><span class="features__n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span>${esc(f)}</span></li>`).join('')}</ul>
+    ${groups.length ? `<div class="tour">${groups.map((g) => `<div class="tour__group"><h3>${esc(g.name)}</h3><ul>${g.items.map((s) => `<li><strong>${esc(s.screen)}</strong>${s.caption ? `<span>${esc(s.caption)}</span>` : ''}</li>`).join('')}</ul></div>`).join('')}</div>` : ''}
+  </section>
+
+  <section class="section" id="privacy" aria-labelledby="privacy-h">
+    <div class="section__head"><div><h2 id="privacy-h">Privacy, plainly</h2><p>Taken from ${esc(app.name)}’s own privacy page.</p></div></div>
+    <div class="privacy">
+      <div class="card"><h3>Stays on your device</h3><p>${esc(priv.stays)}</p></div>
+      <div class="card"><h3>May leave your device</h3><dl>${priv.network.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>
+      <div class="card"><h3>Never</h3><ul class="never"><li>Analytics or trackers</li><li>Ads</li><li>An account to use it</li><li>Selling or sharing your data</li></ul></div>
+    </div>
+    ${app.url ? `<p class="fine"><a href="${esc(app.url)}privacy.html">Read the full privacy page</a></p>` : ''}
+  </section>
+
+  ${app.privateBeta ? '' : `<section class="section" id="install" aria-labelledby="install-h">
+    <div class="section__head"><div><h2 id="install-h">Put it on your Home Screen</h2><p>${esc(app.name)} is a web app — installing takes a few seconds and it opens full-screen, offline.</p></div></div>
+    <ol class="install">
+      <li class="card"><h3>iPhone &amp; iPad</h3><p>Open ${esc(app.name)} in Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>.</p></li>
+      <li class="card"><h3>Mac</h3><p>In Safari choose <b>File → Add to Dock</b>. In Chrome or Edge, click the install icon in the address bar.</p></li>
+      <li class="card"><h3>Android</h3><p>In Chrome, open the <b>⋮</b> menu and tap <b>Install app</b>.</p></li>
+    </ol>
+  </section>`}
+
+  <section class="section" id="faq" aria-labelledby="faq-h">
+    <div class="section__head"><div><h2 id="faq-h">Questions</h2></div></div>
+    <div class="faq">${faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
+  </section>
+
+  <section class="section" id="new" aria-labelledby="new-h">
+    <div class="release card">
+      <div><h2 id="new-h">Latest release</h2><p><span class="chip"><span data-live-version="${esc(version)}">v${esc(version)}</span></span>${log[0]?.date ? ` <time datetime="${esc(log[0].date)}">${esc(new Date(log[0].date + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }))}</time>` : ''}</p></div>
+      ${app.privateBeta ? '' : `<a class="btn btn--ghost btn--sm" href="https://github.com/shamikhahmed/${esc(repo)}/blob/main/CHANGELOG.md">Release history</a>`}
+    </div>
+  </section>
+
+  ${DISCLAIMER[app.slug] ? `<p class="disclaimer">${esc(DISCLAIMER[app.slug])}</p>` : ''}
+</main>
+<footer class="foot">
+  <p class="foot__label">More Caps</p>
+  <ul class="foot__caps">${others.map((o) => `<li><a href="/apps/${esc(o.slug)}/"><img src="/apps/assets/icons/${esc(o.slug)}.svg" alt="" width="40" height="40" loading="lazy"><span>${esc(o.name)}</span></a></li>`).join('')}</ul>
+  <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
+  <p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p>
+</footer>
+<dialog class="lightbox" id="lightbox" aria-label="Screenshot">
+  <button type="button" class="lightbox__close" data-lb="close" aria-label="Close">✕</button>
+  <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb="-1" aria-label="Previous">‹</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lightbox__nav lightbox__nav--next" data-lb="1" aria-label="Next">›</button>
+</dialog>
+<script type="application/json" id="shots" data-schemes="${esc(shots.schemes.join(','))}">${data}</script>
+<script src="/apps/assets/minisite.js" defer></script>
 </body>
 </html>
 `;
 }
 
-function ensureDir(p) {
-  mkdirSync(p, { recursive: true });
+function renderIndex(apps, versions) {
+  const pal = palette({ accent: '#c9a227', accent2: '#8a6a1a', bg: '#121110' });
+  const cards = apps.map((a) => `<li><a class="capcard" href="/apps/${esc(a.slug)}/" style="--c:${esc(a.accent)}">
+    <img src="/apps/assets/icons/${esc(a.slug)}.svg" alt="" width="64" height="64" loading="lazy">
+    <span class="capcard__name">${esc(a.name)}${a.privateBeta ? ' <em>Private beta</em>' : ''}</span>
+    <span class="capcard__desc">${esc(DESC[a.slug] || a.tagline)}</span>
+    <span class="capcard__meta">${esc(a.category)} · v${esc(versions[a.slug] || a.ver)}</span>
+  </a></li>`).join('');
+  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Fifteen Cap apps by Capricorn Systems. Each one looks different; all of them keep your data on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
+<body>
+${topbar(null, false)}
+<main id="main">
+  <section class="hero hero--index" aria-labelledby="h1">
+    <div class="hero__text">
+      <p class="eyebrow">Capricorn Systems</p>
+      <h1 id="h1">Fifteen Caps. One rule.</h1>
+      <p class="hero__lead">Every Cap looks and feels different. All of them keep your data on your device — no accounts, no ads, no analytics.</p>
+      <div class="hero__cta"><a class="btn btn--fill" href="/">Open Capricorn OS</a><a class="btn btn--ghost" href="/support.html">Support</a></div>
+    </div>
+  </section>
+  <section class="section" aria-label="All Caps"><ul class="capgrid">${cards}</ul></section>
+</main>
+<footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
+<script src="/apps/assets/minisite.js" defer></script>
+</body>
+</html>
+`;
 }
 
-function copyIcon(app, destDir) {
-  ensureDir(destDir);
-  const candidates = [
-    join(LAB, app.icon || ''),
-    join(LAB, 'assets', 'icons', `${app.slug}.svg`),
-    join(HUB, 'assets', 'icons', `${app.slug}.svg`),
-    join(HUB, 'assets', 'icons', `${app.slug}.png`),
-  ].filter(Boolean);
-  const dest = join(destDir, 'icon.svg');
-  for (const src of candidates) {
-    if (src && existsSync(src)) {
-      if (src.endsWith('.svg')) {
-        cpSync(src, dest);
-        return 'assets/icon.svg';
-      }
-      // PNG fallback: still reference hub path later
-      cpSync(src, join(destDir, basename(src)));
-      return `assets/${basename(src)}`;
-    }
-  }
-  // Minimal placeholder SVG using accent
-  const glyph = esc(String(app.symbol || app.name?.[0] || '?').slice(0, 1));
-  const fill = app.accent || '#5b8dee';
-  writeFileSync(
-    dest,
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
-      `<rect width="64" height="64" rx="14" fill="${fill}"/>` +
-      `<text x="32" y="38" text-anchor="middle" font-size="22" fill="#fff" font-family="system-ui">${glyph}</text>` +
-      '</svg>\n',
-  );
-  return 'assets/icon.svg';
+const redirect = (slug, name) => {
+  const to = `${BASE}/apps/${slug}/`;
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0;url=${to}"><title>${esc(name)} — Capricorn Systems</title><link rel="canonical" href="${to}">
+<script>location.replace(${JSON.stringify(to)})</script></head>
+<body><p><a href="${to}">Continue to ${esc(name)}</a></p></body></html>
+`;
+};
+
+/* ── main ────────────────────────────────────────────────────────────── */
+
+const { APPS } = await import(pathToFileURL(join(LAB, 'js', 'products.js')).href);
+mkdirSync(join(OUT, 'assets', 'icons'), { recursive: true });
+cpSync(join(LAB, 'scripts', 'minisite', 'minisite.css'), join(OUT, 'assets', 'minisite.css'));
+cpSync(join(LAB, 'scripts', 'minisite', 'minisite.js'), join(OUT, 'assets', 'minisite.js'));
+for (const a of APPS) cpSync(join(LAB, 'assets', 'icons', `${a.slug}.svg`), join(OUT, 'assets', 'icons', `${a.slug}.svg`));
+rmSync(join(OUT, 'assets', 'gallery'), { recursive: true, force: true });
+
+const versions = {};
+const ogJobs = [];
+for (const app of APPS) {
+  const repoPath = join(FLEET, REPO[app.slug]);
+  const version = readJson(join(repoPath, 'VERSION.json'))?.version || app.ver;
+  versions[app.slug] = version;
+  const dir = join(OUT, app.slug);
+  rmSync(join(dir, 'assets'), { recursive: true, force: true }); // previous generator's layout
+  mkdirSync(dir, { recursive: true });
+  const shots = ingestGallery(repoPath, app.slug);
+  const pal = palette(app);
+  const others = APPS.filter((o) => o.slug !== app.slug);
+  writeFileSync(join(dir, 'index.html'), renderApp(app, { version, shots, log: latestRelease(readText(join(repoPath, 'CHANGELOG.md'))), pal, others }));
+  writeFileSync(join(HUB, `${app.slug}.html`), redirect(app.slug, app.name));
+  ogJobs.push({ app, pal, shot: shots.find((s) => s.theme === 'dark' && s.device === 'iphone') || shots[0], out: join(dir, 'og.png') });
+  const kb = (spawnSync('du', ['-sk', join(dir)]).stdout.toString().split('\t')[0]) || '?';
+  console.log(`✓ apps/${app.slug}/  v${version}  ${shots.length} shots  ${kb} KB`);
+}
+writeFileSync(join(OUT, 'index.html'), renderIndex(APPS, versions));
+writeFileSync(join(OUT, 'og-jobs.json'), JSON.stringify(ogJobs.map((j) => ({ slug: j.app.slug, name: j.app.name, desc: DESC[j.app.slug] || j.app.tagline, bg: j.pal.dark.bg, accent: j.pal.dark.accent, glow: j.pal.glow, shot: j.shot ? join(OUT, j.app.slug, j.shot.src) : null, icon: join(OUT, 'assets', 'icons', `${j.app.slug}.svg`), out: j.out }))));
+
+// sitemap: keep existing entries, ensure /apps/ pages are listed
+const smPath = join(HUB, 'sitemap.xml');
+let sm = readText(smPath);
+if (sm) {
+  const urls = [`${BASE}/apps/`, ...APPS.map((a) => `${BASE}/apps/${a.slug}/`)];
+  for (const u of urls) if (!sm.includes(`<loc>${u}</loc>`)) sm = sm.replace('</urlset>', `  <url><loc>${u}</loc><priority>0.8</priority></url>\n</urlset>`);
+  writeFileSync(smPath, sm);
 }
 
-async function main() {
-  const productsUrl = pathToFileURL(join(LAB, 'js', 'products.js')).href;
-  const { APPS } = await import(productsUrl);
-  if (!Array.isArray(APPS) || !APPS.length) throw new Error('products.js APPS empty');
-
-  ensureDir(APPS_OUT);
-  ensureDir(join(APPS_OUT, 'assets'));
-  writeFileSync(join(APPS_OUT, 'assets', 'minisite.css'), sharedCss());
-
-  const supportHtml = readText(join(HUB, 'support.html'));
-  const versions = {};
-  const generated = [];
-
-  for (const app of APPS) {
-    const repoName = SLUG_TO_REPO[app.slug];
-    const repoPath = repoName ? join(FLEET, repoName) : null;
-    const versionJson = repoPath ? readJson(join(repoPath, 'VERSION.json')) : null;
-    const version = versionJson?.version || versionJson?.ver || app.ver || '0.0.0';
-    versions[app.slug] = version;
-
-    const featuresMd = repoPath ? readText(join(repoPath, 'FEATURES.md')) : '';
-    let features = parseFeaturesS(featuresMd);
-    if (!features.length && Array.isArray(app.features)) features = app.features.slice(0, 8);
-
-    const changelogMd = repoPath ? readText(join(repoPath, 'CHANGELOG.md')) : '';
-    const changelog = parseChangelogLatest(changelogMd, 5);
-
-    const privacyHtml =
-      (repoPath && readText(join(repoPath, 'privacy.html'))) ||
-      (repoPath && readText(join(repoPath, 'PRIVACY.md'))) ||
-      '';
-    const network = extractNetworkList(privacyHtml, '');
-
-    const faqs = parseSupportFaqs(supportHtml, app.name);
-    const gallery = repoPath ? loadGallery(repoPath) : null;
-
-    const outDir = join(APPS_OUT, app.slug);
-    ensureDir(outDir);
-    const iconRel = copyIcon(app, join(outDir, 'assets'));
-    const galleryDir = join(outDir, 'assets', 'gallery');
-    const galleryShots = gallery ? copyGalleryAssets(gallery, galleryDir) : [];
-    const ogImage =
-      galleryShots[0]?.localFile
-        ? `${BASE}/apps/${app.slug}/assets/gallery/${galleryShots[0].localFile}`
-        : '';
-
-    const html = renderAppPage(app, {
-      version,
-      features,
-      changelog,
-      network,
-      faqs,
-      galleryShots,
-      iconHref: `/apps/${app.slug}/${iconRel}`,
-      privateBeta: !!(app.privateBeta || app.slug === 'deefoodie'),
-      ogImage,
-    });
-    writeFileSync(join(outDir, 'index.html'), html);
-
-    // Legacy redirect pages (preserve URL, amend target per N-1)
-    const legacy = join(HUB, `${app.slug}.html`);
-    writeFileSync(legacy, redirectHtml(app.slug, app.name));
-
-    generated.push(app.slug);
-    console.log(`✓ apps/${app.slug}/  v${version}${app.privateBeta ? ' (private-beta)' : ''}`);
-  }
-
-  writeFileSync(join(APPS_OUT, 'index.html'), renderIndex(APPS, versions));
-  console.log(`✓ apps/index.html (${generated.length} Caps)`);
-  console.log('Mini-sites built →', APPS_OUT);
+// OG cards (1200×630) — optional, needs a local playwright-core build
+const pwCore = process.env.PW_CORE || join(FLEET, 'MasteryCap', 'node_modules', 'playwright-core');
+if (existsSync(join(pwCore, 'index.mjs'))) {
+  spawnSync(process.execPath, [join(LAB, 'scripts', 'minisite', 'og.mjs'), join(OUT, 'og-jobs.json'), pwCore], { stdio: 'inherit' });
+} else {
+  console.warn('og: playwright-core not found — og.png not regenerated');
 }
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+rmSync(join(OUT, 'og-jobs.json'), { force: true });
+console.log(`✓ apps/index.html (${APPS.length} Caps) → ${OUT}`);
