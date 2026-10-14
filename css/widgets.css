@@ -6,20 +6,25 @@
   gap: var(--widget-gap);
   min-height: 0;
   flex: 1;
-  overflow: hidden;
-}
-
-.widget-grid.widget-grid--scroll {
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* room to scroll the last row clear of the floating dock */
+  padding: 2px 4px calc(var(--dock-safe) + 0.75rem) 2px;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--os-gold) 40%, transparent) transparent;
 }
 
-.widget-grid.widget-grid--scroll::-webkit-scrollbar { width: 5px; }
-.widget-grid.widget-grid--scroll::-webkit-scrollbar-thumb {
+.widget-grid::-webkit-scrollbar { width: 5px; }
+.widget-grid::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--os-gold) 45%, transparent);
   border-radius: 99px;
+}
+
+/* soft fade where more widgets wait below the fold */
+.widget-grid.has-more {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 3.5rem), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 3.5rem), transparent);
 }
 
 .widget-row {
@@ -37,10 +42,9 @@
 
 .widget-row--apps {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(4, minmax(0, var(--widget-app-row-h, 156px)));
+  grid-auto-rows: minmax(var(--widget-app-row-h, 168px), auto);
   grid-auto-flow: dense;
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
 }
 
 .widget-cell {
@@ -574,18 +578,21 @@ body.cc-open .notify-stack {
 
 @media (max-width: 1100px) {
   .task__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .widget-row--apps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(5, minmax(0, 1fr));
-  }
+  .widget-row--apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .widget-cell--medium { grid-column: span 2; }
 }
 
+@media (min-width: 1700px) {
+  .widget-row--apps { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+@media (max-height: 760px) {
+  :root { --widget-h-sys: 188px; --widget-app-row-h: 156px; }
+}
+
 @media (max-width: 900px) {
-  .widget-grid { overflow-y: auto; }
   .widget-row--system { grid-template-columns: 1fr; }
   .widget-row--apps {
-    grid-template-rows: none;
     grid-auto-rows: minmax(140px, auto);
     height: auto;
   }

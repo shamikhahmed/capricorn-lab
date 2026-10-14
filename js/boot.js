@@ -1,4 +1,5 @@
 import { APPS } from './products.js';
+import { getSkinDef } from './theme.js';
 
 function scanLines(perLine = 5) {
   const lines = [];
@@ -12,7 +13,7 @@ const FULL_BOOT = (() => {
   const scans = scanLines();
   const head = [
     { text: 'Capricorn BIOS v∞.1 — sovereign build', delay: 0 },
-    { text: 'Checking local storage... OK (0 bytes sent)', delay: 280 },
+    { text: 'Checking local storage... OK (stays on this device)', delay: 280 },
     { text: 'Loading constellation drivers... OK', delay: 560 },
     { text: 'Mounting /device/sovereignty... OK', delay: 840 },
   ];
@@ -22,7 +23,7 @@ const FULL_BOOT = (() => {
   }));
   const afterScan = 1120 + scans.length * 240;
   const tail = [
-    { text: 'Network stack: <span class="gold">DISABLED BY DESIGN</span>', delay: afterScan },
+    { text: 'Network: <span class="gold">FIRST-PARTY ONLY</span>', delay: afterScan },
     { text: 'Analytics daemon: <span class="dim">not found (good)</span>', delay: afterScan + 280 },
     { text: `Booting Capricorn OS... ${APPS.length} apps`, delay: afterScan + 560 },
   ];
@@ -30,13 +31,15 @@ const FULL_BOOT = (() => {
 })();
 
 const QUICK_BOOT = {
-  lines: [
-    { text: 'Unlock verified — mounting desktop...', delay: 0 },
-    { text: `${APPS.length} apps verified local · 0 bytes sent`, delay: 140 },
-    { text: 'Network stack: <span class="gold">DISABLED BY DESIGN</span>', delay: 280 },
-    { text: 'Analytics daemon: <span class="dim">not found (good)</span>', delay: 400 },
-    { text: `Capricorn OS ready — ${APPS.length} worlds online`, delay: 520 },
-  ],
+  get lines() {
+    return [
+      { text: 'Unlock verified — mounting desktop...', delay: 0 },
+      { text: `Theme: <span class="gold">${getSkinDef().name.toUpperCase()}</span> · ${APPS.length} Caps mounted`, delay: 140 },
+      { text: 'Network: <span class="gold">FIRST-PARTY ONLY</span>', delay: 280 },
+      { text: 'Trackers: <span class="dim">none loaded (good)</span>', delay: 400 },
+      { text: `Capricorn OS ready — ${APPS.length} worlds online`, delay: 520 },
+    ];
+  },
   autoMs: 880,
   logoMs: 420,
 };

@@ -1,11 +1,10 @@
 import { sfx } from './sounds.js';
 import { notify, getNotifyHistory } from './notifications.js';
-import { setWallpaperVariant, getWallpaperVariant } from './wallpaper.js';
+import { THEMES, getSkin, getSkinDef, applySkin, surpriseSkin } from './theme.js';
 import { openApp, openSystem, getOpenWindows, focusWindow } from './window-manager.js';
+import { initWallpaper } from './wallpaper.js';
 
 /* ── Right-click context menu (macOS style) ─────────────────────────── */
-
-const WALLPAPER_CYCLE = ['warm', 'cool', 'mono'];
 
 function initContextMenu() {
   const desktop = document.getElementById('desktop');
@@ -18,12 +17,14 @@ function initContextMenu() {
   const items = () => [
     { label: 'About This Device', run: () => openSystem('about') },
     { label: 'Applications', run: () => openSystem('apps') },
-    { label: `Change Wallpaper (${getWallpaperVariant()})`, run: () => {
-      const cur = WALLPAPER_CYCLE.indexOf(getWallpaperVariant());
-      const next = WALLPAPER_CYCLE[(cur + 1) % WALLPAPER_CYCLE.length];
-      setWallpaperVariant(next);
-      notify({ title: 'Wallpaper', body: `Switched to ${next}. Rendered on-device, obviously.`, icon: 'assets/logo.svg', duration: 2600 });
+    { label: 'Appearance…', run: () => openSystem('appearance') },
+    { label: `Next Theme (now ${getSkinDef().name})`, run: (pt) => {
+      const i = THEMES.findIndex((t) => t.id === getSkin());
+      const next = THEMES[(i + 1) % THEMES.length];
+      applySkin(next.id, pt);
+      notify({ title: next.name, body: next.mood, icon: 'assets/logo.svg', duration: 2600 });
     } },
+    { label: 'Surprise Me', run: (pt) => surpriseSkin(pt) },
     { label: 'Mission Control', run: () => toggleMissionControl() },
     { sep: true },
     { label: 'Lock Screen', run: () => document.dispatchEvent(new CustomEvent('cap:lock-device')) },
@@ -48,7 +49,7 @@ function initContextMenu() {
       b.type = 'button';
       b.setAttribute('role', 'menuitem');
       b.textContent = it.label;
-      b.addEventListener('click', () => { close(); sfx.click(); it.run(); });
+      b.addEventListener('click', (ev) => { close(); sfx.click(); it.run({ x: ev.clientX, y: ev.clientY }); });
       menu.appendChild(b);
     });
     document.body.appendChild(menu);
@@ -111,13 +112,19 @@ function initScreensaver() {
   let saver = null;
   let clockTimer = 0;
 
+  let stopWall = null;
+
   const dismiss = () => {
     if (!saver) return;
     saver.classList.add('is-out');
     const s = saver;
     saver = null;
     clearInterval(clockTimer);
-    setTimeout(() => s.remove(), 450);
+    setTimeout(() => {
+      stopWall?.();
+      stopWall = null;
+      s.remove();
+    }, 450);
     arm();
   };
 
@@ -128,12 +135,15 @@ function initScreensaver() {
     saver = document.createElement('div');
     saver.className = 'screensaver';
     saver.innerHTML = `
+      <canvas class="screensaver__wall" aria-hidden="true"></canvas>
       <div class="screensaver__drift">
         <img src="assets/logo.svg" alt="" width="64" height="64">
         <time class="num"></time>
-        <p>0 bytes sent · press any key</p>
+        <p>Capricorn OS · press any key</p>
       </div>`;
     document.body.appendChild(saver);
+    // the active theme's live wallpaper, full screen — the screensaver *is* the theme
+    stopWall = initWallpaper(saver.querySelector('.screensaver__wall'));
     const t = saver.querySelector('time');
     const tick = () => { t.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
     tick();
@@ -220,10 +230,14 @@ function initTour() {
   const steps = [
     [1500, () => notify({ title: 'Welcome to the tour', body: 'Sit back — the device drives itself for 30 seconds.', icon: 'assets/logo.svg', duration: 4000 })],
     [4500, () => openApp('vaultcap')],
-    [9500, () => openApp('ledgercap')],
-    [14500, () => toggleMissionControl()],
-    [18500, () => { closeMissionControl(); openSystem('apps'); }],
-    [26000, () => notify({ title: 'Tour over', body: 'Everything you saw ran on your device. Zero servers. Explore freely.', icon: 'assets/logo.svg', duration: 6000 })],
+    [8500, () => openApp('ledgercap')],
+    [12500, () => toggleMissionControl()],
+    [16000, () => { closeMissionControl(); openSystem('appearance'); }],
+    [19000, () => applySkin('synthwave')],
+    [22500, () => applySkin('aurora')],
+    [26000, () => applySkin('truckart')],
+    [29500, () => { applySkin('capricorn-light'); openSystem('privacy'); }],
+    [33000, () => notify({ title: 'Tour over', body: 'Ten themes, fifteen Caps, zero trackers. Explore freely.', icon: 'assets/logo.svg', duration: 6000 })],
   ];
   steps.forEach(([at, fn]) => setTimeout(fn, at));
 }

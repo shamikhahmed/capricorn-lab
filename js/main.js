@@ -9,24 +9,42 @@ import { initWidgets, layoutWidgetHeights } from './widgets.js';
 import { initSocial } from './social.js';
 import { initSounds, sfx } from './sounds.js';
 import { initControlCenter, initAppleMenu } from './control-center.js';
-import { initTheme } from './theme.js';
+import { initTheme, applySkin, surpriseSkin } from './theme.js';
 import { welcomeToOS } from './notifications.js';
 import { initDesktopExtras } from './desktop-extras.js';
 import { SYSTEM, APPS } from './products.js';
+import { refreshCatalog } from './live-catalog.js';
 
-function isMobileViewport() {
-  return window.matchMedia('(max-width: 768px)').matches;
+/**
+ * Three surfaces:
+ *  - mobile  (phones, < 600px)            → iOS home
+ *  - tablet  (iPad / touch 600–1366, or any window 600–900) → iPadOS home
+ *  - desktop (mouse/trackpad ≥ 900px)     → Capricorn OS desktop
+ * ?view=mobile|tablet|desktop forces one.
+ */
+function autoViewMode() {
+  const w = window.innerWidth;
+  const coarse = window.matchMedia('(pointer: coarse)').matches
+    || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+  if (w < 600) return 'mobile';
+  if (coarse && w <= 1366) return 'tablet';
+  if (w < 900) return 'tablet';
+  return 'desktop';
 }
 
 export function getViewMode() {
   const forced = new URLSearchParams(location.search).get('view');
-  if (forced === 'mobile' || forced === 'ios') return 'mobile';
+  if (forced === 'mobile' || forced === 'ios' || forced === 'phone') return 'mobile';
+  if (forced === 'tablet' || forced === 'ipad') return 'tablet';
   if (forced === 'desktop' || forced === 'mac') return 'desktop';
-  return isMobileViewport() ? 'mobile' : 'desktop';
+  return autoViewMode();
 }
+
+const isHomeMode = (m) => m === 'mobile' || m === 'tablet';
 
 function applyViewMode(mode) {
   document.documentElement.dataset.view = mode;
+  document.dispatchEvent(new CustomEvent('cap:view', { detail: { mode } }));
 }
 
 let desktopReady = false;
@@ -86,6 +104,10 @@ document.addEventListener('cap:open-system', (e) => {
 
 function handleCommand(cmd) {
   if (cmd.type === 'app') openApp(cmd.id);
+  else if (cmd.type === 'skin') {
+    if (cmd.id === 'surprise') surpriseSkin();
+    else applySkin(cmd.id);
+  } else if (cmd.type === 'lock') document.dispatchEvent(new CustomEvent('cap:lock-device'));
   else openSystem(cmd.id);
 }
 
@@ -113,6 +135,7 @@ function enterDesktop({ welcome = false } = {}) {
     startMenubarClock();
     initDesktopExtras();
     desktopReady = true;
+    refreshCatalog();
     if (welcome) welcomeToOS();
     if (new URLSearchParams(location.search).get('pitch')) {
       setTimeout(() => openSystem('apps'), 700);
@@ -129,13 +152,14 @@ function enterMobile({ welcome = false } = {}) {
   document.getElementById('mobile').hidden = false;
   document.getElementById('desktop')?.setAttribute('aria-hidden', 'true');
   document.getElementById('mobile')?.setAttribute('aria-hidden', 'false');
-  applyViewMode('mobile');
+  applyViewMode(currentMode === 'tablet' ? 'tablet' : 'mobile');
 
   if (!mobileReady) {
     initSounds();
     initIOSHome();
     mobileReady = true;
-    document.title = `${SYSTEM.name}`;
+    document.title = `${SYSTEM.name} — ${SYSTEM.tagline}`;
+    refreshCatalog();
     if (welcome) welcomeToOS();
   }
 }
@@ -144,7 +168,7 @@ function onUnlockFromLock({ skipBoot = false } = {}) {
   initSounds();
   signalLive();
   if (skipBoot && (desktopReady || mobileReady)) {
-    if (currentMode === 'mobile') enterMobile();
+    if (isHomeMode(currentMode)) enterMobile();
     else enterDesktop();
     return;
   }
@@ -173,7 +197,7 @@ function signalLive() {
 }
 
 function startOS() {
-  if (currentMode === 'mobile') {
+  if (isHomeMode(currentMode)) {
     enterMobile({ welcome: true });
     return;
   }
@@ -208,9 +232,16 @@ bootstrap();
 
 window.addEventListener('resize', () => {
   if (new URLSearchParams(location.search).get('view')) return;
-  const mode = isMobileViewport() ? 'mobile' : 'desktop';
+  const mode = autoViewMode();
   if (mode === currentMode) return;
+  const prev = currentMode;
   currentMode = mode;
-  if (mode === 'mobile') enterMobile();
+  // lock screen still up: it rebuilds for the new surface on next lock
+  if (!document.body.classList.contains('os-live') && !document.getElementById('lockScreen')?.hidden) {
+    applyViewMode(mode);
+    return;
+  }
+  if (isHomeMode(mode) && isHomeMode(prev)) applyViewMode(mode);
+  else if (isHomeMode(mode)) enterMobile();
   else enterDesktop();
 });

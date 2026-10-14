@@ -52,7 +52,7 @@ export function welcomeToOS() {
   setTimeout(() => {
     notify({
       title: `${daypart} Capricorn OS ready.`,
-      body: `${APPS.length} apps loaded. Zero servers contacted.`,
+      body: `${APPS.length} Caps on board. No trackers, no third-party calls.`,
       icon: 'assets/logo.svg',
     });
   }, 1200);

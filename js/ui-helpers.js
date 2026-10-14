@@ -7,6 +7,13 @@ export function privateBetaBadgeHTML() {
   return '<span class="wip-badge">Private beta</span>';
 }
 
+/** Compact badge for widget heads / dock tips. */
+export function shortBadgeHTML(app) {
+  if (app.privateBeta) return '<span class="wip-badge">Beta</span>';
+  if (app.wip) return wipBadgeHTML();
+  return '';
+}
+
 export function statusBadgeHTML(app) {
   if (app.privateBeta) return privateBetaBadgeHTML();
   if (app.wip) return wipBadgeHTML();

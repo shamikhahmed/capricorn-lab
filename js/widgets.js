@@ -1,7 +1,9 @@
-import { APPS, wipBadgeHTML } from './products.js';
+import { APPS } from './products.js';
+import { shortBadgeHTML } from './ui-helpers.js';
 import { sfx } from './sounds.js';
 import { notify } from './notifications.js';
 import { renderDesktopTasks, bindTaskClicks } from './tasks.js';
+import { watchNetwork, proofLine } from './privacy-monitor.js';
 
 /** Tap widget body → witty nudge to install the real app */
 const WIDGET_TEASE = {
@@ -52,8 +54,8 @@ const WIDGET_TEASE = {
     body: 'That readiness score is theatre. Install TravelCap — real trips, packing, passport stats on your phone.',
   },
   soulcap: {
-    title: 'Living Mind Model offline.',
-    body: 'Soul can\'t read a marketing tile. Get SoulCap — wellness that actually remembers you.',
+    title: 'A tile can\'t check in for you.',
+    body: 'SoulCap keeps check-ins and your journal on your phone. Quiet tools — not therapy.',
   },
   masterycap: {
     title: 'Lesson not loaded.',
@@ -78,11 +80,11 @@ const WIDGET_TEASE = {
 };
 
 function widgetRoot(slug, classes, accent, size, inner) {
-  return `<div class="mw ${classes} mw--${size}" data-widget-tease="${slug}" style="--w-accent:${accent}" role="button" tabindex="0" aria-label="${slug} widget">${inner}</div>`;
+  return `<div class="mw ${classes} mw--${size}" data-widget-tease="${slug}" style="--w-accent:${accent}" role="button" tabindex="0">${inner}</div>`;
 }
 
 function wHead(a) {
-  return `<header class="mw__head"><img src="${a.icon}" alt="" width="20" height="20"><span>${a.name}</span>${a.wip ? wipBadgeHTML() : ''}</header>`;
+  return `<header class="mw__head"><img src="${a.icon}" alt="" width="20" height="20"><span>${a.name}</span>${shortBadgeHTML(a)}</header>`;
 }
 
 function wHero(main, sub = '') {
@@ -122,7 +124,7 @@ const WIDGET_RENDERERS = {
 
   ledgercap: (a) => widgetRoot(a.slug, 'mw--ledger', a.accent, 'medium', `
       ${wHead(a)}
-      ${wHero('<span class="num">₨ 4.2M</span> <em class="up">▲ 1.8%</em>', 'net worth')}
+      ${wHero('<span class="num">Rs 4.2M</span> <em class="up">▲ 1.8%</em>', 'net worth')}
       ${wMeta([{ k: 'ENGRO', v: '+2.1%', tone: 'up' }, { k: 'HBL', v: '−0.4%', tone: 'dn' }, { k: 'OGDC', v: '+1.2%', tone: 'up' }])}
       ${wLine('IPO opens tomorrow · <strong>Meezan</strong> profit paid')}
       ${wFoot(a, 'Open terminal')}`),
@@ -171,9 +173,9 @@ const WIDGET_RENDERERS = {
 
   soulcap: (a) => widgetRoot(a.slug, 'mw--soul', a.accent, 'small', `
       ${wHead(a)}
-      ${wHero('<strong>Steady</strong>', 'mood · LMM synced')}
-      ${wMeta([{ k: 'Safety', v: 'Tier 2' }, { k: 'Journal', v: '4 days' }])}
-      ${wLine('Check-in due · <strong>Living Mind</strong> updated', 'info')}
+      ${wHero('<strong>Steady</strong>', 'mood · checked in today')}
+      ${wMeta([{ k: 'Journal', v: '4 days' }, { k: 'Breathe', v: '3 min' }])}
+      ${wLine('Evening check-in · <strong>on device</strong>', 'info')}
       ${wFoot(a, 'Open Soul')}`),
 
   masterycap: (a) => widgetRoot(a.slug, 'mw--mastery', a.accent, 'small', `
@@ -218,12 +220,12 @@ export const IOS_WIDGET_SNAPSHOTS = {
   pulsecap: { big: '87', small: 'recovery ready', extra: '<em class="ok">Smart Coach ready</em>' },
   prismcap: { big: '38', small: 'games offline', extra: '<em>Cipher Duel · Lv 4</em>' },
   steadycap: { big: 'Day 47', small: 'steady · 0 relapses', extra: '<em class="ok">Trigger forecast low</em>' },
-  ledgercap: { big: '₨ 4.2M', small: 'net worth', extra: '<em class="up">ENGRO ▲ 2.1%</em>' },
+  ledgercap: { big: 'Rs 4.2M', small: 'net worth', extra: '<em class="up">ENGRO ▲ 2.1%</em>' },
   deeponycap: { big: '127', small: 'in your collection', extra: '<em>3 favorites on wishlist</em>' },
   scentcap: { big: 'Oud Wood', small: 'worn today', extra: '<em>Bleu de Chanel 22%</em>' },
   auracap: { big: '84', small: 'Aura Score', extra: '<em>12/16 modules</em>' },
   travelcap: { big: '12 days', small: 'to Barcelona', extra: '<em class="info">Packed 78%</em>' },
-  soulcap: { big: 'Steady', small: 'mood · LMM synced', extra: '<em class="info">Check-in due</em>' },
+  soulcap: { big: 'Steady', small: 'mood · checked in', extra: '<em class="info">Journal 4 days</em>' },
   masterycap: { big: '15 min', small: "today's session", extra: '<em>Foundations · EN · UR</em>' },
   ideacap: { big: '12', small: 'ideas this week', extra: '<em class="ok">On-device capture</em>' },
   carcap: { big: '320 km', small: 'to service', extra: '<em class="warn">Oil change</em>' },
@@ -251,11 +253,11 @@ const WIDGET_SIZES = {
 
 function buildClock() {
   return `
-    <div class="mw mw--clock" data-widget-tease="clock" role="button" tabindex="0" aria-label="Clock widget">
+    <div class="mw mw--clock" data-widget-tease="clock" role="button" tabindex="0">
       <time class="clock__time num" id="widgetClock">--:--</time>
       <p class="clock__date" id="widgetDate"></p>
       <p class="clock__city">Local · Capricorn OS</p>
-      <p class="clock__proof"><span class="clock__proof-dot" aria-hidden="true"></span>0 bytes sent today · 0 servers</p>
+      <p class="clock__proof"><span class="clock__proof-dot" aria-hidden="true"></span><span data-proof>0 trackers · 0 third-party requests</span></p>
     </div>
   `;
 }
@@ -384,12 +386,10 @@ export function initWidgets({ onOpen }) {
   });
 
   bindWidgetTeases(grid);
-  requestAnimationFrame(() => {
-    layoutWidgetHeights();
-    animateWidgets(grid);
-    setTimeout(layoutWidgetHeights, 950);
-  });
-  window.addEventListener('resize', layoutWidgetHeights);
+  requestAnimationFrame(() => animateWidgets(grid));
+
+  const proof = grid.querySelector('[data-proof]');
+  if (proof) watchNetwork((st) => { proof.textContent = proofLine(st); });
 
   function tickClock() {
     const now = new Date();
@@ -406,74 +406,21 @@ export function initWidgets({ onOpen }) {
   setInterval(tickClock, 1000);
 }
 
-/** Fit system + app rows — generous mins, per-row tracks, scroll if short viewport */
-/** Dev-only guard: warn if any widget CTA is clipped by a too-short tile. Stripped in prod. */
-function warnClippedCTAs(appsRow) {
-  if (!(import.meta.env && import.meta.env.DEV)) return;
-  requestAnimationFrame(() => {
-    const clipped = [...appsRow.querySelectorAll('.mw__cta')].filter((c) => {
-      const mw = c.closest('.mw');
-      if (!mw) return false;
-      const r = c.getBoundingClientRect();
-      const box = mw.getBoundingClientRect();
-      return r.bottom > box.bottom + 1 || r.width === 0 || r.height === 0;
-    }).map((c) => c.textContent.trim());
-    if (clipped.length) console.warn('[widgets] CTA clipped — tile too short:', clipped);
-  });
-}
-
+/**
+ * Widget grid is natural-flow CSS now (any number of Caps, scrolls under the
+ * dock). Kept as an export for callers; it only flags the scroll-fade state.
+ */
 export function layoutWidgetHeights() {
   const grid = document.getElementById('widgetGrid');
-  const appsRow = grid?.querySelector('.widget-row--apps');
-  if (!grid || !appsRow || grid.offsetParent === null) return;
-
-  // Below ~1100px the grid reflows to 1–2 columns (CSS media queries) with
-  // content-sized auto-rows. The 4-row budget logic only applies to the 4-col
-  // layout — otherwise clear the inline rows and let CSS handle it (no clip).
-  const colCount = getComputedStyle(appsRow).gridTemplateColumns.split(' ').filter(Boolean).length;
-  if (colCount < 4) {
-    appsRow.style.gridTemplateRows = '';
-    grid.classList.remove('widget-grid--scroll');
-    warnClippedCTAs(appsRow);
-    return;
+  if (!grid || grid.offsetParent === null) return;
+  const update = () => {
+    const more = grid.scrollHeight - grid.clientHeight - grid.scrollTop > 8;
+    grid.classList.toggle('has-more', more);
+  };
+  if (!grid.dataset.fadeBound) {
+    grid.dataset.fadeBound = '1';
+    grid.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
   }
-
-  const gap = parseFloat(getComputedStyle(grid).gap) || 8;
-  const appsGap = parseFloat(getComputedStyle(appsRow).gap) || gap;
-  const gridH = grid.clientHeight;
-  if (gridH < 200) return;
-
-  const SYS_H = 220;
-  const ROW_MIN = 168;
-  const ROW_GROUPS = [[0, 1, 2], [3, 4], [5, 6, 7], [8, 9]];
-  const cells = [...appsRow.querySelectorAll('.widget-cell')];
-  const gapsTotal = gap + appsGap * 3;
-  const appBudget = gridH - SYS_H - gap - gapsTotal;
-
-  // Measure each row group's true natural content height (unconstrained), so a
-  // tile with a meta row / bars never has its CTA clipped by a too-short row.
-  appsRow.style.gridTemplateRows = 'repeat(4, min-content)';
-  const natural = ROW_GROUPS.map((idxs) => {
-    let m = 0;
-    idxs.forEach((i) => {
-      const mw = cells[i]?.querySelector('.mw');
-      if (mw) m = Math.max(m, mw.scrollHeight);
-    });
-    return m;
-  });
-
-  let rowH = Math.max(ROW_MIN, Math.floor(appBudget / 4));
-  const extra = appBudget - rowH * 4;
-  if (extra > 0) rowH += Math.floor(extra / 4);
-
-  // Final = the larger of the budget-based height and the tile's natural height.
-  const finalHeights = natural.map((n) => Math.max(rowH, n + 4));
-
-  document.documentElement.style.setProperty('--widget-h-sys', `${SYS_H}px`);
-  document.documentElement.style.setProperty('--widget-app-row-h', `${rowH}px`);
-  appsRow.style.gridTemplateRows = finalHeights.map((h) => `${h}px`).join(' ');
-
-  const totalH = finalHeights.reduce((a, b) => a + b, 0) + appsGap * 3;
-  grid.classList.toggle('widget-grid--scroll', totalH > gridH - SYS_H - gap || appBudget < ROW_MIN * 4);
-  warnClippedCTAs(appsRow);
+  update();
 }
