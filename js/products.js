@@ -260,7 +260,7 @@ export const APPS = [
     name: 'IdeaCap',
     symbol: '✦',
     category: 'Productivity',
-    ver: '2.0.1',
+    ver: '2.1.0',
     tagline: 'Capture ideas by voice or text. They stay on your device.',
     pitch: 'Voice and text idea capture. Your notes stay on your device.',
     hook: 'Capture now. Find later. Nothing leaves your phone.',
