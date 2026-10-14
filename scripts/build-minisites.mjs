@@ -445,7 +445,7 @@ function renderAppPage(app, ctx) {
       ? changelog
           .map(
             (e) => `<article>
-          <h3>v${esc(e.heading)}</h3>
+          <h3>${esc(/^unreleased$/i.test(e.heading) ? e.heading : `v${e.heading}`)}</h3>
           ${e.date ? `<time datetime="${esc(e.date)}">${esc(e.date)}</time>` : ''}
           <ul class="list">${(e.bullets.length ? e.bullets : ['See full changelog in the app repo.'])
             .map((b) => `<li>${esc(b)}</li>`)
