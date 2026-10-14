@@ -197,15 +197,73 @@ function parseSupportFaqs(supportHtml, appName) {
 
 function loadGallery(repoPath) {
   const candidates = [
+    join(repoPath, 'docs', 'screenshots', 'gallery', 'gallery-manifest.json'),
+    join(repoPath, 'assets', 'screenshots', 'gallery-manifest.json'),
     join(repoPath, 'gallery-manifest.json'),
     join(repoPath, 'qa', 'gallery-manifest.json'),
     join(repoPath, 'docs', 'gallery-manifest.json'),
   ];
   for (const c of candidates) {
     const j = readJson(c);
-    if (j) return { manifest: j, path: c };
+    if (j?.shots?.length) return { manifest: j, path: c, dir: dirname(c) };
   }
   return null;
+}
+
+/** Pick a small set of hero shots (mobile-first, mixed themes). */
+function pickGalleryShots(manifest, max = 6) {
+  const shots = manifest?.shots || [];
+  if (!shots.length) return [];
+  const mobile = shots.filter((s) => s.viewport === 'mobile' && !s.scroll);
+  const desktop = shots.filter((s) => s.viewport === 'desktop' && !s.scroll);
+  const pool = [...mobile.slice(0, 4), ...desktop.slice(0, 2)];
+  const seen = new Set();
+  const out = [];
+  for (const s of pool.length ? pool : shots) {
+    if (seen.has(s.file) || out.length >= max) continue;
+    seen.add(s.file);
+    out.push(s);
+  }
+  return out;
+}
+
+function copyGalleryAssets(gallery, outAssetsDir) {
+  if (!gallery?.dir) return [];
+  ensureDir(outAssetsDir);
+  const picked = pickGalleryShots(gallery.manifest);
+  const copied = [];
+  for (const shot of picked) {
+    const src = join(gallery.dir, shot.file);
+    if (!existsSync(src)) continue;
+    const destName = shot.file.replace(/[^a-zA-Z0-9._-]/g, '_');
+    cpSync(src, join(outAssetsDir, destName));
+    copied.push({ ...shot, localFile: destName });
+  }
+  return copied;
+}
+
+function supportHref(appName) {
+  const title = encodeURIComponent(`[${appName}] `);
+  return `https://github.com/shamikhahmed/shamikhahmed.github.io/issues/new?title=${title}`;
+}
+
+function renderGallerySection(shots, slug) {
+  if (!shots.length) {
+    return `<p class="section__lead">Screenshots from the v3 gallery land here as they are published.</p>
+      <div class="placeholder">Open the live app to explore every screen.</div>`;
+  }
+  const items = shots
+    .map(
+      (s) =>
+        `<figure class="gallery-shot"><img src="/apps/${esc(slug)}/assets/gallery/${esc(
+          s.localFile,
+        )}" alt="${esc(s.label || s.screenId || 'App screen')}" width="390" height="844" loading="lazy" decoding="async"><figcaption>${esc(
+          s.label || s.section || '',
+        )}</figcaption></figure>`,
+    )
+    .join('');
+  return `<p class="section__lead">A few screens from the shipped app (light/dark and device sizes in the full gallery).</p>
+    <div class="gallery-grid" role="list">${items}</div>`;
 }
 
 function sharedCss() {
@@ -362,6 +420,20 @@ img { max-width: 100%; height: auto; }
   background: color-mix(in srgb, var(--accent) 12%, var(--card));
   border-radius: var(--radius); padding: 1rem 1.15rem; margin-top: 1rem;
 }
+.gallery-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.gallery-shot {
+  margin: 0; border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; background: var(--card);
+}
+.gallery-shot img {
+  display: block; width: 100%; height: auto; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top;
+}
+.gallery-shot figcaption {
+  padding: .5rem .75rem; font-size: .82rem; color: var(--muted);
+}
 .index-grid {
   display: grid; gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -417,9 +489,10 @@ function renderAppPage(app, ctx) {
     changelog,
     network,
     faqs,
-    galleryNote,
+    galleryShots,
     iconHref,
     privateBeta,
+    ogImage,
   } = ctx;
   const desc = DESC_41[app.slug] || app.tagline;
   const disclaimer = DISCLAIMER_42[app.slug];
@@ -464,7 +537,9 @@ function renderAppPage(app, ctx) {
           )
           .join('')
       : `<details open><summary>Where is my data?</summary><p>On your device (localStorage / IndexedDB), unless this Cap documents a specific optional network call.</p></details>
-         <details><summary>How do I get help?</summary><p>Open a GitHub Issue from <a href="/support.html">support</a> with the app name in the title.</p></details>`;
+         <details><summary>How do I get help?</summary><p>See <a href="/support.html">support</a> or <a href="${esc(
+           supportHref(app.name),
+         )}">report a problem</a> for ${esc(app.name)} (GitHub Issues — no personal email).</p></details>`;
 
   const networkHtml =
     network.length > 0
@@ -483,6 +558,7 @@ function renderAppPage(app, ctx) {
     : `<div class="ctas">
         <a class="btn btn--primary" href="${esc(openUrl)}">Open ${esc(app.name)}</a>
         <a class="btn btn--secondary" href="${esc(osDeep)}">Try it in Capricorn OS</a>
+        <a class="btn btn--ghost" href="/support.html">Support</a>
         <a class="btn btn--ghost" href="#install">Add to Home Screen</a>
       </div>`;
 
@@ -498,7 +574,8 @@ function renderAppPage(app, ctx) {
   <meta property="og:description" content="${esc(desc)}">
   <meta property="og:url" content="${esc(canonical)}">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
   <link rel="stylesheet" href="/apps/assets/minisite.css">
   <style>:root{--accent:${esc(accent)};--accent2:${esc(accent2)};--bg:${esc(bg)};}</style>
   <script type="application/ld+json">
@@ -534,9 +611,8 @@ function renderAppPage(app, ctx) {
     </section>
 
     <section class="section" id="gallery" aria-labelledby="gallery-h">
-      <h2 id="gallery-h">Screen gallery</h2>
-      <p class="section__lead">${esc(galleryNote)}</p>
-      <div class="placeholder">Embedded gallery viewer (light/dark · device filter · lightbox) — Wave C/D.</div>
+      <h2 id="gallery-h">Screenshots</h2>
+      ${renderGallerySection(galleryShots || [], app.slug)}
     </section>
 
     <section class="section" id="features" aria-labelledby="features-h">
@@ -601,7 +677,7 @@ function renderAppPage(app, ctx) {
         ${app.github ? `<a href="${esc(app.github)}">GitHub</a>` : ''}
         <a href="/apps/">All Caps</a>
       </nav>
-      <p>Capricorn Systems · ${esc(app.name)} mini-site (skeleton)</p>
+      <p>Capricorn Systems · ${esc(app.name)}</p>
       <div class="rail" aria-label="Other Caps" id="otherCaps"></div>
     </footer>
   </div>
@@ -744,21 +820,16 @@ async function main() {
 
     const faqs = parseSupportFaqs(supportHtml, app.name);
     const gallery = repoPath ? loadGallery(repoPath) : null;
-    const galleryNote = gallery
-      ? 'Gallery manifest found — shots will be size-budgeted and embedded in a later wave.'
-      : 'Gallery manifest not present yet — placeholder until Gallery Engineer delivers.';
 
     const outDir = join(APPS_OUT, app.slug);
     ensureDir(outDir);
     const iconRel = copyIcon(app, join(outDir, 'assets'));
-
-    // Optional: copy a tiny gallery note file for later ingestion
-    if (gallery) {
-      writeFileSync(
-        join(outDir, 'assets', 'gallery-manifest.stub.json'),
-        JSON.stringify({ source: gallery.path, note: 'Wave A stub — do not serve as full gallery' }, null, 2),
-      );
-    }
+    const galleryDir = join(outDir, 'assets', 'gallery');
+    const galleryShots = gallery ? copyGalleryAssets(gallery, galleryDir) : [];
+    const ogImage =
+      galleryShots[0]?.localFile
+        ? `${BASE}/apps/${app.slug}/assets/gallery/${galleryShots[0].localFile}`
+        : '';
 
     const html = renderAppPage(app, {
       version,
@@ -766,9 +837,10 @@ async function main() {
       changelog,
       network,
       faqs,
-      galleryNote,
+      galleryShots,
       iconHref: `/apps/${app.slug}/${iconRel}`,
       privateBeta: !!(app.privateBeta || app.slug === 'deefoodie'),
+      ogImage,
     });
     writeFileSync(join(outDir, 'index.html'), html);
 
