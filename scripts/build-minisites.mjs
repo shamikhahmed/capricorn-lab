@@ -131,9 +131,12 @@ function parseChangelogLatest(md, n = 5) {
   const entries = [];
   const blocks = md.split(/^##\s+/m).slice(1);
   for (const block of blocks) {
-    const first = block.split(/\r?\n/)[0] || '';
-    const title = first.replace(/^\[/, '').replace(/\].*$/, (x) => x.replace(/[\[\]]/g, '')).trim();
-    const versionMatch = first.match(/\[?([\d.]+(?:\+\d+)?)\]?/);
+    const first = (block.split(/\r?\n/)[0] || '').trim();
+    // Prefer Keep-a-Changelog versions: ## [1.2.3] — date  or  ## 1.2.3 — date
+    // Avoid matching trailing digits in branch names (e.g. Unreleased — perfection/ideacap-v3).
+    const versionMatch = first.match(/^\[?(\d+\.\d+(?:\.\d+)?(?:\+\d+)?)\]?/);
+    const unreleased = /^unreleased\b/i.test(first);
+    if (!versionMatch && !unreleased) continue;
     const dateMatch = first.match(/(\d{4}-\d{2}-\d{2})/);
     const bullets = block
       .split(/\r?\n/)
@@ -142,7 +145,7 @@ function parseChangelogLatest(md, n = 5) {
       .map((l) => l.replace(/^\s*[-*]\s+/, '').trim())
       .slice(0, 4);
     entries.push({
-      heading: versionMatch ? versionMatch[1] : title.slice(0, 40),
+      heading: versionMatch ? versionMatch[1] : 'Unreleased',
       date: dateMatch ? dateMatch[1] : '',
       bullets,
     });
