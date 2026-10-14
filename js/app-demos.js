@@ -99,6 +99,8 @@ export function initAppDemo(root, app) {
     let timer = 0;
 
     const light = () => {
+      // panel swapped out (Run here) or window closed — stop this game loop
+      if (!cells[0]?.isConnected) { clearInterval(timer); return; }
       cells[lit]?.classList.remove('is-lit');
       lit = Math.floor(Math.random() * cells.length);
       cells[lit].classList.add('is-lit');

@@ -1,16 +1,22 @@
 import { APPS } from './products.js';
+import { THEMES } from './theme.js';
 
 const COMMANDS = [
   { id: 'apps', label: `Applications — all ${APPS.length} Cap apps`, type: 'system' },
+  { id: 'appearance', label: 'Appearance — browse all themes', type: 'system' },
+  { id: 'privacy', label: 'Privacy Monitor — every request this page made', type: 'system' },
   { id: 'sovereignty', label: 'System Preferences — Sovereignty', type: 'system' },
   { id: 'about', label: 'About This Device', type: 'system' },
   { id: 'help', label: 'Help', type: 'system' },
+  { id: 'lock', label: 'Lock Screen', type: 'lock' },
   ...APPS.map((a) => ({
     id: a.slug,
     label: `${a.name} — ${a.tagline}`,
     type: 'app',
     icon: a.icon,
   })),
+  { id: 'surprise', label: 'Theme: Surprise me', type: 'skin', swatch: ['#888', '#ff2bd6', '#3cffb0'] },
+  ...THEMES.map((t) => ({ id: t.id, label: `Theme: ${t.name} — ${t.mood}`, type: 'skin', swatch: t.swatch })),
 ];
 
 export function initPalette({ onSelect }) {
@@ -23,7 +29,9 @@ export function initPalette({ onSelect }) {
   function render() {
     list.innerHTML = filtered.map((cmd, i) => `
       <li class="palette-item${i === selected ? ' is-selected' : ''}" role="option" data-index="${i}">
-        ${cmd.icon ? `<img class="palette-item__icon" src="${cmd.icon}" alt="" width="28" height="28">` : '<span class="palette-item__sys">⚙</span>'}
+        ${cmd.icon ? `<img class="palette-item__icon" src="${cmd.icon}" alt="" width="28" height="28">`
+          : cmd.swatch ? `<span class="palette-item__skin" style="--s0:${cmd.swatch[0]};--s1:${cmd.swatch[1]};--s2:${cmd.swatch[2]}" aria-hidden="true"></span>`
+          : '<span class="palette-item__sys">⚙</span>'}
         <span class="palette-item__label">${cmd.label}</span>
         <kbd>↵</kbd>
       </li>

@@ -12,6 +12,11 @@ import {
   readWindowBounds,
 } from './genie.js';
 import { sfx } from './sounds.js';
+import { appearanceHTML, bindAppearance } from './appearance.js';
+import { privacyMonitorHTML, bindPrivacyMonitor, networkStats } from './privacy-monitor.js';
+import { syncVersions } from './live-catalog.js';
+import { canRun, runnerHTML, bindRunner } from './app-runner.js';
+import { getSkinDef } from './theme.js';
 
 let zIndex = 10;
 const openWindows = new Map();
@@ -45,7 +50,7 @@ function appPanelHTML(app) {
       <header class="app-panel__head">
         <img class="app-panel__icon" src="${app.icon}" alt="" width="64" height="64" loading="lazy">
         <div class="app-panel__titles">
-          <p class="app-panel__eyebrow">${app.category} · v${app.ver}${statusNote}</p>
+          <p class="app-panel__eyebrow">${app.category} · <span data-ver-of="${app.slug}">v${app.ver}</span>${statusNote}</p>
           <h2>${app.name}${statusBadgeHTML(app)}</h2>
           <p class="app-panel__tagline">${app.tagline}</p>
         </div>
@@ -57,6 +62,7 @@ function appPanelHTML(app) {
           ${demoHTML(app)}
           <div class="app-highlights">${highlights}</div>
           <div class="app-panel__actions">
+            ${canRun(app) ? `<button type="button" class="app-run" data-run-app="${app.slug}"><span aria-hidden="true">▶</span> Run here</button>` : ''}
             <a class="app-launch${app.wip || app.privateBeta ? ' app-launch--wip' : ''}" href="${href}" ${app.privateBeta ? '' : 'target="_blank" rel="noopener"'}>
               <img src="${app.icon}" alt="" width="20" height="20"> ${launch}
             </a>
@@ -93,14 +99,19 @@ function sovereigntyHTML() {
       <div class="sys-toggle"><span>Local encryption</span><div class="sys-switch" aria-hidden="true"></div></div>
       <div class="sys-toggle"><span>UI sounds</span><div class="sys-switch" aria-hidden="true"></div></div>
       <p class="sys-manifesto">"Your data belongs to you. That's not a tagline — it's the only rule we have."</p>
+      <div class="sys-links">
+        <button type="button" class="sys-link" data-open-sys="privacy">Privacy Monitor — see every request →</button>
+        <button type="button" class="sys-link" data-open-sys="appearance">Appearance — ${getSkinDef().name} →</button>
+      </div>
       <button type="button" class="sys-cert-btn" data-download-cert>Download sovereignty certificate</button>
-      <p class="sys-build">Build ${SYSTEM.build} · ${APPS.length} apps · 0 servers</p>
+      <p class="sys-build">Build ${SYSTEM.build} · ${APPS.length} apps · 0 trackers</p>
     </div>
   `;
 }
 
 /** Client-side "0 bytes leaked" certificate — canvas → PNG download. */
 function downloadCertificate() {
+  const stats = networkStats();
   const W = 1200;
   const H = 675;
   const c = document.createElement('canvas');
@@ -124,21 +135,21 @@ function downloadCertificate() {
   ctx.fillText('CAPRICORN SYSTEMS · DEVICE SOVEREIGNTY CERTIFICATE', W / 2, 120);
 
   ctx.fillStyle = '#f2efe8';
-  ctx.font = '700 64px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('0 bytes leaked', W / 2, 260);
+  ctx.font = '700 64px -apple-system, system-ui, sans-serif';
+  ctx.fillText(stats.third === 0 ? '0 trackers' : `${stats.third} third-party calls`, W / 2, 260);
 
   ctx.fillStyle = '#9c958c';
-  ctx.font = '400 24px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('This session ran entirely on your device.', W / 2, 330);
-  ctx.fillText('No cloud sync. No analytics. No account. No telemetry.', W / 2, 368);
+  ctx.font = '400 24px -apple-system, system-ui, sans-serif';
+  ctx.fillText(`This visit: ${stats.first} first-party requests, ${stats.third} third-party. Measured, not promised.`, W / 2, 330);
+  ctx.fillText('No analytics. No ads. No account. Your Cap data stays on your device.', W / 2, 368);
 
   ctx.fillStyle = '#4ade80';
   ctx.font = '600 22px "JetBrains Mono", monospace';
   const now = new Date();
-  ctx.fillText(`VERIFIED ${now.toISOString().slice(0, 10)} · ${APPS.length} APPS · 0 SERVERS`, W / 2, 452);
+  ctx.fillText(`VERIFIED ${now.toISOString().slice(0, 10)} · ${APPS.length} APPS · ${stats.third} THIRD-PARTY REQUESTS`, W / 2, 452);
 
   ctx.fillStyle = '#5a544c';
-  ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '400 18px -apple-system, system-ui, sans-serif';
   ctx.fillText(`Issued by ${SYSTEM.name} ${SYSTEM.version} · generated client-side, like everything else`, W / 2, 560);
 
   const a = document.createElement('a');
@@ -162,11 +173,12 @@ function aboutHTML() {
         <div><span>Processor</span><strong>Your device</strong></div>
         <div><span>Memory</span><strong>Local only</strong></div>
         <div><span>Storage</span><strong>IndexedDB + on-device</strong></div>
-        <div><span>Network</span><strong>Disabled by design</strong></div>
+        <div><span>Network</span><strong>First-party only</strong></div>
         <div><span>Accounts</span><strong>0 required</strong></div>
         <div><span>Analytics</span><strong>None</strong></div>
+        <div><span>Theme</span><strong>${getSkinDef().name}</strong></div>
       </div>
-      <p>Capricorn Systems builds premium personal software — ${APPS.length} Cap apps that live on your phone, work offline, and never phone home. Each app looks completely different. One rule ties them: <em>device sovereignty</em>.</p>
+      <p>Capricorn Systems builds premium personal software — ${APPS.length} Cap apps that live on your phone, work offline, and keep your data on your device. No analytics, no ads, no accounts required. Each app looks completely different. One rule ties them: <em>device sovereignty</em>.</p>
       <p>Founded and built by <strong>${SYSTEM.founder}</strong> — Cap apps for finance, training, play, recovery, wealth, travel, wellness, fragrance, cooking, collection, and your Apple setup. Encrypted or stored locally. Capricorn OS is the hub.</p>
       <p class="about-foot">Production hub: <a href="https://shamikhahmed.github.io/" target="_blank" rel="noopener">shamikhahmed.github.io</a> · Support: <a href="https://shamikhahmed.github.io/support.html" target="_blank" rel="noopener">support</a> · GitHub: <a href="https://github.com/shamikhahmed" target="_blank" rel="noopener">@shamikhahmed</a></p>
     </div>
@@ -180,7 +192,7 @@ function applicationsHTML() {
       <div class="app-card__body">
         <header>
           <h3>${a.name}${statusBadgeHTML(a)}</h3>
-          <span class="app-card__ver">v${a.ver}</span>
+          <span class="app-card__ver" data-ver-of="${a.slug}">v${a.ver}</span>
         </header>
         <p class="app-card__cat">${a.category}${a.privateBeta ? ' · Private beta' : a.wip ? ' · In development' : ''}</p>
         <p class="app-card__tag">${a.tagline}</p>
@@ -198,7 +210,7 @@ function applicationsHTML() {
     <div class="sys-panel sys-panel--apps">
       <header class="apps-header">
         <h2>Applications</h2>
-        <p>${APPS.filter((a) => !a.privateBeta).length} live Cap apps + DeeFoodie private beta. Click any app to open its window.</p>
+        <p>${APPS.filter((a) => !a.privateBeta).length} live Cap apps + DeeFoodie private beta. Open a card for details — or hit <strong>Run here</strong> to use the real app inside Capricorn OS.</p>
       </header>
       <div class="apps-grid">${cards}</div>
     </div>
@@ -211,9 +223,11 @@ function helpHTML() {
       <h2>Help</h2>
       <div class="help-grid">
         <div><strong>Dock</strong><p>Click icons to open apps. Yellow minimizes with genie. Green maximizes.</p></div>
-        <div><strong>Widgets & Tasks</strong><p>Live app data on desktop and iOS Today — tap to open.</p></div>
-        <div><strong>⌘K</strong><p>Spotlight-style command palette.</p></div>
-        <div><strong>Title bar</strong><p>Double-click to maximize. Drag to move.</p></div>
+        <div><strong>Run here</strong><p>Every live Cap runs inside its window — the real app, not a video.</p></div>
+        <div><strong>Themes</strong><p>Ten looks in Appearance, Control Center, or right-click → Next Theme.</p></div>
+        <div><strong>⌘K</strong><p>Spotlight: apps, themes, Privacy Monitor, lock.</p></div>
+        <div><strong>Windows</strong><p>Drag the title bar. Drag the corner to resize. Double-click to maximize.</p></div>
+        <div><strong>Privacy Monitor</strong><p>Counts every request this page makes. Third-party: zero.</p></div>
       </div>
     </div>
   `;
@@ -222,10 +236,12 @@ function helpHTML() {
 function createWindow({ id, title, content, app = false, system = false, wide = false, fromDock = true }) {
   const container = document.getElementById('windows');
   const el = document.createElement('div');
-  const defaultW = wide ? Math.min(900, window.innerWidth * 0.92) : app ? Math.min(720, window.innerWidth * 0.94) : system ? 440 : 520;
-  const defaultH = wide ? Math.min(640, window.innerHeight * 0.78) : app ? Math.min(560, window.innerHeight * 0.75) : 400;
-  const left = 60 + (openWindows.size * 32) % 220;
-  const top = 48 + (openWindows.size * 28) % 140;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const defaultW = Math.round(wide ? Math.min(940, vw * 0.92) : app ? Math.min(760, vw * 0.94) : system ? Math.min(460, vw * 0.92) : 520);
+  const defaultH = Math.round(wide ? Math.min(660, vh * 0.8) : app ? Math.min(600, vh * 0.78) : Math.min(480, vh * 0.7));
+  const left = Math.max(8, Math.min(60 + (openWindows.size * 32) % 220, vw - defaultW - 8));
+  const top = Math.max(44, Math.min(48 + (openWindows.size * 28) % 140, vh - defaultH - 90));
 
   el.className = `win${app || wide ? ' win--app' : ''}${system ? ' win--system' : ''}${wide ? ' win--wide' : ''}`;
   el.dataset.winId = id;
@@ -245,6 +261,7 @@ function createWindow({ id, title, content, app = false, system = false, wide = 
       <span class="win-title">${title}</span>
     </div>
     <div class="win-body">${content}</div>
+    <span class="win-resize" aria-hidden="true"></span>
   `;
 
   container.appendChild(el);
@@ -278,8 +295,23 @@ function createWindow({ id, title, content, app = false, system = false, wide = 
     downloadCertificate();
   });
 
+  el.querySelectorAll('[data-open-sys]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sfx.click();
+      openSystem(btn.dataset.openSys);
+    });
+  });
+
+  if (el.querySelector('.appear')) bindAppearance(el);
+  if (el.querySelector('.sys-panel--privacy')) bindPrivacyMonitor(el);
+
   const demoApp = APPS.find((a) => a.slug === id);
-  if (demoApp) initAppDemo(el, demoApp);
+  if (demoApp) {
+    initAppDemo(el, demoApp);
+    bindRunButton(el, demoApp);
+  }
+  syncVersions(el);
 
   bindWindow(el, id);
 
@@ -306,7 +338,7 @@ function bindWindow(el, id) {
   const minBtn = el.querySelector('.win-min');
   const maxBtn = el.querySelector('.win-max');
 
-  el.addEventListener('mousedown', () => focusWindow(id));
+  el.addEventListener('pointerdown', () => focusWindow(id));
 
   closeBtn.addEventListener('click', () => closeWindow(id));
   minBtn.addEventListener('click', () => minimizeWindow(id));
@@ -317,36 +349,103 @@ function bindWindow(el, id) {
     toggleMaximize(id);
   });
 
-  let dragging = false;
-  let startX = 0;
-  let startY = 0;
-  let origX = 0;
-  let origY = 0;
-
-  titlebar.addEventListener('mousedown', (e) => {
-    if (e.target.closest('.win-traffic')) return;
+  // Pointer events: mouse, pen and touch (iPad / touch laptops) all drag.
+  let drag = null;
+  titlebar.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.win-traffic, button, a')) return;
     const win = openWindows.get(id);
     if (win?.maximized) return;
-    dragging = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    origX = parseFloat(el.style.left);
-    origY = parseFloat(el.style.top);
+    drag = { x: e.clientX, y: e.clientY, left: parseFloat(el.style.left), top: parseFloat(el.style.top) };
+    titlebar.setPointerCapture?.(e.pointerId);
+    el.classList.add('is-dragging');
     e.preventDefault();
   });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!dragging) return;
-    el.style.left = `${Math.max(8, origX + e.clientX - startX)}px`;
-    el.style.top = `${Math.max(40, origY + e.clientY - startY)}px`;
+  titlebar.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const maxL = window.innerWidth - 80;
+    const maxT = window.innerHeight - 60;
+    el.style.left = `${Math.min(maxL, Math.max(8 - el.offsetWidth + 120, drag.left + e.clientX - drag.x))}px`;
+    el.style.top = `${Math.min(maxT, Math.max(40, drag.top + e.clientY - drag.y))}px`;
   });
+  const endDrag = () => {
+    if (!drag) return;
+    drag = null;
+    el.classList.remove('is-dragging');
+    const win = openWindows.get(id);
+    if (win && !win.maximized) win.saved = readWindowBounds(el);
+  };
+  titlebar.addEventListener('pointerup', endDrag);
+  titlebar.addEventListener('pointercancel', endDrag);
 
-  window.addEventListener('mouseup', () => {
-    if (dragging) {
-      const win = openWindows.get(id);
-      if (win && !win.maximized) win.saved = readWindowBounds(el);
+  const grip = el.querySelector('.win-resize');
+  let size = null;
+  grip?.addEventListener('pointerdown', (e) => {
+    const win = openWindows.get(id);
+    if (win?.maximized) return;
+    size = { x: e.clientX, y: e.clientY, w: el.offsetWidth, h: el.offsetHeight };
+    grip.setPointerCapture?.(e.pointerId);
+    el.classList.add('is-resizing');
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  grip?.addEventListener('pointermove', (e) => {
+    if (!size) return;
+    const w = Math.max(320, Math.min(window.innerWidth - el.offsetLeft - 8, size.w + e.clientX - size.x));
+    const h = Math.max(240, Math.min(window.innerHeight - el.offsetTop - 12, size.h + e.clientY - size.y));
+    el.style.width = `${w}px`;
+    el.style.height = `${h}px`;
+    el.style.maxHeight = 'none';
+  });
+  const endSize = () => {
+    if (!size) return;
+    size = null;
+    el.classList.remove('is-resizing');
+    const win = openWindows.get(id);
+    if (win && !win.maximized) win.saved = readWindowBounds(el);
+  };
+  grip?.addEventListener('pointerup', endSize);
+  grip?.addEventListener('pointercancel', endSize);
+}
+
+/** "Run here": swap the info panel for the live app, sized like a phone. */
+function bindRunButton(el, app) {
+  const btn = el.querySelector('[data-run-app]');
+  if (!btn) return;
+  const body = el.querySelector('.win-body');
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sfx.click();
+    const info = body.innerHTML;
+    const prev = { width: el.style.width, height: el.style.height, maxHeight: el.style.maxHeight };
+    const win = openWindows.get(app.slug);
+    if (!win?.maximized) {
+      const h = Math.min(window.innerHeight - 120, 900);
+      el.style.maxHeight = 'none';
+      el.style.height = `${h}px`;
+      el.style.width = `${Math.min(window.innerWidth - 24, Math.max(460, Math.round(h * 0.56)))}px`;
+      const maxT = window.innerHeight - h - 80;
+      el.style.top = `${Math.max(44, Math.min(parseFloat(el.style.top), maxT))}px`;
+      const maxL = window.innerWidth - el.offsetWidth - 8;
+      el.style.left = `${Math.max(8, Math.min(parseFloat(el.style.left), maxL))}px`;
     }
-    dragging = false;
+    el.classList.add('win--running');
+    body.innerHTML = runnerHTML(app);
+    bindRunner(body, {
+      onBack: () => {
+        el.classList.remove('win--running');
+        body.innerHTML = info;
+        if (!openWindows.get(app.slug)?.maximized) Object.assign(el.style, prev);
+        body.querySelectorAll('[data-open-app]').forEach((b) => b.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          openApp(b.dataset.openApp);
+        }));
+        initAppDemo(el, app);
+        bindRunButton(el, app);
+        syncVersions(el);
+      },
+    });
+    const w = openWindows.get(app.slug);
+    if (w && !w.maximized) w.saved = readWindowBounds(el);
   });
 }
 
@@ -508,6 +607,8 @@ export function openSystem(action) {
     about: { title: 'About This Device', content: aboutHTML(), system: true },
     apps: { title: 'Applications', content: applicationsHTML(), wide: true },
     help: { title: 'Help', content: helpHTML(), system: true },
+    appearance: { title: 'Appearance', content: appearanceHTML(), wide: true },
+    privacy: { title: 'Privacy Monitor', content: privacyMonitorHTML(), system: true },
   };
   const cfg = map[action];
   if (!cfg) return null;

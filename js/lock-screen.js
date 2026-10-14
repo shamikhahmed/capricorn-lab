@@ -1,6 +1,7 @@
 import { SYSTEM, APPS } from './products.js';
 import { initWallpaper } from './wallpaper.js';
 import { sfx } from './sounds.js';
+import { watchNetwork, proofLine } from './privacy-monitor.js';
 
 const SESSION_KEY = 'cap-os-unlocked';
 const N = APPS.length;
@@ -60,7 +61,7 @@ function constellationHTML() {
 }
 
 function buildLockHTML(mode) {
-  const variant = mode === 'mobile' ? 'ios' : 'desktop';
+  const variant = mode === 'desktop' ? 'desktop' : 'ios';
 
   const iosSwipe = variant === 'ios' ? `
     <div class="lock-screen__swipe-zone" id="lockSwipeZone" aria-hidden="true">
@@ -75,10 +76,10 @@ function buildLockHTML(mode) {
     <canvas class="lock-screen__wallpaper" id="lockWallpaper" aria-hidden="true"></canvas>
     <canvas class="lock-screen__sphere" id="lockSphere" aria-hidden="true"></canvas>
     <div class="lock-screen__scrim" aria-hidden="true"></div>
-    <a href="https://shamikhahmed.github.io/" class="lock-chrome" id="lockBack" aria-label="Exit Capricorn OS to portfolio site">
+    <a href="https://shamikhahmed.github.io/about.html" class="lock-chrome" id="lockBack" aria-label="Leave Capricorn OS for the classic Capricorn Systems site">
       <span class="lock-chrome__chev" aria-hidden="true">‹</span>
       <img class="lock-chrome__mark" src="${SYSTEM.logo}" alt="" width="14" height="14">
-      <span class="lock-chrome__label">${variant === 'ios' ? 'Portfolio' : 'Exit to Web'}</span>
+      <span class="lock-chrome__label">Classic site</span>
     </a>
     <p class="lock-chrome__status" aria-hidden="true">${variant === 'ios' ? 'Locked' : 'Device locked'}</p>
     <div class="lock-screen__panel" id="lockPanel">
@@ -111,7 +112,7 @@ function buildLockHTML(mode) {
           <p class="lock-screen__tagline">${SYSTEM.tagline}</p>
           <p class="lock-screen__proof" aria-live="polite">
             <span class="lock-screen__proof-dot" aria-hidden="true"></span>
-            <span id="lockBytesProof">0 bytes sent today</span>
+            <span id="lockBytesProof">0 trackers · 0 third-party requests</span>
           </p>
           <button type="button" class="lock-screen__unlock" id="lockUnlock">
             ${variant === 'ios' ? 'Enter Capricorn OS' : 'Unlock device'}
@@ -291,26 +292,26 @@ function initWhisper(el) {
   return clear;
 }
 
+/** Live, measured proof (Privacy Monitor) — alternates with the plain promise. */
 function initSovereigntyPulse(proofEl) {
   if (!proofEl) return () => {};
   const pill = proofEl.closest('.lock-screen__proof') || proofEl;
-  const lines = [
-    '0 bytes sent today',
-    'Telemetry blocked · 0 bytes',
-    '0 bytes leave this device',
-  ];
+  let measured = proofLine();
+  const stopWatch = watchNetwork((s) => { measured = proofLine(s); });
+  const lines = () => [measured, 'No analytics · no ads · no account', measured];
+  proofEl.textContent = measured;
   let i = 0;
   const id = setInterval(() => {
-    i = (i + 1) % lines.length;
+    i = (i + 1) % 3;
     pill.classList.add('is-flash');
-    proofEl.textContent = lines[i];
+    proofEl.textContent = lines()[i];
     setTimeout(() => pill.classList.remove('is-flash'), 320);
   }, 7000);
-  return () => clearInterval(id);
+  return () => { clearInterval(id); stopWatch(); };
 }
 
 export function runLockScreen({ mode = 'desktop', onUnlock } = {}) {
-  const variant = mode === 'mobile' ? 'ios' : 'desktop';
+  const variant = mode === 'desktop' ? 'desktop' : 'ios';
   const el = document.getElementById('lockScreen');
   if (!el) {
     onUnlock?.();

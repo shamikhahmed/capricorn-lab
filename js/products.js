@@ -1,4 +1,5 @@
-/** Capricorn OS catalog — versions synced from each app VERSION.json (HUB-P0-01). */
+/** Capricorn OS catalog. `ver` is the offline / first-paint fallback — js/live-catalog.js
+ *  replaces it at runtime with each Cap's published VERSION.json. */
 export const APPS = [
   {
     slug: 'vaultcap',
@@ -28,7 +29,7 @@ export const APPS = [
     name: 'PulseCap',
     symbol: '◇',
     category: 'Performance',
-    ver: '6.43.1',
+    ver: '6.44.0',
     tagline: 'Plan, log and track your training. Works offline.',
     pitch: 'Training log, recovery readiness, and Smart Coach offline — no wearable required.',
     hook: 'Your training log, your PRs, your recovery — on your phone.',
@@ -144,7 +145,7 @@ export const APPS = [
     name: 'ScentCap',
     symbol: '◌',
     category: 'Lifestyle',
-    ver: '2.1.1',
+    ver: '2.1.4',
     tagline: 'Your fragrance collection, and what to wear today.',
     pitch: 'Catalog bottles, log wears, and pick for today — wardrobe on your device.',
     hook: 'The wardrobe that remembers what you wore.',
@@ -167,7 +168,7 @@ export const APPS = [
     name: 'SoulCap',
     symbol: '✧',
     category: 'Wellness',
-    ver: '8.2.0',
+    ver: '8.3.2',
     tagline: 'Quiet tools to steady yourself. Not therapy.',
     pitch: 'Check-ins, techniques, and journal on your device. Not therapy, not a crisis service.',
     hook: 'Steady yourself quietly. Your journal stays on your phone.',
@@ -378,8 +379,8 @@ export const TASKS = [
 
 export const SYSTEM = {
   name: 'Capricorn OS',
-  version: '1.0.0',
-  build: 'hub-tier1-2026-09-15',
+  version: '1.1.0',
+  build: 'themes-2026-10-14',
   founder: 'Shamikh Ahmed',
   tagline: 'Software that lives on your device.',
   pitch: 'Capricorn Systems builds Cap apps that live on your phone — encrypted on your device, no cloud rent, no analytics. Capricorn OS is the hub.',

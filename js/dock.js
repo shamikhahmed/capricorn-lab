@@ -43,10 +43,10 @@ export function initDock({ onOpen }) {
     btn.style.setProperty('--dock-i', String(i + 1));
     btn.setAttribute('aria-label', `Open ${app.name}${app.wip ? ' (in development)' : ''}`);
     btn.innerHTML = `
-      <span class="dock-tip">${app.name}${app.wip ? ' · WIP' : ''}</span>
+      <span class="dock-tip">${app.name}${app.privateBeta ? ' · Private beta' : app.wip ? ' · WIP' : ''}</span>
       <div class="dock-icon${app.wip ? ' dock-icon--wip' : ''}">
         <img src="${app.icon}" alt="" width="46" height="46" loading="eager" decoding="async">
-        ${app.wip ? '<span class="dock-wip" aria-hidden="true">WIP</span>' : ''}
+        ${app.privateBeta ? '<span class="dock-wip" aria-hidden="true">BETA</span>' : app.wip ? '<span class="dock-wip" aria-hidden="true">WIP</span>' : ''}
       </div>
       <span class="dock-dot" aria-hidden="true"></span>
     `;

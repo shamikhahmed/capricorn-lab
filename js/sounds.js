@@ -1,6 +1,22 @@
 let audioCtx = null;
 let enabled = true;
 
+/** Per-skin timbre: same melodies, different instrument (js/theme.js `sound`). */
+const PACKS = {
+  soft: {},
+  glass: { pitch: 1.25, vol: 0.9 },
+  synth: { wave: 'sawtooth', pitch: 0.75, vol: 0.45 },
+  chip: { wave: 'square', pitch: 1, vol: 0.38 },
+  bell: { wave: 'triangle', pitch: 1.5, vol: 1 },
+  paper: { pitch: 0.62, vol: 0.7 },
+  thud: { wave: 'square', pitch: 0.42, vol: 0.5 },
+};
+let pack = PACKS.soft;
+
+export function setSoundPack(id) {
+  pack = PACKS[id] || PACKS.soft;
+}
+
 export function initSounds() {
   enabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   try {
@@ -37,10 +53,10 @@ function tone(freq, start, dur, type = 'sine', vol = 0.08, ramp = true) {
   if (!ac) return;
   const osc = ac.createOscillator();
   const gain = ac.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, ac.currentTime + start);
+  osc.type = pack.wave || type;
+  osc.frequency.setValueAtTime(freq * (pack.pitch || 1), ac.currentTime + start);
   gain.gain.setValueAtTime(0, ac.currentTime + start);
-  gain.gain.linearRampToValueAtTime(vol, ac.currentTime + start + 0.008);
+  gain.gain.linearRampToValueAtTime(vol * (pack.vol ?? 1), ac.currentTime + start + 0.008);
   if (ramp) gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + start + dur);
   osc.connect(gain);
   gain.connect(ac.destination);
@@ -124,6 +140,12 @@ export const sfx = {
   },
   drag() {
     tone(200, 0, 0.02, 'sine', 0.015);
+  },
+  theme() {
+    tone(523, 0, 0.12, 'sine', 0.04);
+    tone(659, 0.07, 0.14, 'sine', 0.045);
+    tone(784, 0.14, 0.18, 'triangle', 0.05);
+    tone(1046, 0.22, 0.3, 'sine', 0.035);
   },
 };
 

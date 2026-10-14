@@ -1,3 +1,19 @@
+## 1.1.0 — 2026-10-14
+
+**Themes, devices, honesty.**
+
+- **Ten themes** — Capricorn, Capricorn Night, Aurora, Synthwave, Terminal, Truck Art, Mughal, Paper, Pixel 95, Brutal. Each one reskins wallpaper (new canvas painter per theme), glass, type, window chrome, widgets, dock, lock screen, boot log and UI sound timbre. Circular reveal on switch (View Transitions). Persisted; shareable via `?theme=`.
+- **Appearance app** (desktop window + iOS sheet) with live-painted previews, Surprise me, Copy theme link. Theme row in Control Center; themes in Spotlight; right-click → Next Theme / Surprise Me; Apple menu → Appearance…
+- **iPad mode** — new tablet surface for touch screens 600–1366px: wide widget board, roomy icon grid, 9-app dock + App Library, centred form sheets, banner below status bar.
+- **Phone** — dock shows 4 favourites (was 17 squeezed into slivers); widgets/icons open an app sheet (details, screenshot, Launch, Try it here); iOS-style banner notifications; Themes, Privacy and Library on the home grid.
+- **Run here** — the real Cap runs inside its desktop window (phone frame or full width) or a full sheet on touch devices.
+- **Live catalog** — versions read at runtime from each Cap's VERSION.json.
+- **Privacy Monitor** — measured requests by origin; clock widget, lock screen and certificate now show measured numbers.
+- **Honesty** — removed "Living Mind / LMM" (SoulCap), "0 bytes sent", "0 servers", "network disabled" claims. LedgerCap prices, DeeFoodie sync and TravelCap lookups do use servers.
+- **Desktop** — widget grid is natural-flow + scroll (fixed 10-app row math dropped; rows 11–15 were clipping under the dock); windows drag and resize with pointer events (touch works); themed screensaver uses the live wallpaper; tour shows off themes.
+- **Perf** — painters render soft layers below 1× DPR, cap fps per theme, pause when hidden, adaptive governor; opaque skins skip backdrop blur.
+- **QA** — `npm test` rewritten (stale version list replaced by registry/CSS/painter/privacy/honesty gates); new `qa:matrix` (10 themes × 7 devices × Chromium + WebKit) and `qa:flows` (drives windows, Run here, sheets, lock screens).
+
 ## 1.0.3 — 2026-09-15
 
 - Catalog truth: closed Caps — Soul 8.2.0 · Scent 2.1.1 · Mastery 51.9.2 · Vault 5.2.2 · Cook 3.5.1 · Pulse 6.43.1 · Steady 2.5.4 · Travel 1.0.2 · Ledger 3.57.2 (+ Prism/DeePony/Aura/Idea/Car sync).

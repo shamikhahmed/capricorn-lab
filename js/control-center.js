@@ -1,6 +1,6 @@
 import { sfx, isSoundEnabled, setSounds } from './sounds.js';
 import { notify } from './notifications.js';
-import { setWallpaperVariant, getWallpaperVariant } from './wallpaper.js';
+import { THEMES, getSkin } from './theme.js';
 
 const WIFI_BLOCKERS = [
   {
@@ -102,22 +102,18 @@ export function initControlCenter() {
   const vol = panel.querySelector('#ccVolume');
   vol?.addEventListener('input', () => { /* visual only */ });
 
-  // Wallpaper picker
-  const syncSwatches = () => {
-    const cur = getWallpaperVariant();
-    panel.querySelectorAll('[data-wallpaper]').forEach((s) => {
-      s.classList.toggle('is-active', s.dataset.wallpaper === cur);
-    });
-  };
-  panel.querySelectorAll('[data-wallpaper]').forEach((s) => {
-    s.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setWallpaperVariant(s.dataset.wallpaper);
-      syncSwatches();
-      sfx.click();
-    });
+  // Theme row — every skin one tap away (delegated [data-skin-pick] in theme.js)
+  const skins = panel.querySelector('#ccSkins');
+  if (skins) {
+    skins.innerHTML = THEMES.map((t) => `
+      <button type="button" class="cc-skin${t.id === getSkin() ? ' is-active' : ''}" data-skin-pick="${t.id}"
+        style="--s0:${t.swatch[0]};--s1:${t.swatch[1]};--s2:${t.swatch[2]}" aria-label="${t.name} theme" title="${t.name}"></button>`).join('');
+  }
+  panel.querySelector('[data-cc-more]')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    close();
+    document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'appearance' } }));
   });
-  syncSwatches();
 
   if (!isSoundEnabled()) {
     soundTile?.classList.remove('is-on');
@@ -148,6 +144,12 @@ export function initAppleMenu() {
   });
   menu.querySelector('[data-am="prefs"]')?.addEventListener('click', () => {
     document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'sovereignty' } }));
+  });
+  menu.querySelector('[data-am="appearance"]')?.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'appearance' } }));
+  });
+  menu.querySelector('[data-am="privacy"]')?.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('cap:open-system', { detail: { action: 'privacy' } }));
   });
   menu.querySelector('[data-am="lock"]')?.addEventListener('click', () => {
     menu.hidden = true;

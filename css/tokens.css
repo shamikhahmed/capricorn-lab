@@ -13,7 +13,8 @@
 }
 
 :root,
-[data-theme="light"] {
+[data-theme="light"],
+[data-skin="capricorn-light"] {
   --os-paper: #d4cbb8;
   --os-paper-deep: #c8bfae;
   --os-ink: #1a1816;
@@ -68,6 +69,32 @@
   --w-font-tag: 0.6rem;
   --w-font-stat: 1.35rem;
   --w-font-stat-sm: 1.2rem;
+  /* iOS / iPadOS layer — skins override these (css/themes.css) */
+  --ios-label: #fff;
+  --ios-label-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  --ios-ink: #fff;
+  --ios-ink-dim: rgba(255, 255, 255, 0.62);
+  --ios-glass: rgba(255, 255, 255, 0.1);
+  --ios-glass-border: rgba(255, 255, 255, 0.14);
+  --ios-glass-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+  --ios-glass-blur: blur(24px) saturate(1.5);
+  --ios-app-base: #1a1a24;
+  --ios-app-deep: #0d0d13;
+  --ios-chip: rgba(255, 255, 255, 0.16);
+  --ios-dock-bg: rgba(255, 255, 255, 0.22);
+  --ios-dock-border: rgba(255, 255, 255, 0.25);
+  --ios-sheet-bg: #f2f2f7;
+  --ios-sheet-card: #fff;
+  --ios-sheet-ink: #1c1c1e;
+  --ios-sheet-dim: #636366;
+  --ios-sheet-line: rgba(0, 0, 0, 0.07);
+  --ios-tint: #007aff;
+  --ios-radius: 20px;
+  --ios-icon-radius: 14px;
+  --ios-notify-bg: rgba(28, 28, 30, 0.92);
+  --ios-notify-ink: #fff;
+  --ios-icon-filter: none;
+  --os-icon-filter: none;
   --z-wallpaper: 0;
   --z-desktop: 1;
   --z-dock: 200;
@@ -77,7 +104,8 @@
   --z-boot: 500;
 }
 
-[data-theme="dark"] {
+[data-theme="dark"],
+[data-skin="capricorn-dark"] {
   --os-status-on: #4ade80;
   --os-paper: #121110;
   --os-paper-deep: #1c1a18;
