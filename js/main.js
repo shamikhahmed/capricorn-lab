@@ -143,6 +143,7 @@ function enterDesktop({ welcome = false } = {}) {
     document.title = `${SYSTEM.name} — ${SYSTEM.tagline}`;
   }
 
+  scheduleDeepLink();
   requestAnimationFrame(() => layoutWidgetHeights());
 }
 
@@ -162,6 +163,27 @@ function enterMobile({ welcome = false } = {}) {
     refreshCatalog();
     if (welcome) welcomeToOS();
   }
+  scheduleDeepLink();
+}
+
+/** `?app=<slug>` opens that Cap window (desktop) or sheet (phone/iPad). §10.4 / N-1. */
+let deepLinkConsumed = false;
+function scheduleDeepLink() {
+  if (deepLinkConsumed) return;
+  const slug = new URLSearchParams(location.search).get('app');
+  if (!slug) return;
+  const app = APPS.find((a) => a.slug === slug);
+  if (!app) return;
+  deepLinkConsumed = true;
+  const open = () => {
+    if (isHomeMode(currentMode)) {
+      document.dispatchEvent(new CustomEvent('cap:ios-sheet', { detail: { action: 'app', slug } }));
+    } else {
+      openApp(slug);
+    }
+  };
+  // After first paint / sheet init
+  setTimeout(open, 450);
 }
 
 function onUnlockFromLock({ skipBoot = false } = {}) {

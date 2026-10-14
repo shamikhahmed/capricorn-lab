@@ -49,4 +49,7 @@ if (existsSync(join(LAB, 'assets/og.png'))) {
   cpSync(join(LAB, 'assets/og.png'), join(hubAssets, 'og.png'));
 }
 
+// Perfection Loop v3 §10.2 — mini-sites into hub /apps/<slug>/
+sh('node scripts/build-minisites.mjs');
+
 console.log('Deploy copy complete →', HUB);

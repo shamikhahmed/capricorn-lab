@@ -66,6 +66,7 @@ function appPanelHTML(app) {
             <a class="app-launch${app.wip || app.privateBeta ? ' app-launch--wip' : ''}" href="${href}" ${app.privateBeta ? '' : 'target="_blank" rel="noopener"'}>
               <img src="${app.icon}" alt="" width="20" height="20"> ${launch}
             </a>
+            <a class="app-secondary" href="/apps/${app.slug}/" target="_blank" rel="noopener">Website</a>
             <a class="app-secondary" href="${secHref}" target="_blank" rel="noopener">${secLabel}</a>
           </div>
         </div>
