@@ -196,7 +196,7 @@ function viewportCrop(file, device, hint) {
 function ingestGallery(repoPath, slug) {
   const dir = join(repoPath, 'docs', 'screenshots', 'gallery');
   const man = readJson(join(dir, 'gallery-manifest.json'));
-  if (!man?.shots?.length) return [];
+  if (!man?.shots?.length) return Object.assign([], { schemes: [], schemeNote: '' });
   const dest = join(OUT, slug, 'shots');
   rmSync(dest, { recursive: true, force: true });
   const seen = new Set();
@@ -411,7 +411,7 @@ ${topbar(app)}
   <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
   <button type="button" class="lightbox__nav lightbox__nav--next" data-lb="1" aria-label="Next">›</button>
 </dialog>
-<script type="application/json" id="shots" data-schemes="${esc(shots.schemes.join(','))}">${data}</script>
+${shots.length ? `<script type="application/json" id="shots" data-schemes="${esc(shots.schemes.join(','))}">${data}</script>` : ''}
 <script src="/apps/assets/minisite.js" defer></script>
 </body>
 </html>
