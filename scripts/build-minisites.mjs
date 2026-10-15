@@ -173,6 +173,24 @@ function latestRelease(md) {
 }
 
 const DEVICE_W = { iphone: 600, ipad: 1000, mac: 1200 };
+const DEVICE_R = { iphone: 2.164, ipad: 0.695, mac: 0.625 }; // viewport height ÷ width
+
+/** Real pixel size (manifests can be stale). */
+function pixelSize(file) {
+  const out = spawnSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', file], { encoding: 'utf8' }).stdout || '';
+  const w = Number((out.match(/pixelWidth:\s*(\d+)/) || [])[1]);
+  const h = Number((out.match(/pixelHeight:\s*(\d+)/) || [])[1]);
+  return w && h ? { w, h } : null;
+}
+
+/** cwebp args that keep the first viewport of a full-page capture (top crop to the device ratio). */
+function viewportCrop(file, device, hint) {
+  const r = DEVICE_R[device];
+  if (!r || (hint?.w && hint?.h && hint.h / hint.w <= r * 1.03)) return [];
+  const px = pixelSize(file);
+  if (!px || px.h / px.w <= r * 1.03) return [];
+  return ['-crop', '0', '0', String(px.w), String(Math.round(px.w * r))];
+}
 
 /** Copy + downsize gallery shots into apps/<slug>/shots/. Returns shot records for the page. */
 function ingestGallery(repoPath, slug) {
@@ -197,9 +215,10 @@ function ingestGallery(repoPath, slug) {
     seen.add(key);
     const rel = `shots/${s.theme}/${s.device}/${id}.webp`;
     mkdirSync(dirname(join(OUT, slug, rel)), { recursive: true });
-    const r = spawnSync('cwebp', ['-quiet', '-resize', String(DEVICE_W[s.device]), '0', '-q', '72', '-m', '6', src, '-o', join(OUT, slug, rel)]);
+    const crop = viewportCrop(src, s.device, s);
+    const r = spawnSync('cwebp', ['-quiet', ...crop, '-resize', String(DEVICE_W[s.device]), '0', '-q', '72', '-m', '6', src, '-o', join(OUT, slug, rel)]);
     if (r.status !== 0) cpSync(src, join(OUT, slug, rel));
-    const ratio = s.w && s.h ? s.h / s.w : s.device === 'iphone' ? 2.164 : s.device === 'ipad' ? 0.695 : 0.625;
+    const ratio = crop.length ? Number(crop[4]) / Number(crop[3]) : s.w && s.h ? s.h / s.w : DEVICE_R[s.device];
     shots.push({
       id, group: s.group || 'Screens', screen: s.screen || id, caption: s.caption || '',
       theme: s.theme, device: s.device, src: rel, w: DEVICE_W[s.device], h: Math.round(DEVICE_W[s.device] * ratio),

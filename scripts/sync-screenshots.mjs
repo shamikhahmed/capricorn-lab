@@ -8,13 +8,14 @@
  * device frame renders at 2×). Windows and iOS sheets pick the one that matches
  * the active theme's base mode.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const LAB = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FLEET = join(LAB, '..');
+const IPHONE_R = 2.164; // 393 × 852 viewport
 const REPO = {
   vaultcap: 'VaultCap', pulsecap: 'PulseCap', prismcap: 'PrismCap', steadycap: 'SteadyCap',
   ledgercap: 'LedgerCap', deeponycap: 'DeePonyCap', scentcap: 'ScentCap', soulcap: 'SoulCap',
@@ -34,11 +35,16 @@ for (const app of APPS) {
     const shot = man.shots?.find((s) => s.theme === theme && s.device === 'iphone' && existsSync(join(dir, s.file)));
     if (!shot) continue;
     const out = join(LAB, 'assets', 'screenshots', `${app.slug}${suffix}.png`);
-    // dwebp → PNG, then sips to 780 px wide (macOS); both ship with the dev toolchain here
-    const tmp = `${out}.tmp.png`;
-    if (spawnSync('dwebp', ['-quiet', join(dir, shot.file), '-o', tmp]).status !== 0) continue;
-    spawnSync('sips', ['--resampleWidth', '780', tmp, '--out', out], { stdio: 'ignore' });
-    spawnSync('rm', ['-f', tmp]);
+    const src = join(dir, shot.file);
+    // Full-page captures (taller than an iPhone viewport) keep their first screen only.
+    const px = (spawnSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', src], { encoding: 'utf8' }).stdout || '').match(/\d+/g)?.slice(-2).map(Number);
+    const crop = px && px[1] / px[0] > IPHONE_R * 1.03 ? ['-crop', '0', '0', String(px[0]), String(Math.round(px[0] * IPHONE_R))] : [];
+    // cwebp (crop + 780 px wide) → dwebp → PNG; both ship with the dev toolchain here
+    const tmp = `${out}.tmp.webp`;
+    const ok = spawnSync('cwebp', ['-quiet', '-q', '92', ...crop, '-resize', '780', '0', src, '-o', tmp]).status === 0
+      && spawnSync('dwebp', ['-quiet', tmp, '-o', out]).status === 0;
+    rmSync(tmp, { force: true });
+    if (!ok) continue;
     n += 1;
   }
   console.log(`✓ ${app.slug}`);

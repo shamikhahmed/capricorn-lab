@@ -190,6 +190,7 @@ export const APPS = [
     icon: 'assets/icons/soulcap.svg',
     mark: 'assets/marks/soulcap.svg',
     screenshot: 'assets/screenshots/soulcap.png',
+    screenshotDark: 'assets/screenshots/soulcap-dark.png',
     highlights: ['Check-in', 'Techniques', 'Journal', 'Help'],
     features: ['One-tap check-in', 'Guided techniques', 'On-device journal', 'Region-aware help numbers'],
   },
