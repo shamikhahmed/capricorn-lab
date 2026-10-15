@@ -426,7 +426,7 @@ function renderIndex(apps, versions) {
     <span class="capcard__desc">${esc(DESC[a.slug] || a.tagline)}</span>
     <span class="capcard__meta">${esc(a.category)} · v${esc(versions[a.slug] || a.ver)}</span>
   </a></li>`).join('');
-  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Fifteen Cap apps by Capricorn Systems. Each one looks different; all of them keep your data on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
+  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Fifteen Cap apps by Capricorn Systems. Each one looks different; none has ads or analytics, and each says plainly what stays on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
 <body>
 ${topbar(null, false)}
 <main id="main">
@@ -434,7 +434,7 @@ ${topbar(null, false)}
     <div class="hero__text">
       <p class="eyebrow">Capricorn Systems</p>
       <h1 id="h1">Fifteen Caps. One rule.</h1>
-      <p class="hero__lead">Every Cap looks and feels different. All of them keep your data on your device — no accounts, no ads, no analytics.</p>
+      <p class="hero__lead">Every Cap looks and feels different. None of them has ads or analytics, and each page says plainly what stays on your device — and what, if anything, leaves it.</p>
       <div class="hero__cta"><a class="btn btn--fill" href="/">Open Capricorn OS</a><a class="btn btn--ghost" href="/support.html">Support</a></div>
     </div>
   </section>

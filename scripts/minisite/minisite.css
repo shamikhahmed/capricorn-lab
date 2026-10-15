@@ -141,7 +141,7 @@ html[data-theme="dark"] .hero__visual[data-shot-theme="dark"] { display: block; 
 .rail[data-device="ipad"] { grid-auto-columns: clamp(300px, 52vw, 560px); }
 .rail[data-device="mac"] { grid-auto-columns: clamp(300px, 62vw, 700px); }
 .rail li { scroll-snap-align: start; }
-.shot { all: unset; display: block; cursor: zoom-in; border-radius: 40px; }
+.shot { all: unset; display: block; width: 100%; box-sizing: border-box; cursor: zoom-in; border-radius: 40px; } /* buttons shrink-to-fit even as blocks; lazy imgs would collapse */
 .shot:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .shot .dev { transition: transform 0.25s cubic-bezier(.2,.8,.2,1); }
 @media (hover: hover) { .shot:hover .dev { transform: translateY(-4px); } }

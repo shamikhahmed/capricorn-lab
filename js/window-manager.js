@@ -179,7 +179,7 @@ function aboutHTML() {
         <div><span>Analytics</span><strong>None</strong></div>
         <div><span>Theme</span><strong>${getSkinDef().name}</strong></div>
       </div>
-      <p>Capricorn Systems builds premium personal software — ${APPS.length} Cap apps that live on your phone, work offline, and keep your data on your device. No analytics, no ads, no accounts required. Each app looks completely different. One rule ties them: <em>device sovereignty</em>.</p>
+      <p>Capricorn Systems builds premium personal software — ${APPS.length} Cap apps that live on your phone, work offline-first, and keep your data on your device by default. No analytics, no ads — and each app says plainly what, if anything, leaves it. Each app looks completely different. One rule ties them: <em>device sovereignty</em>.</p>
       <p>Founded and built by <strong>${SYSTEM.founder}</strong> — Cap apps for finance, training, play, recovery, wealth, travel, wellness, fragrance, cooking, collection, and your Apple setup. Encrypted or stored locally. Capricorn OS is the hub.</p>
       <p class="about-foot">Production hub: <a href="https://shamikhahmed.github.io/" target="_blank" rel="noopener">shamikhahmed.github.io</a> · Support: <a href="https://shamikhahmed.github.io/support.html" target="_blank" rel="noopener">support</a> · GitHub: <a href="https://github.com/shamikhahmed" target="_blank" rel="noopener">@shamikhahmed</a></p>
     </div>
