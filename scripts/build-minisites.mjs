@@ -133,8 +133,8 @@ function palette(app) {
     line: mix(darkBase, '#ffffff', 0.14),
     ink: '#f6f4ef',
     dim: mix('#f6f4ef', darkBase, 0.34),
-    accent: reach(accent, darkBase, 4.6, '#ffffff'),
   };
+  dark.accent = reach(accent, dark.surface2, 4.6, '#ffffff'); // cards are the lightest dark surface
   const lightBase = mix('#fbfaf7', accent, 0.045);
   const light = {
     bg: lightBase,
@@ -143,8 +143,10 @@ function palette(app) {
     line: mix('#e4e1da', accent, 0.08),
     ink: '#16161a',
     dim: '#55555d',
-    accent: reach(accent, lightBase, 4.6, '#000000'),
   };
+  // accent text sits on bg, white cards and tinted surface2 — clear 4.5:1 on the weakest of them
+  const weakest = [light.bg, light.surface, light.surface2].reduce((w, c) => (contrast(accent, c) < contrast(accent, w) ? c : w));
+  light.accent = reach(accent, weakest, 4.6, '#000000');
   // Button fill: the brand colour itself, with whichever label colour reads best.
   for (const p of [dark, light]) {
     const fill = p === dark ? reach(accent, darkBase, 3, '#ffffff') : reach(accent, '#ffffff', 3, '#000000');
