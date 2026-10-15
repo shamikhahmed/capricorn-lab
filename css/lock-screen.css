@@ -94,7 +94,8 @@
 }
 
 .lock-screen--ios .lock-chrome {
-  top: max(2.85rem, calc(env(safe-area-inset-top) + 2.1rem));
+  /* status-bar row, like iOS's "‹ App" breadcrumb — clear of the clock on short phones */
+  top: max(0.3rem, calc(env(safe-area-inset-top) - 0.2rem));
   padding: 0.3rem 0.65rem 0.3rem 0.35rem;
   border-radius: 999px;
   font-size: 0.84rem;
@@ -639,7 +640,7 @@
 
 .lock-screen__eyebrow {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -678,7 +679,7 @@
   gap: 0.45rem;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -775,7 +776,7 @@
 
 .lock-screen__hint {
   margin: 0.2rem 0 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   opacity: 0.45;
 }
 
@@ -811,7 +812,7 @@
 
 .lock-screen__swipe-label {
   margin: 0.55rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: calc(0.35 + var(--lock-lift, 0) * 0.45);
@@ -890,4 +891,22 @@ body.os-live .ios-dock__icon {
   body.os-live .ios-dock__icon {
     animation: none;
   }
+}
+
+/* Short phones (iPhone SE): keep the status-row chip and the clock apart */
+@media (max-height: 720px) {
+  .lock-screen--ios .lock-screen__top { padding-top: 1.75rem; }
+  .lock-screen--three .lock-screen__stage { min-height: 200px; }
+  .lock-screen__orbit { height: min(220px, 56vw, 26vh); }
+}
+
+@media (max-height: 600px) {
+  .lock-screen--ios .lock-screen__top { padding-top: 0.5rem; }
+  .lock-screen__hint { display: none; } /* "Swipe up to enter" below says the same */
+  .lock-screen__orbit { height: min(220px, 56vw, 21vh); }
+}
+
+/* 320 px phones: chip shows chevron + mark only (it keeps its aria-label) */
+@media (max-width: 340px) {
+  .lock-screen--ios .lock-chrome__label { display: none; }
 }
