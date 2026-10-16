@@ -489,12 +489,37 @@ for (const app of APPS) {
 writeFileSync(join(OUT, 'index.html'), renderIndex(APPS, versions));
 writeFileSync(join(OUT, 'og-jobs.json'), JSON.stringify(ogJobs.map((j) => ({ slug: j.app.slug, name: j.app.name, desc: DESC[j.app.slug] || j.app.tagline, bg: j.pal.dark.bg, accent: j.pal.dark.accent, glow: j.pal.glow, shot: j.shot ? join(OUT, j.app.slug, j.shot.src) : null, icon: join(OUT, 'assets', 'icons', `${j.app.slug}.svg`), out: j.out }))));
 
-// sitemap: keep existing entries, ensure /apps/ pages are listed
+// sitemap: ensure /apps/ pages; prune legacy redirects + noindex URLs (V5-3)
 const smPath = join(HUB, 'sitemap.xml');
 let sm = readText(smPath);
 if (sm) {
+  const redirectLocs = new Set(APPS.map((a) => `${BASE}/${a.slug}.html`));
+  const noindexLocs = new Set();
+  for (const [slug, repo] of Object.entries(REPO)) {
+    const repoPath = join(FLEET, repo);
+    const candidates = [
+      join(repoPath, 'out', 'index.html'),
+      join(repoPath, 'dist', 'index.html'),
+      join(HUB, repo, 'index.html'),
+    ];
+    const html = candidates.map(readText).find(Boolean) || '';
+    const srcRobots = readText(join(repoPath, 'src', 'app', 'layout.tsx'));
+    const noindex =
+      /name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html) ||
+      /content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots["']/i.test(html) ||
+      /robots:\s*\{\s*index:\s*false/.test(srcRobots);
+    if (noindex) {
+      noindexLocs.add(`${BASE}/${repo}/`);
+      noindexLocs.add(`${BASE}/${repo}`);
+    }
+  }
+  const drop = new Set([...redirectLocs, ...noindexLocs]);
+  sm = sm.replace(/[ \t]*<url>\s*<loc>([^<]*)<\/loc>[\s\S]*?<\/url>\s*/g, (block, loc) => (drop.has(loc) ? '' : block));
   const urls = [`${BASE}/apps/`, ...APPS.map((a) => `${BASE}/apps/${a.slug}/`)];
-  for (const u of urls) if (!sm.includes(`<loc>${u}</loc>`)) sm = sm.replace('</urlset>', `  <url><loc>${u}</loc><priority>0.8</priority></url>\n</urlset>`);
+  for (const u of urls) {
+    if (drop.has(u)) continue;
+    if (!sm.includes(`<loc>${u}</loc>`)) sm = sm.replace('</urlset>', `  <url><loc>${u}</loc><priority>0.8</priority></url>\n</urlset>`);
+  }
   writeFileSync(smPath, sm);
 }
 
