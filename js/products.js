@@ -30,7 +30,7 @@ export const APPS = [
     name: 'PulseCap',
     symbol: '◇',
     category: 'Performance',
-    ver: '6.46.4',
+    ver: '6.46.9',
     tagline: 'Plan, log and track your training. Works offline.',
     pitch: 'Training log, recovery readiness, and Smart Coach offline — no wearable required.',
     hook: 'Your training log, your PRs, your recovery — on your phone.',
