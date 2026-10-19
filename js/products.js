@@ -102,7 +102,7 @@ export const APPS = [
     name: 'LedgerCap',
     symbol: '▣',
     category: 'Wealth',
-    ver: '3.58.6',
+    ver: '3.58.9',
     tagline: 'Track your PSX stocks and mutual funds in one place.',
     pitch: 'PSX holdings, funds, and net worth in PKR — Worker-backed prices, private on your phone.',
     hook: 'PSX, funds, net worth — phone-native, private.',
