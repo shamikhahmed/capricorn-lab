@@ -199,7 +199,7 @@ export const APPS = [
     name: 'TravelCap',
     symbol: '✈',
     category: 'Travel',
-    ver: '1.1.5',
+    ver: '1.1.9',
     tagline: 'Trips, tickets and travel documents in one place.',
     pitch: 'Trips, packing, transit, and documents — local-first TravelCap organizer.',
     hook: 'Before, during, after — every mile on your device.',
