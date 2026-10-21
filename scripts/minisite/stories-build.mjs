@@ -43,11 +43,11 @@ export function featureLabel(app, fid, esc) {
   return esc(fid.replace(/-/g, ' '));
 }
 
-function storyMediaSrc(slug, rel, existsFn) {
+/** existsFn(relWithExt) — path relative to content/stories/<slug>/ e.g. ayesha/01-home.webp */
+function storyMediaSrc(rel, existsFn) {
   if (!rel) return null;
-  const base = join('content', 'stories', slug, rel);
   for (const ext of ['.webp', '.png', '.jpg']) {
-    if (existsFn(`${base}${ext}`)) return `media/${rel}${ext}`;
+    if (existsFn(`${rel}${ext}`)) return `media/${rel}${ext}`;
   }
   return null;
 }
@@ -89,20 +89,23 @@ export function buildStoriesForApp(app, bundle, ctx) {
     mkdirSync(pageDir, { recursive: true });
 
     const heroShot = p.day[0];
-    const heroRel = storyMediaSrc(bundle.slug, heroShot?.shot, (r) => existsSync(join(contentDir, 'stories', r)));
-    const heroDev = heroRel
-      ? { device: 'iphone', src: `../media/${heroShot.shot}${existsMedia(`${heroShot.shot}.webp`) ? '.webp' : '.png'}`, screen: heroShot.title, w: 402, h: 874, theme: 'light' }
+    const heroRel = storyMediaSrc(heroShot?.shot, existsMedia);
+    const heroExt = heroShot?.shot && existsMedia(`${heroShot.shot}.webp`)
+      ? '.webp'
+      : heroShot?.shot && existsMedia(`${heroShot.shot}.png`)
+        ? '.png'
+        : null;
+    const heroDev = heroRel && heroExt
+      ? { device: 'iphone', src: `../media/${heroShot.shot}${heroExt}`, screen: heroShot.title, w: 402, h: 874, theme: 'light' }
       : null;
 
     const timeline = p.day
       .map((step, si) => {
-        const rel = storyMediaSrc(bundle.slug, step.shot, (r) => existsSync(join(contentDir, 'stories', r)));
-        const img = rel
+        const rel = storyMediaSrc(step.shot, existsMedia);
+        const ext = existsMedia(`${step.shot}.webp`) ? '.webp' : existsMedia(`${step.shot}.png`) ? '.png' : null;
+        const img = rel && ext
           ? `<button type="button" class="shot story-shot" data-story-i="${si}" aria-label="${esc(step.title)} — open larger">
-          <figure class="dev dev--iphone">${existsMedia(`${step.shot}.webp`) || existsMedia(`${step.shot}.png`)
-            ? `<img src="../media/${step.shot}${existsMedia(`${step.shot}.webp`) ? '.webp' : '.png'}" alt="${esc(step.alt)}" width="402" height="874" loading="lazy" decoding="async">`
-            : `<div class="story-shot__ph" aria-hidden="true">Screenshot pending capture</div>`}
-          </figure></button>`
+          <figure class="dev dev--iphone"><img src="../media/${step.shot}${ext}" alt="${esc(step.alt)}" width="402" height="874" loading="lazy" decoding="async"></figure></button>`
           : `<div class="story-shot__ph" role="status">Screenshot pending capture</div>`;
         return `<li class="story-step${si % 2 ? ' story-step--alt' : ''}">
           <time datetime="${esc(step.time)}">${esc(step.time)}</time>

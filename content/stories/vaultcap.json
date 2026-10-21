@@ -144,17 +144,17 @@
         },
         {
           "time": "16:00",
-          "title": "Son helps locally",
-          "text": "When her son visits he switches to his family profile on the same phone — nothing is uploaded to a server.",
-          "shot": "margaret/03-family",
-          "alt": "Family profile shared locally with her son"
+          "title": "Renewal reminder",
+          "text": "A reminder nudges her two weeks before home insurance renews — she sets a note for the call centre.",
+          "shot": "margaret/03-reminders",
+          "alt": "Reminders showing an insurance renewal coming up"
         },
         {
           "time": "19:30",
-          "title": "Renewal reminder",
-          "text": "A reminder nudges her two weeks before home insurance renews — she sets a note for the call centre.",
-          "shot": "margaret/04-reminders",
-          "alt": "Reminders showing an insurance renewal coming up"
+          "title": "Settings at large text",
+          "text": "She keeps Larger Text on and checks that demo mode is clearly labelled before handing the phone to her son.",
+          "shot": "margaret/04-settings",
+          "alt": "Settings screen with text size and demo labelling"
         }
       ],
       "before": [
