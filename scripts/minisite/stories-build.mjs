@@ -62,9 +62,10 @@ function copyStoryAssets(bundle, contentDir, outSlugDir) {
     if (!existsSync(from)) continue;
     const dest = join(destRoot, sub);
     mkdirSync(dest, { recursive: true });
-    for (const f of readdirSync(from)) {
-      if (f === 'README.md' || f === '.gitkeep') continue;
-      cpSync(join(from, f), join(dest, f), { force: true });
+    for (const f of readdirSync(from, { withFileTypes: true })) {
+      if (!f.isFile()) continue; // skip _devices/ and other dirs (v7 weight budget)
+      if (f.name === 'README.md' || f.name === '.gitkeep') continue;
+      cpSync(join(from, f.name), join(dest, f.name), { force: true });
     }
   }
 }
