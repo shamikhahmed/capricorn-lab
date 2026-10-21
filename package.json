@@ -10,7 +10,7 @@
     "build:minisites": "node scripts/build-minisites.mjs",
     "deploy:hub": "node scripts/deploy-hub.mjs",
     "preview": "vite preview",
-    "test": "node scripts/smoke-hub.mjs",
+    "test": "node scripts/smoke-hub.mjs && node scripts/validate-stories.mjs",
     "qa:matrix": "node scripts/qa-matrix.mjs http://localhost:4321 qa-out/matrix",
     "qa:flows": "node scripts/qa-flows.mjs http://localhost:4321 qa-out/flows"
   },

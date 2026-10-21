@@ -22,8 +22,15 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import {
+  loadStoryBundles,
+  buildStoriesForApp,
+  renderWhoUses,
+  renderStoriesIndex,
+} from './minisite/stories-build.mjs';
 
 const LAB = join(dirname(fileURLToPath(import.meta.url)), '..');
+const CONTENT = join(LAB, 'content');
 const FLEET = join(LAB, '..');
 const HUB = join(FLEET, 'shamikhahmed.github.io');
 const OUT = join(HUB, 'apps');
@@ -265,11 +272,14 @@ ${extra}
 </head>`;
 }
 
-function topbar(app, links = true) {
+function topbar(app, links = true, storyNav = false) {
+  const sectionNav = storyNav
+    ? '<a href="#stories">Stories</a><a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>'
+    : '<a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>';
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <a class="brand" href="/" aria-label="Capricorn OS home"><img src="/assets/logo.svg" alt="" width="22" height="22"><span>Capricorn</span></a>
-  ${links ? `<nav class="top__nav" aria-label="Sections"><a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>` : '<nav class="top__nav" aria-label="Site"><a href="/">Capricorn OS</a><a href="/support.html">Support</a></nav>'}
+  ${links ? `<nav class="top__nav" aria-label="Sections">${sectionNav}</nav>` : '<nav class="top__nav" aria-label="Site"><a href="/">Capricorn OS</a><a href="/stories/">Stories</a><a href="/support.html">Support</a></nav>'}
   <div class="seg seg--theme" role="group" aria-label="Colour scheme">
     <button type="button" data-scheme="auto" aria-pressed="true">Auto</button><button type="button" data-scheme="light" aria-pressed="false">Light</button><button type="button" data-scheme="dark" aria-pressed="false">Dark</button>
   </div>
@@ -300,7 +310,7 @@ function heroVisual(shots) {
 }
 
 function renderApp(app, ctx) {
-  const { version, shots, log, pal, others } = ctx;
+  const { version, shots, log, pal, others, storyBundle } = ctx;
   const desc = DESC[app.slug] || app.tagline;
   const priv = PRIVACY[app.slug];
   const repo = REPO[app.slug];
@@ -319,10 +329,11 @@ function renderApp(app, ctx) {
     ...(app.privateBeta ? [] : [['Does it work offline?', app.slug === 'ledgercap' ? 'Your portfolio does. Market prices need a connection.' : app.slug === 'travelcap' ? 'Your trips and documents do. Search, maps and weather need a connection.' : 'Yes, after the first visit.']]),
   ];
   const data = JSON.stringify(shots).replace(/</g, '\\u003c');
+  const hasStories = Boolean(storyBundle?.personas?.length);
   return `${head({ title: `${app.name} — ${desc}`, desc: `${desc} ${app.pitch}`, canonical: `${BASE}/apps/${app.slug}/`, og: `${BASE}/apps/${app.slug}/og.png`, pal,
     extra: `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: app.name, description: desc, applicationCategory: app.category, operatingSystem: 'Web, iOS, iPadOS, macOS, Android (PWA)', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, softwareVersion: version, url: app.url || `${BASE}/apps/${app.slug}/`, publisher: { '@type': 'Organization', name: 'Capricorn Systems' } })}</script>` })}
 <body data-app="${esc(app.slug)}" data-repo="${esc(repo)}">
-${topbar(app)}
+${topbar(app, true, hasStories)}
 <main id="main">
   <section class="hero" aria-labelledby="h1">
     <div class="hero__text">
@@ -340,6 +351,8 @@ ${topbar(app)}
     </div>
     ${heroVisual(shots)}
   </section>
+
+  ${hasStories ? renderWhoUses(app, storyBundle, esc) : ''}
 
   <section class="band" aria-label="Highlights">
     ${(app.highlights || []).map((h) => `<span>${esc(h)}</span>`).join('')}
@@ -364,7 +377,10 @@ ${topbar(app)}
 
   <section class="section" id="features" aria-labelledby="features-h">
     <div class="section__head"><div><h2 id="features-h">What it does</h2><p>${esc(app.hook)}</p></div></div>
-    <ul class="features">${(app.features || []).map((f, i) => `<li><span class="features__n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span>${esc(f)}</span></li>`).join('')}</ul>
+    <ul class="features">${(app.features || []).map((f, i) => {
+      const fid = (app.featureIds || [])[i] || slugify(f);
+      return `<li id="feat-${esc(fid)}"><span class="features__n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span>${esc(f)}</span></li>`;
+    }).join('')}</ul>
     ${groups.length ? `<div class="tour">${groups.map((g) => `<div class="tour__group"><h3>${esc(g.name)}</h3><ul>${g.items.map((s) => `<li><strong>${esc(s.screen)}</strong>${s.caption ? `<span>${esc(s.caption)}</span>` : ''}</li>`).join('')}</ul></div>`).join('')}</div>` : ''}
   </section>
 
@@ -404,7 +420,7 @@ ${topbar(app)}
 <footer class="foot">
   <p class="foot__label">More Caps</p>
   <ul class="foot__caps">${others.map((o) => `<li><a href="/apps/${esc(o.slug)}/"><img src="/apps/assets/icons/${esc(o.slug)}.svg" alt="" width="40" height="40" loading="lazy"><span>${esc(o.name)}</span></a></li>`).join('')}</ul>
-  <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
+  <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/stories/">Stories</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
   <p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p>
 </footer>
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
@@ -442,7 +458,7 @@ ${topbar(null, false)}
   </section>
   <section class="section" aria-label="All Caps"><ul class="capgrid">${cards}</ul></section>
 </main>
-<footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
+<footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/stories/">Stories</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
 <script src="/apps/assets/minisite.js" defer></script>
 </body>
 </html>
@@ -462,6 +478,8 @@ const redirect = (slug, name) => {
 /* ── main ────────────────────────────────────────────────────────────── */
 
 const { APPS } = await import(pathToFileURL(join(LAB, 'js', 'products.js')).href);
+const storyBundles = Object.fromEntries(loadStoryBundles(CONTENT).map((b) => [b.slug, b]));
+const storyCtxBase = { contentDir: CONTENT, BASE, esc, head, topbar, deviceFigure, palette };
 mkdirSync(join(OUT, 'assets', 'icons'), { recursive: true });
 cpSync(join(LAB, 'scripts', 'minisite', 'minisite.css'), join(OUT, 'assets', 'minisite.css'));
 cpSync(join(LAB, 'scripts', 'minisite', 'minisite.js'), join(OUT, 'assets', 'minisite.js'));
@@ -480,13 +498,36 @@ for (const app of APPS) {
   const shots = ingestGallery(repoPath, app.slug);
   const pal = palette(app);
   const others = APPS.filter((o) => o.slug !== app.slug);
-  writeFileSync(join(dir, 'index.html'), renderApp(app, { version, shots, log: latestRelease(readText(join(repoPath, 'CHANGELOG.md'))), pal, others }));
+  const storyBundle = storyBundles[app.slug] || null;
+  writeFileSync(join(dir, 'index.html'), renderApp(app, { version, shots, log: latestRelease(readText(join(repoPath, 'CHANGELOG.md'))), pal, others, storyBundle }));
+  if (storyBundle) {
+    const { storyUrls } = buildStoriesForApp(app, storyBundle, { ...storyCtxBase, outDir: dir, pal });
+    app._storyUrls = storyUrls;
+  }
   writeFileSync(join(HUB, `${app.slug}.html`), redirect(app.slug, app.name));
   ogJobs.push({ app, pal, shot: shots.find((s) => s.theme === 'dark' && s.device === 'iphone') || shots[0], out: join(dir, 'og.png') });
   const kb = (spawnSync('du', ['-sk', join(dir)]).stdout.toString().split('\t')[0]) || '?';
   console.log(`✓ apps/${app.slug}/  v${version}  ${shots.length} shots  ${kb} KB`);
 }
 writeFileSync(join(OUT, 'index.html'), renderIndex(APPS, versions));
+const allStoryEntries = [];
+for (const app of APPS) {
+  const bundle = storyBundles[app.slug];
+  if (!bundle) continue;
+  for (const persona of bundle.personas) allStoryEntries.push({ app, persona, bundle });
+}
+if (allStoryEntries.length) {
+  const storiesOut = join(HUB, 'stories');
+  mkdirSync(storiesOut, { recursive: true });
+  writeFileSync(
+    join(storiesOut, 'index.html'),
+    renderStoriesIndex(allStoryEntries, APPS, versions, {
+      ...storyCtxBase,
+      pal: palette({ accent: '#c9a227', accent2: '#8a6a1a', bg: '#121110' }),
+    }),
+  );
+  console.log(`✓ stories/index.html (${allStoryEntries.length} stories)`);
+}
 writeFileSync(join(OUT, 'og-jobs.json'), JSON.stringify(ogJobs.map((j) => ({ slug: j.app.slug, name: j.app.name, desc: DESC[j.app.slug] || j.app.tagline, bg: j.pal.dark.bg, accent: j.pal.dark.accent, glow: j.pal.glow, shot: j.shot ? join(OUT, j.app.slug, j.shot.src) : null, icon: join(OUT, 'assets', 'icons', `${j.app.slug}.svg`), out: j.out }))));
 
 // sitemap: ensure /apps/ pages; prune legacy redirects + noindex URLs (V5-3)
@@ -515,7 +556,7 @@ if (sm) {
   }
   const drop = new Set([...redirectLocs, ...noindexLocs]);
   sm = sm.replace(/[ \t]*<url>\s*<loc>([^<]*)<\/loc>[\s\S]*?<\/url>\s*/g, (block, loc) => (drop.has(loc) ? '' : block));
-  const urls = [`${BASE}/apps/`, ...APPS.map((a) => `${BASE}/apps/${a.slug}/`)];
+  const urls = [`${BASE}/apps/`, `${BASE}/stories/`, ...APPS.map((a) => `${BASE}/apps/${a.slug}/`), ...APPS.flatMap((a) => a._storyUrls || [])];
   for (const u of urls) {
     if (drop.has(u)) continue;
     if (!sm.includes(`<loc>${u}</loc>`)) sm = sm.replace('</urlset>', `  <url><loc>${u}</loc><priority>0.8</priority></url>\n</urlset>`);

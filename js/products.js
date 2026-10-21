@@ -24,6 +24,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/vaultcap-dark.png',
     highlights: ['AES-256-GCM', 'Banks', 'Family vault', 'Zakat'],
     features: ['AES-256-GCM vault with local PIN', 'Bank import on device', 'Family profiles — each encrypted', 'Zakat from real holdings'],
+    featureIds: ['aes-gcm-vault', 'bank-import', 'family-profiles', 'zakat', 'expiry-reminders', 'documents', 'encrypted-backup', 'dynamic-type'],
   },
   {
     slug: 'pulsecap',
@@ -48,6 +49,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/pulsecap-dark.png',
     highlights: ['Workouts', 'Recovery', 'Smart Coach', 'PRs'],
     features: ['Exercise library with muscle mapping', 'Smart Coach reads your history offline', 'Recovery readiness — no wearable', 'PR tracking'],
+    featureIds: ['exercise-library', 'smart-coach', 'recovery-readiness', 'pr-tracking'],
   },
   {
     slug: 'prismcap',
@@ -72,6 +74,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/prismcap-dark.png',
     highlights: ['Pass & Play', 'Offline', 'XP', 'Achievements'],
     features: ['Pass-and-play couch multiplayer', 'Daily challenges without a server', 'XP and achievements stay local', 'No accounts, no ads'],
+    featureIds: ['pass-and-play', 'daily-challenges', 'xp-achievements', 'no-accounts'],
   },
   {
     slug: 'steadycap',
@@ -96,6 +99,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/steadycap-dark.png',
     highlights: ['SOS', 'Medicines', 'Journal', 'Routines'],
     features: ['SOS crisis flow — offline', 'Medicine tracker on-device only', 'Journal and check-ins', 'No streak guilt'],
+    featureIds: ['sos-crisis-flow', 'medicine-tracker', 'journal-check-ins', 'no-streak-guilt'],
   },
   {
     slug: 'ledgercap',
@@ -120,6 +124,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/ledgercap-dark.png',
     highlights: ['PSX', 'Funds', 'PKR', 'Research'],
     features: ['PSX holdings and transaction log', 'Mutual fund positions', 'Net worth in PKR', 'Research tools — not investment advice'],
+    featureIds: ['psx-holdings', 'mutual-funds', 'net-worth-pkr', 'research-tools'],
   },
   {
     slug: 'deeponycap',
@@ -145,6 +150,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/deeponycap-dark.png',
     highlights: ['Shelves', 'Wishlist', 'Series', 'Private'],
     features: ['User-defined series', 'Photo shelves in IndexedDB', 'Wishlist tiers', 'Independent — not affiliated with any toy company'],
+    featureIds: ['user-defined-series', 'photo-shelves', 'wishlist-tiers', 'independent-tracker'],
   },
   {
     slug: 'scentcap',
@@ -169,6 +175,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/scentcap-dark.png',
     highlights: ['Wardrobe', 'Today', 'Wear log', 'Layering'],
     features: ['Today picks from your wardrobe', 'Bottle catalog + levels', 'Wear log', 'Rules-based advisor — not cloud AI'],
+    featureIds: ['today-picks', 'bottle-catalog', 'wear-log', 'rules-advisor'],
   },
   {
     slug: 'soulcap',
@@ -193,13 +200,14 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/soulcap-dark.png',
     highlights: ['Check-in', 'Techniques', 'Journal', 'Help'],
     features: ['One-tap check-in', 'Guided techniques', 'On-device journal', 'Region-aware help numbers'],
+    featureIds: ['one-tap-check-in', 'guided-techniques', 'on-device-journal', 'help-numbers'],
   },
   {
     slug: 'travelcap',
     name: 'TravelCap',
     symbol: '✈',
     category: 'Travel',
-    ver: '1.1.9',
+    ver: '1.1.10',
     tagline: 'Trips, tickets and travel documents in one place.',
     pitch: 'Trips, packing, transit, and documents — local-first TravelCap organizer.',
     hook: 'Before, during, after — every mile on your device.',
@@ -217,6 +225,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/travelcap-dark.png',
     highlights: ['Trips', 'Documents', 'Packing', 'Offline'],
     features: ['Trip dashboard', 'Transit and stays', 'Document vault', 'Always check official sources for visas and flights'],
+    featureIds: ['trip-dashboard', 'transit-stays', 'document-vault', 'official-sources'],
   },
   {
     slug: 'auracap',
@@ -241,6 +250,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/auracap-dark.png',
     highlights: ['Overview', 'Setup report', 'Aura Score', 'Organize'],
     features: ['Overview of your setup', 'Setup report from your app list', 'Aura Score with Focus · Clarity · Organization', 'Not affiliated with Apple'],
+    featureIds: ['setup-overview', 'setup-report', 'aura-score', 'not-affiliated-apple'],
   },
   {
     slug: 'masterycap',
@@ -265,6 +275,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/masterycap-dark.png',
     highlights: ['Bilingual', 'Tracks', 'Quizzes', 'Practice'],
     features: ['English and Roman Urdu tracks', 'Quizzes and spaced practice', 'Self-issued certificates only', 'Nothing here is financial advice'],
+    featureIds: ['bilingual-tracks', 'quizzes-practice', 'self-issued-certificates', 'not-financial-advice'],
   },
   {
     slug: 'ideacap',
@@ -289,6 +300,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/ideacap-dark.png',
     highlights: ['Voice', 'Text', 'On device', 'Summary'],
     features: ['Voice and text capture', 'Ideas board on device', 'Summary without cloud AI by default', 'Optional keys only if you add them'],
+    featureIds: ['voice-text-capture', 'ideas-board', 'summary-local', 'optional-keys'],
   },
   {
     slug: 'carcap',
@@ -313,6 +325,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/carcap-dark.png',
     highlights: ['Garage', 'Service', 'Fuel', 'Docs'],
     features: ['Multi-vehicle garage', 'Service log and coming-up reminders', 'Fuel and odometer', 'Documents on device'],
+    featureIds: ['multi-vehicle-garage', 'service-log', 'fuel-odometer', 'documents-on-device'],
   },
   {
     slug: 'cookcap',
@@ -337,6 +350,7 @@ export const APPS = [
     screenshotDark: 'assets/screenshots/cookcap-dark.png',
     highlights: ['Recipes', 'Cook mode', 'Shopping', 'Family'],
     features: ['Family cookbook cover', 'Cook mode', 'Shopping list', 'Nutrition estimates only'],
+    featureIds: ['family-cookbook', 'cook-mode', 'shopping-list', 'nutrition-estimates'],
   },
   {
     slug: 'deefoodie',
@@ -361,6 +375,7 @@ export const APPS = [
     screenshot: '',
     highlights: ['Private beta', 'Karachi', 'Journal'],
     features: ['Private beta — no public install link', 'Visit journal with photos', 'Sync across your devices', 'Delete my data in Settings'],
+    featureIds: ['private-beta', 'visit-journal', 'sync-devices', 'delete-my-data'],
   },
 ];
 

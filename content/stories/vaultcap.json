@@ -1,0 +1,181 @@
+{
+  "slug": "vaultcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "vaultcap-ayesha",
+      "name": "Ayesha Siddiqui",
+      "age": 41,
+      "city": "Lahore, Pakistan",
+      "goal": "Keep the family's passports, bank accounts and school documents in one safe place",
+      "headline": "How Ayesha keeps her family's documents in one place",
+      "summary": "Ayesha runs a pharmacy shift and two school runs. She uses VaultCap's family profiles and expiry reminders so passports and school papers live in one encrypted vault instead of drawers and chat threads.",
+      "day": [
+        {
+          "time": "07:40",
+          "title": "Morning check",
+          "text": "She opens the vault home and sees three documents expiring this month — including her son's passport.",
+          "shot": "ayesha/01-home",
+          "alt": "Ayesha's vault home showing sample net worth and upcoming reminders"
+        },
+        {
+          "time": "12:15",
+          "title": "Documents",
+          "text": "Between customers she pulls up scanned passports and school letters — search finds a file in seconds.",
+          "shot": "ayesha/02-documents",
+          "alt": "Documents list with passport and school papers"
+        },
+        {
+          "time": "18:30",
+          "title": "Family vault",
+          "text": "Her husband's profile stays separate but shared on the same phone — each person's records stay encrypted.",
+          "shot": "ayesha/03-family",
+          "alt": "Family profiles section for shared household vault"
+        },
+        {
+          "time": "21:00",
+          "title": "Ramadan planning",
+          "text": "She glances at the Zakat summary from holdings in the sample vault before talking to her accountant.",
+          "shot": "ayesha/05-zakat",
+          "alt": "Zakat summary from holdings in the sample vault"
+        }
+      ],
+      "before": [
+        { "label": "Time to find a passport", "value": "20 min" },
+        { "label": "Places documents lived", "value": "3 drawers + chats" }
+      ],
+      "after": [
+        { "label": "Time to find a passport", "value": "1 min" },
+        { "label": "Expiry surprises per year", "value": "0 missed" }
+      ],
+      "video": {
+        "mp4": "ayesha/story.mp4",
+        "webm": "ayesha/story.webm",
+        "vtt": "ayesha/story.vtt",
+        "poster": "ayesha/poster.jpg",
+        "transcript": "Ayesha opens VaultCap, checks reminders, finds a passport scan, switches to her husband's family profile, then views the Zakat summary. All numbers and names are fictional sample data."
+      },
+      "features_used": ["family-profiles", "expiry-reminders", "zakat", "aes-gcm-vault"],
+      "quote": "I stopped digging through drawers.",
+      "fictional": true,
+      "needs": ["family", "money"]
+    },
+    {
+      "id": "vaultcap-omar",
+      "name": "Omar Farooq",
+      "age": 29,
+      "city": "Dubai, UAE",
+      "goal": "Track multi-currency accounts and take an encrypted backup before changing phones",
+      "headline": "How Omar backs up before every phone upgrade",
+      "summary": "Omar freelances across AED, GBP and PKR accounts. He lists banks in VaultCap, then exports an encrypted backup to Files before he swaps phones — no more lost IBAN notes.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Bank list",
+          "text": "He reviews AED, GBP and PKR accounts in one scroll — favourites pin the accounts he checks daily.",
+          "shot": "omar/01-banks",
+          "alt": "Omar's multi-currency bank list in the sample vault"
+        },
+        {
+          "time": "11:30",
+          "title": "Dashboard",
+          "text": "Net worth rolls up in one dashboard so he knows whether to move cash before a client pays late.",
+          "shot": "omar/02-dashboard",
+          "alt": "Dashboard with AED GBP and PKR balances summarised"
+        },
+        {
+          "time": "17:45",
+          "title": "Encrypted backup",
+          "text": "Before a new iPhone arrives he exports a .vos backup to Files — restore is a guided flow on the next device.",
+          "shot": "omar/03-backup",
+          "alt": "Encrypted backup screen before a phone change"
+        },
+        {
+          "time": "20:10",
+          "title": "Security check",
+          "text": "He confirms PIN and encryption settings — the vault never leaves the device unless he chooses to export.",
+          "shot": "omar/04-security",
+          "alt": "Security settings for PIN-protected vault"
+        }
+      ],
+      "before": [
+        { "label": "Minutes to check all accounts", "value": "15 min" },
+        { "label": "Lost notes when migrating phones", "value": "Twice" }
+      ],
+      "after": [
+        { "label": "Minutes to check all accounts", "value": "2 min" },
+        { "label": "Backup before phone swap", "value": "Every time" }
+      ],
+      "video": {
+        "mp4": "omar/story.mp4",
+        "webm": "omar/story.webm",
+        "vtt": "omar/story.vtt",
+        "poster": "omar/poster.jpg",
+        "transcript": "Omar opens banks, checks the dashboard, creates an encrypted backup, and reviews security. Illustrative balances only."
+      },
+      "features_used": ["bank-import", "aes-gcm-vault", "encrypted-backup"],
+      "quote": "Backup first. New phone second.",
+      "fictional": true,
+      "needs": ["money"]
+    },
+    {
+      "id": "vaultcap-margaret",
+      "name": "Margaret Ellis",
+      "age": 68,
+      "city": "Manchester, UK",
+      "goal": "One place for pension and insurance documents her son can help with",
+      "headline": "How Margaret keeps pension papers readable",
+      "summary": "Margaret retired from teaching and uses larger text in VaultCap. Insurance and pension PDFs sit in one documents list; her son helps via a local family profile when she visits.",
+      "day": [
+        {
+          "time": "10:00",
+          "title": "Home at large text",
+          "text": "She opens the vault with text large enough to read without glasses — reminders show policy renewals clearly.",
+          "shot": "margaret/01-home-large",
+          "alt": "Margaret's vault home at larger text size on iPhone SE"
+        },
+        {
+          "time": "14:20",
+          "title": "Documents",
+          "text": "Pension letters and insurance schedules are tagged — search beats hunting through folders in two rooms.",
+          "shot": "margaret/02-documents",
+          "alt": "Documents list with pension and insurance files"
+        },
+        {
+          "time": "16:00",
+          "title": "Son helps locally",
+          "text": "When her son visits he switches to his family profile on the same phone — nothing is uploaded to a server.",
+          "shot": "margaret/03-family",
+          "alt": "Family profile shared locally with her son"
+        },
+        {
+          "time": "19:30",
+          "title": "Renewal reminder",
+          "text": "A reminder nudges her two weeks before home insurance renews — she sets a note for the call centre.",
+          "shot": "margaret/04-reminders",
+          "alt": "Reminders showing an insurance renewal coming up"
+        }
+      ],
+      "before": [
+        { "label": "Time to find a policy", "value": "25 min" },
+        { "label": "Could read small print", "value": "Often no" }
+      ],
+      "after": [
+        { "label": "Time to find a policy", "value": "2 min" },
+        { "label": "Text size comfort", "value": "Large enough" }
+      ],
+      "video": {
+        "mp4": "margaret/story.mp4",
+        "webm": "margaret/story.webm",
+        "vtt": "margaret/story.vtt",
+        "poster": "margaret/poster.jpg",
+        "transcript": "Margaret opens the vault at large text, finds documents, shows her son the family profile, and checks a renewal reminder. Fictional policy names throughout."
+      },
+      "features_used": ["documents", "family-profiles", "expiry-reminders", "dynamic-type"],
+      "quote": "The writing is big enough. My son can find it too.",
+      "fictional": true,
+      "needs": ["family", "money"]
+    }
+  ]
+}
