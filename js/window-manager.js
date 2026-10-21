@@ -67,6 +67,7 @@ function appPanelHTML(app) {
               <img src="${app.icon}" alt="" width="20" height="20"> ${launch}
             </a>
             <a class="app-secondary" href="/apps/${app.slug}/" target="_blank" rel="noopener">Website</a>
+            <a class="app-secondary" href="/apps/${app.slug}/#who-h" target="_blank" rel="noopener">Real stories</a>
             <a class="app-secondary" href="${secHref}" target="_blank" rel="noopener">${secLabel}</a>
           </div>
         </div>
