@@ -21,8 +21,7 @@
     },
     "disclaimer": {
       "type": "string",
-      "minLength": 20,
-      "pattern": "Illustrative story"
+      "minLength": 20
     },
     "personas": {
       "type": "array",

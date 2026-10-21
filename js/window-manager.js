@@ -15,7 +15,6 @@ import { sfx } from './sounds.js';
 import { appearanceHTML, bindAppearance } from './appearance.js';
 import { privacyMonitorHTML, bindPrivacyMonitor, networkStats } from './privacy-monitor.js';
 import { syncVersions } from './live-catalog.js';
-import { canRun, runnerHTML, bindRunner } from './app-runner.js';
 import { getSkinDef } from './theme.js';
 
 let zIndex = 10;
@@ -62,7 +61,6 @@ function appPanelHTML(app) {
           ${demoHTML(app)}
           <div class="app-highlights">${highlights}</div>
           <div class="app-panel__actions">
-            ${canRun(app) ? `<button type="button" class="app-run" data-run-app="${app.slug}"><span aria-hidden="true">▶</span> Run here</button>` : ''}
             <a class="app-launch${app.wip || app.privateBeta ? ' app-launch--wip' : ''}" href="${href}" ${app.privateBeta ? '' : 'target="_blank" rel="noopener"'}>
               <img src="${app.icon}" alt="" width="20" height="20"> ${launch}
             </a>
@@ -212,7 +210,7 @@ function applicationsHTML() {
     <div class="sys-panel sys-panel--apps">
       <header class="apps-header">
         <h2>Applications</h2>
-        <p>${APPS.filter((a) => !a.privateBeta).length} live Cap apps + DeeFoodie private beta. Open a card for details — or hit <strong>Run here</strong> to use the real app inside Capricorn OS.</p>
+        <p>${APPS.filter((a) => !a.privateBeta).length} live Cap apps + DeeFoodie private beta. Open a card for details, then launch the PWA or open its website.</p>
       </header>
       <div class="apps-grid">${cards}</div>
     </div>
@@ -225,7 +223,7 @@ function helpHTML() {
       <h2>Help</h2>
       <div class="help-grid">
         <div><strong>Dock</strong><p>Click icons to open apps. Yellow minimizes with genie. Green maximizes.</p></div>
-        <div><strong>Run here</strong><p>Every live Cap runs inside its window — the real app, not a video.</p></div>
+        <div><strong>Launch</strong><p>Open a Cap’s window for details, then Launch PWA or Website — apps run as their own installable PWA.</p></div>
         <div><strong>Themes</strong><p>Ten looks in Appearance, Control Center, or right-click → Next Theme.</p></div>
         <div><strong>⌘K</strong><p>Spotlight: apps, themes, Privacy Monitor, lock.</p></div>
         <div><strong>Windows</strong><p>Drag the title bar. Drag the corner to resize. Double-click to maximize.</p></div>
@@ -309,10 +307,7 @@ function createWindow({ id, title, content, app = false, system = false, wide = 
   if (el.querySelector('.sys-panel--privacy')) bindPrivacyMonitor(el);
 
   const demoApp = APPS.find((a) => a.slug === id);
-  if (demoApp) {
-    initAppDemo(el, demoApp);
-    bindRunButton(el, demoApp);
-  }
+  if (demoApp) initAppDemo(el, demoApp);
   syncVersions(el);
 
   bindWindow(el, id);
@@ -407,48 +402,6 @@ function bindWindow(el, id) {
   };
   grip?.addEventListener('pointerup', endSize);
   grip?.addEventListener('pointercancel', endSize);
-}
-
-/** "Run here": swap the info panel for the live app, sized like a phone. */
-function bindRunButton(el, app) {
-  const btn = el.querySelector('[data-run-app]');
-  if (!btn) return;
-  const body = el.querySelector('.win-body');
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    sfx.click();
-    const info = body.innerHTML;
-    const prev = { width: el.style.width, height: el.style.height, maxHeight: el.style.maxHeight };
-    const win = openWindows.get(app.slug);
-    if (!win?.maximized) {
-      const h = Math.min(window.innerHeight - 120, 900);
-      el.style.maxHeight = 'none';
-      el.style.height = `${h}px`;
-      el.style.width = `${Math.min(window.innerWidth - 24, Math.max(460, Math.round(h * 0.56)))}px`;
-      const maxT = window.innerHeight - h - 80;
-      el.style.top = `${Math.max(44, Math.min(parseFloat(el.style.top), maxT))}px`;
-      const maxL = window.innerWidth - el.offsetWidth - 8;
-      el.style.left = `${Math.max(8, Math.min(parseFloat(el.style.left), maxL))}px`;
-    }
-    el.classList.add('win--running');
-    body.innerHTML = runnerHTML(app);
-    bindRunner(body, {
-      onBack: () => {
-        el.classList.remove('win--running');
-        body.innerHTML = info;
-        if (!openWindows.get(app.slug)?.maximized) Object.assign(el.style, prev);
-        body.querySelectorAll('[data-open-app]').forEach((b) => b.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          openApp(b.dataset.openApp);
-        }));
-        initAppDemo(el, app);
-        bindRunButton(el, app);
-        syncVersions(el);
-      },
-    });
-    const w = openWindows.get(app.slug);
-    if (w && !w.maximized) w.saved = readWindowBounds(el);
-  });
 }
 
 export function focusWindow(id) {

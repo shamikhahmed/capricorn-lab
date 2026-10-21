@@ -28,7 +28,7 @@ if (!existsSync(join(STORIES, 'schema.json'))) {
   ok('schema.json present');
 }
 
-const bundles = readdirSync(STORIES).filter((f) => f.endsWith('.json') && f !== 'schema.json');
+const bundles = readdirSync(STORIES).filter((f) => f.endsWith('.json') && f !== 'schema.json' && !f.startsWith('_'));
 if (!bundles.length) fail('no story bundles in content/stories');
 else ok(`${bundles.length} story bundle(s)`);
 

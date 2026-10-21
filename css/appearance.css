@@ -1,4 +1,4 @@
-/* Appearance gallery · theme reveal · Run here · Privacy Monitor · iOS app sheet */
+/* Appearance gallery · theme reveal · Launch PWA · Privacy Monitor · iOS app sheet */
 
 /* ── Theme reveal (View Transitions) ───────────────────────────────────── */
 html.is-skin-vt::view-transition-old(root) { animation: none; }
@@ -356,7 +356,7 @@ html.is-skin-vt::view-transition-new(root) {
 }
 .sp--phone .sp-dock i { width: 16%; height: auto; aspect-ratio: 1; }
 
-/* ── Run here ──────────────────────────────────────────────────────────── */
+/* ── Launch PWA ──────────────────────────────────────────────────────────── */
 .app-run {
   display: inline-flex;
   align-items: center;

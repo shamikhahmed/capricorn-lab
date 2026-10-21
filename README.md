@@ -10,7 +10,7 @@ The website **is** the device. Capricorn OS is the Capricorn Systems hub: a brow
 |---|---|
 | **Three surfaces** | Desktop (fine pointer ≥ 900px) · Tablet (touch 600–1366px, or any 600–900px window) · Phone (< 600px). `?view=desktop\|tablet\|mobile` forces one. |
 | **Ten themes** | Capricorn · Capricorn Night · Aurora · Synthwave · Terminal · Truck Art · Mughal · Paper · Pixel 95 · Brutal. Each restyles wallpaper (live canvas painter), glass, type, window chrome, lock screen, boot log and UI sounds. Circular reveal on switch. Share with `?theme=<id>`. |
-| **Run here** | Every live Cap runs inside its window (desktop) or a full sheet (phone/iPad) — the real PWA, same origin, its own storage. |
+| **Launch PWA** | Every live Cap runs inside its window (desktop) or a full sheet (phone/iPad) — the real PWA, same origin, its own storage. |
 | **Live catalog** | Versions are read at runtime from each Cap's `VERSION.json`; `js/products.js` holds the offline fallback. |
 | **Privacy Monitor** | Counts every request the page made (Resource Timing), by origin. Clock widget + lock screen show the measured line. |
 | **Desktop extras** | Spotlight (⌘K: apps, themes, Privacy Monitor, lock), Control Center theme row, Mission Control (F3 / ⌃↑), right-click menu (Next Theme, Surprise Me), notification center, themed screensaver (75s idle), resizable windows (pointer events — touch works), `?tour=1`. |
@@ -39,7 +39,7 @@ npm run dev            # http://localhost:4321
 ```bash
 npm test                    # smoke gate: catalog, theme registry ↔ CSS ↔ painters, no third-party loads, honesty strings
 npm run qa:matrix           # 10 themes × 7 devices × Chromium + WebKit (needs npm run dev)
-npm run qa:flows            # drives the UI: windows, Run here, Appearance, Spotlight, sheets, lock screens
+npm run qa:flows            # drives the UI: windows, Launch PWA, Appearance, Spotlight, sheets, lock screens
 ```
 
 QA scripts use `playwright-core`; set `PW_CORE=/path/to/node_modules/playwright-core` to match whichever browser builds are installed in `~/Library/Caches/ms-playwright`.
@@ -61,11 +61,10 @@ Hub CI (`links` → `deploy-pages`) publishes an allowlisted `_site` on push to 
 | `js/wallpaper.js` | Wallpaper engine + one painter per skin, perf governor, `paintPreview` |
 | `css/themes.css` | Per-skin tokens (bare `[data-skin]`) + component overrides (`html[data-skin]`) |
 | `js/appearance.js` · `css/appearance.css` | Theme gallery, Run-here, Privacy Monitor, iOS sheets styling |
-| `js/app-runner.js` | Run-here iframe runner |
 | `js/live-catalog.js` | Runtime `VERSION.json` sync |
 | `js/privacy-monitor.js` | Measured network proof |
 | `js/mobile-ios.js` · `css/mobile.css` · `css/tablet.css` | Phone + iPad home, dock, sheets |
-| `js/window-manager.js` | Desktop windows, Run here, resize/drag |
+| `js/window-manager.js` | Desktop windows, Launch PWA, resize/drag |
 | `js/products.js` | Catalog, tasks, system copy |
 
 History: [CHANGELOG.md](./CHANGELOG.md) · Handoff: [HANDOVER.md](./HANDOVER.md) · Brain: `~/Capricorn-Brain/01 Projects/capricorn-lab.md`

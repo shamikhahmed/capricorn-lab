@@ -3,10 +3,10 @@
  *
  *   PW_CORE=… node scripts/qa-flows.mjs [baseURL] [outDir] [--engine=chromium|webkit]
  *
- * Desktop: open a Cap window → Run here (iframe live) → back; Appearance →
- * pick a theme; Spotlight theme command; Privacy Monitor; Control Center.
- * Touch: widget → app sheet → Try it here → back → Done; Themes sheet; Library;
- * Privacy sheet. Lock screen screenshot per theme on desktop + phone.
+ * Desktop: open a Cap window; Appearance → pick a theme; Spotlight; Privacy
+ * Monitor; Control Center.
+ * Touch: widget → app sheet → Done; Themes sheet; Library; Privacy sheet.
+ * Lock screen screenshot per theme on desktop + phone.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -39,7 +39,7 @@ const browser = await pw[engine].launch();
 const errorsOf = (page) => {
   const errs = [];
   page.on('pageerror', (e) => errs.push(e.message));
-  // hub errors only — embedded Caps (Run here) report into their own repos
+  // hub errors only — embedded Caps report into their own repos
   page.on('console', (m) => {
     const from = m.location()?.url || '';
     if (m.type() === 'error' && from.startsWith(BASE) && !/404|VERSION\.json/.test(m.text())) errs.push(m.text());
@@ -69,19 +69,6 @@ const errorsOf = (page) => {
     await page.mouse.up();
     const box2 = await tb.boundingBox();
     expect(Math.abs(box2.x - box.x - 120) < 4, `drag moved ${box2.x - box.x}`);
-  });
-  await step('desktop: Run here loads live app iframe', async () => {
-    await page.waitForTimeout(700);
-    await page.click('[data-win-id="vaultcap"] [data-run-app]');
-    const frame = await page.waitForSelector('[data-win-id="vaultcap"] .runner__frame', { timeout: 4000 });
-    const src = await frame.getAttribute('src');
-    expect(/VaultCap/.test(src), `iframe src ${src}`);
-    await page.waitForTimeout(3500);
-    await page.screenshot({ path: join(OUT, `${engine}-desktop-runhere.png`) });
-  });
-  await step('desktop: runner back restores info panel', async () => {
-    await page.click('[data-win-id="vaultcap"] [data-runner-back]');
-    await page.waitForSelector('[data-win-id="vaultcap"] .app-panel', { timeout: 3000 });
   });
   await step('desktop: Appearance window + pick Synthwave', async () => {
     await page.click('.menubar-theme');
@@ -138,15 +125,7 @@ for (const [name, spec] of Object.entries({
     await page.waitForTimeout(500);
     await page.screenshot({ path: join(OUT, `${engine}-${name}-appsheet.png`) });
   });
-  await step(`${name}: Try it here → live iframe`, async () => {
-    await page.tap('#iosSheet [data-sheet-run]');
-    await page.waitForSelector('#iosSheet .runner__frame', { timeout: 3000 });
-    await page.waitForTimeout(3500);
-    await page.screenshot({ path: join(OUT, `${engine}-${name}-runner.png`) });
-  });
-  await step(`${name}: runner Info → back to sheet → Done`, async () => {
-    await page.tap('#iosSheet [data-runner-back]');
-    await page.waitForSelector('#iosSheet .ios-app', { timeout: 3000 });
+  await step(`${name}: app sheet Done`, async () => {
     await page.tap('#iosSheet [data-close]');
     await page.waitForSelector('#iosSheet', { state: 'hidden', timeout: 3000 });
   });

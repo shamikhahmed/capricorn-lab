@@ -10,7 +10,7 @@ Read with: `README.md`, `CHANGELOG.md`, `~/Capricorn-Brain/01 Projects/capricorn
 - Three surfaces: desktop / tablet (iPadOS) / phone (iOS). Detection in `js/main.js` `autoViewMode()`.
 - Ten skins (`js/theme.js` THEMES). Adding one = registry entry + painter in `js/wallpaper.js` PAINTERS + token block in `css/themes.css` + entry in the inline boot map in `index.html`. `npm test` fails if any of the four is missing.
 - Catalog versions are live (runtime `VERSION.json`). AuraCap and CookCap don't publish `VERSION.json` yet → they show the `products.js` fallback (and a 404 in the console).
-- Run here: same-origin iframe; first-party PWAs keep their own IndexedDB/SW scope.
+- Launch PWA: same-origin iframe; first-party PWAs keep their own IndexedDB/SW scope.
 - Privacy Monitor + all "0 trackers" lines are **measured** (Resource Timing). Unmeasured claims ("0 bytes sent", "0 servers", "network disabled") were removed in 1.1.0 — LedgerCap prices, DeeFoodie sync and TravelCap flight lookups do use servers, so never bring those back.
 
 ## Gotchas

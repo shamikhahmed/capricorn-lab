@@ -338,7 +338,7 @@ ${topbar(app, true, hasStories)}
       <div class="hero__cta">
         ${app.privateBeta
           ? `<a class="btn btn--fill" href="/support.html#deefoodie">Ask about the beta</a>`
-          : `<a class="btn btn--fill" href="${esc(app.url)}">Open ${esc(app.name)}</a><a class="btn btn--ghost" href="/?app=${esc(app.slug)}">Try it in Capricorn OS</a>`}
+          : `<a class="btn btn--fill" href="${esc(app.url)}">Open ${esc(app.name)}</a><a class="btn btn--ghost" href="/apps/${esc(app.slug)}/#who-h">Example stories</a>`}
       </div>
       <p class="hero__meta"><span class="chip"><span class="dot" aria-hidden="true"></span><span data-live-version="${esc(version)}">v${esc(version)}</span></span><span>Free</span><span>No account</span><span>No ads or analytics</span></p>
     </div>
