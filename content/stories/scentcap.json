@@ -1,0 +1,166 @@
+{
+  "slug": "scentcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "scentcap-hira",
+      "name": "Hira Qureshi",
+      "age": 28,
+      "city": "Lahore, Pakistan",
+      "goal": "Today picks matched to weather",
+      "headline": "How Hira uses Scentcap",
+      "summary": "Hira Qureshi from Lahore uses the app for today picks matched to weather. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Today picks matched to weather",
+          "shot": "hira/01-home",
+          "alt": "Hira Qureshi home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "hira/02-task",
+          "alt": "Hira Qureshi using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "hira/story.mp4",
+        "webm": "hira/story.webm",
+        "vtt": "hira/story.vtt",
+        "poster": "hira/poster.jpg",
+        "transcript": "Hira Qureshi opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "today-picks",
+        "rules-advisor"
+      ],
+      "quote": "Rainy day? The wardrobe knows.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    },
+    {
+      "id": "scentcap-james",
+      "name": "James Cole",
+      "age": 40,
+      "city": "London, UK",
+      "goal": "Bottle levels and decant notes",
+      "headline": "How James uses Scentcap",
+      "summary": "James Cole from London uses the app for bottle levels and decant notes. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Bottle levels and decant notes",
+          "shot": "james/01-home",
+          "alt": "James Cole home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "james/02-task",
+          "alt": "James Cole using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "james/story.mp4",
+        "webm": "james/story.webm",
+        "vtt": "james/story.vtt",
+        "poster": "james/poster.jpg",
+        "transcript": "James Cole opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "bottle-catalog",
+        "wear-log"
+      ],
+      "quote": "I know which bottle is half full.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    },
+    {
+      "id": "scentcap-saad",
+      "name": "Saad Malik",
+      "age": 33,
+      "city": "Dubai, UAE",
+      "goal": "Occasion notes without cloud AI",
+      "headline": "How Saad uses Scentcap",
+      "summary": "Saad Malik from Dubai uses the app for occasion notes without cloud ai. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Occasion notes without cloud AI",
+          "shot": "saad/01-home",
+          "alt": "Saad Malik home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "saad/02-task",
+          "alt": "Saad Malik using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "saad/story.mp4",
+        "webm": "saad/story.webm",
+        "vtt": "saad/story.vtt",
+        "poster": "saad/poster.jpg",
+        "transcript": "Saad Malik opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "wear-log",
+        "rules-advisor"
+      ],
+      "quote": "Gift ideas stay on my phone.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    }
+  ]
+}

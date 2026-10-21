@@ -1,0 +1,166 @@
+{
+  "slug": "masterycap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "masterycap-ahmed",
+      "name": "Ahmed Rizvi",
+      "age": 20,
+      "city": "Lahore, Pakistan",
+      "goal": "Trading basics in Roman Urdu \u2014 educational only",
+      "headline": "How Ahmed uses Masterycap",
+      "summary": "Ahmed Rizvi from Lahore uses the app for trading basics in roman urdu \u2014 educational only. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Trading basics in Roman Urdu \u2014 educational only",
+          "shot": "ahmed/01-home",
+          "alt": "Ahmed Rizvi home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "ahmed/02-task",
+          "alt": "Ahmed Rizvi using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "ahmed/story.mp4",
+        "webm": "ahmed/story.webm",
+        "vtt": "ahmed/story.vtt",
+        "poster": "ahmed/poster.jpg",
+        "transcript": "Ahmed Rizvi opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "bilingual-tracks",
+        "not-financial-advice"
+      ],
+      "quote": "I learn terms. No income promises.",
+      "fictional": true,
+      "needs": [
+        "learning"
+      ]
+    },
+    {
+      "id": "masterycap-ruth",
+      "name": "Ruth Mwangi",
+      "age": 35,
+      "city": "Nairobi, Kenya",
+      "goal": "Software track in English with quizzes",
+      "headline": "How Ruth uses Masterycap",
+      "summary": "Ruth Mwangi from Nairobi uses the app for software track in english with quizzes. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Software track in English with quizzes",
+          "shot": "ruth/01-home",
+          "alt": "Ruth Mwangi home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "ruth/02-task",
+          "alt": "Ruth Mwangi using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "ruth/story.mp4",
+        "webm": "ruth/story.webm",
+        "vtt": "ruth/story.vtt",
+        "poster": "ruth/poster.jpg",
+        "transcript": "Ruth Mwangi opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "quizzes-practice",
+        "bilingual-tracks"
+      ],
+      "quote": "Quizzes show what I missed.",
+      "fictional": true,
+      "needs": [
+        "learning"
+      ]
+    },
+    {
+      "id": "masterycap-bilqees",
+      "name": "Bilqees Fatima",
+      "age": 45,
+      "city": "Karachi, Pakistan",
+      "goal": "Progress tracking for upskilling",
+      "headline": "How Bilqees uses Masterycap",
+      "summary": "Bilqees Fatima from Karachi uses the app for progress tracking for upskilling. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Progress tracking for upskilling",
+          "shot": "bilqees/01-home",
+          "alt": "Bilqees Fatima home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "bilqees/02-task",
+          "alt": "Bilqees Fatima using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "bilqees/story.mp4",
+        "webm": "bilqees/story.webm",
+        "vtt": "bilqees/story.vtt",
+        "poster": "bilqees/poster.jpg",
+        "transcript": "Bilqees Fatima opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "self-issued-certificates",
+        "quizzes-practice"
+      ],
+      "quote": "My certificate is self-issued and honest.",
+      "fictional": true,
+      "needs": [
+        "learning"
+      ]
+    }
+  ]
+}

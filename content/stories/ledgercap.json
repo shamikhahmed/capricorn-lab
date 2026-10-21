@@ -1,0 +1,166 @@
+{
+  "slug": "ledgercap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "ledgercap-usman",
+      "name": "Usman Javed",
+      "age": 45,
+      "city": "Karachi, Pakistan",
+      "goal": "Tracks holdings \u2014 never recommends trades",
+      "headline": "How Usman uses Ledgercap",
+      "summary": "Usman Javed from Karachi uses the app for tracks holdings \u2014 never recommends trades. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Tracks holdings \u2014 never recommends trades",
+          "shot": "usman/01-home",
+          "alt": "Usman Javed home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "usman/02-task",
+          "alt": "Usman Javed using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "usman/story.mp4",
+        "webm": "usman/story.webm",
+        "vtt": "usman/story.vtt",
+        "poster": "usman/poster.jpg",
+        "transcript": "Usman Javed opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "psx-holdings",
+        "net-worth-pkr"
+      ],
+      "quote": "I see totals. The app never tells me to buy.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    },
+    {
+      "id": "ledgercap-nida",
+      "name": "Nida Farooq",
+      "age": 30,
+      "city": "Islamabad, Pakistan",
+      "goal": "Mutual fund positions and monthly SIP log",
+      "headline": "How Nida uses Ledgercap",
+      "summary": "Nida Farooq from Islamabad uses the app for mutual fund positions and monthly sip log. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Mutual fund positions and monthly SIP log",
+          "shot": "nida/01-home",
+          "alt": "Nida Farooq home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "nida/02-task",
+          "alt": "Nida Farooq using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "nida/story.mp4",
+        "webm": "nida/story.webm",
+        "vtt": "nida/story.vtt",
+        "poster": "nida/poster.jpg",
+        "transcript": "Nida Farooq opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "mutual-funds",
+        "psx-holdings"
+      ],
+      "quote": "Every SIP line is on my phone.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    },
+    {
+      "id": "ledgercap-raza",
+      "name": "Raza Ahmed",
+      "age": 63,
+      "city": "Lahore, Pakistan",
+      "goal": "Dividend log with larger text",
+      "headline": "How Raza uses Ledgercap",
+      "summary": "Raza Ahmed from Lahore uses the app for dividend log with larger text. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Dividend log with larger text",
+          "shot": "raza/01-home",
+          "alt": "Raza Ahmed home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "raza/02-task",
+          "alt": "Raza Ahmed using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "raza/story.mp4",
+        "webm": "raza/story.webm",
+        "vtt": "raza/story.vtt",
+        "poster": "raza/poster.jpg",
+        "transcript": "Raza Ahmed opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "psx-holdings",
+        "research-tools"
+      ],
+      "quote": "I track dividends. I decide what to do.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "slug": "pulsecap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "pulsecap-sara",
+      "name": "Sara Malik",
+      "age": 26,
+      "city": "Karachi, Pakistan",
+      "goal": "Three-day split logged offline in a basement gym",
+      "headline": "How Sara uses Pulsecap",
+      "summary": "Sara Malik from Karachi uses the app for three-day split logged offline in a basement gym. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Three-day split logged offline in a basement gym",
+          "shot": "sara/01-home",
+          "alt": "Sara Malik home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "sara/02-task",
+          "alt": "Sara Malik using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "sara/story.mp4",
+        "webm": "sara/story.webm",
+        "vtt": "sara/story.vtt",
+        "poster": "sara/poster.jpg",
+        "transcript": "Sara Malik opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "exercise-library",
+        "pr-tracking"
+      ],
+      "quote": "I log sets even when the signal dies.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "pulsecap-daniel",
+      "name": "Daniel Wright",
+      "age": 38,
+      "city": "London, UK",
+      "goal": "Charts that show progress without a wearable",
+      "headline": "How Daniel uses Pulsecap",
+      "summary": "Daniel Wright from London uses the app for charts that show progress without a wearable. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Charts that show progress without a wearable",
+          "shot": "daniel/01-home",
+          "alt": "Daniel Wright home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "daniel/02-task",
+          "alt": "Daniel Wright using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "daniel/story.mp4",
+        "webm": "daniel/story.webm",
+        "vtt": "daniel/story.vtt",
+        "poster": "daniel/poster.jpg",
+        "transcript": "Daniel Wright opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "recovery-readiness",
+        "pr-tracking"
+      ],
+      "quote": "Recovery score matches how my legs feel.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "pulsecap-khalid",
+      "name": "Khalid Mansour",
+      "age": 55,
+      "city": "Riyadh, Saudi Arabia",
+      "goal": "Light weights and walks with larger text",
+      "headline": "How Khalid uses Pulsecap",
+      "summary": "Khalid Mansour from Riyadh uses the app for light weights and walks with larger text. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Light weights and walks with larger text",
+          "shot": "khalid/01-home",
+          "alt": "Khalid Mansour home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "khalid/02-task",
+          "alt": "Khalid Mansour using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "khalid/story.mp4",
+        "webm": "khalid/story.webm",
+        "vtt": "khalid/story.vtt",
+        "poster": "khalid/poster.jpg",
+        "transcript": "Khalid Mansour opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "smart-coach",
+        "exercise-library"
+      ],
+      "quote": "The coach reads my history on the phone.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    }
+  ]
+}

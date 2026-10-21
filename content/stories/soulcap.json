@@ -1,0 +1,166 @@
+{
+  "slug": "soulcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "soulcap-zainab",
+      "name": "Zainab Raza",
+      "age": 31,
+      "city": "Lahore, Pakistan",
+      "goal": "Breathing and journaling before work \u2014 not therapy",
+      "headline": "How Zainab uses Soulcap",
+      "summary": "Zainab Raza from Lahore uses the app for breathing and journaling before work \u2014 not therapy. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Breathing and journaling before work \u2014 not therapy",
+          "shot": "zainab/01-home",
+          "alt": "Zainab Raza home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "zainab/02-task",
+          "alt": "Zainab Raza using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "zainab/story.mp4",
+        "webm": "zainab/story.webm",
+        "vtt": "zainab/story.vtt",
+        "poster": "zainab/poster.jpg",
+        "transcript": "Zainab Raza opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "guided-techniques",
+        "on-device-journal"
+      ],
+      "quote": "Five minutes. Then the day starts.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "soulcap-tom",
+      "name": "Tom Becker",
+      "age": 44,
+      "city": "Berlin, Germany",
+      "goal": "Sleep routine and check-ins on device",
+      "headline": "How Tom uses Soulcap",
+      "summary": "Tom Becker from Berlin uses the app for sleep routine and check-ins on device. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Sleep routine and check-ins on device",
+          "shot": "tom/01-home",
+          "alt": "Tom Becker home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "tom/02-task",
+          "alt": "Tom Becker using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "tom/story.mp4",
+        "webm": "tom/story.webm",
+        "vtt": "tom/story.vtt",
+        "poster": "tom/poster.jpg",
+        "transcript": "Tom Becker opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "one-tap-check-in",
+        "guided-techniques"
+      ],
+      "quote": "I close the laptop. Then SoulCap.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "soulcap-amina",
+      "name": "Amina Okello",
+      "age": 19,
+      "city": "Nairobi, Kenya",
+      "goal": "Grounding tools; crisis help numbers unchanged from app",
+      "headline": "How Amina uses Soulcap",
+      "summary": "Amina Okello from Nairobi uses the app for grounding tools; crisis help numbers unchanged from app. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Grounding tools; crisis help numbers unchanged from app",
+          "shot": "amina/01-home",
+          "alt": "Amina Okello home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "amina/02-task",
+          "alt": "Amina Okello using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "amina/story.mp4",
+        "webm": "amina/story.webm",
+        "vtt": "amina/story.vtt",
+        "poster": "amina/poster.jpg",
+        "transcript": "Amina Okello opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "help-numbers",
+        "guided-techniques"
+      ],
+      "quote": "When panic hits, I know where help is.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    }
+  ]
+}

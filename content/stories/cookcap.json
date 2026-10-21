@@ -1,0 +1,166 @@
+{
+  "slug": "cookcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "cookcap-shahida",
+      "name": "Shahida Begum",
+      "age": 70,
+      "city": "Karachi, Pakistan",
+      "goal": "Family recipes preserved for grandchildren",
+      "headline": "How Shahida uses Cookcap",
+      "summary": "Shahida Begum from Karachi uses the app for family recipes preserved for grandchildren. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Family recipes preserved for grandchildren",
+          "shot": "shahida/01-home",
+          "alt": "Shahida Begum home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "shahida/02-task",
+          "alt": "Shahida Begum using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "shahida/story.mp4",
+        "webm": "shahida/story.webm",
+        "vtt": "shahida/story.vtt",
+        "poster": "shahida/poster.jpg",
+        "transcript": "Shahida Begum opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "family-cookbook",
+        "cook-mode"
+      ],
+      "quote": "Nani's biryani steps are saved forever.",
+      "fictional": true,
+      "needs": [
+        "family"
+      ]
+    },
+    {
+      "id": "cookcap-rohan",
+      "name": "Rohan Patel",
+      "age": 31,
+      "city": "London, UK",
+      "goal": "Meal plan and shopping list",
+      "headline": "How Rohan uses Cookcap",
+      "summary": "Rohan Patel from London uses the app for meal plan and shopping list. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Meal plan and shopping list",
+          "shot": "rohan/01-home",
+          "alt": "Rohan Patel home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "rohan/02-task",
+          "alt": "Rohan Patel using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "rohan/story.mp4",
+        "webm": "rohan/story.webm",
+        "vtt": "rohan/story.vtt",
+        "poster": "rohan/poster.jpg",
+        "transcript": "Rohan Patel opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "shopping-list",
+        "cook-mode"
+      ],
+      "quote": "Shop once. Cook four nights.",
+      "fictional": true,
+      "needs": [
+        "family"
+      ]
+    },
+    {
+      "id": "cookcap-mariam",
+      "name": "Mariam Saleem",
+      "age": 26,
+      "city": "Islamabad, Pakistan",
+      "goal": "Learning recipes with cook mode",
+      "headline": "How Mariam uses Cookcap",
+      "summary": "Mariam Saleem from Islamabad uses the app for learning recipes with cook mode. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Learning recipes with cook mode",
+          "shot": "mariam/01-home",
+          "alt": "Mariam Saleem home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "mariam/02-task",
+          "alt": "Mariam Saleem using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "mariam/story.mp4",
+        "webm": "mariam/story.webm",
+        "vtt": "mariam/story.vtt",
+        "poster": "mariam/poster.jpg",
+        "transcript": "Mariam Saleem opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "cook-mode",
+        "nutrition-estimates"
+      ],
+      "quote": "Cook mode keeps the screen awake.",
+      "fictional": true,
+      "needs": [
+        "learning"
+      ]
+    }
+  ]
+}

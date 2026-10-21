@@ -1,0 +1,166 @@
+{
+  "slug": "steadycap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "steadycap-bilal",
+      "name": "Bilal Khan",
+      "age": 34,
+      "city": "Karachi, Pakistan",
+      "goal": "Daily routine and medicine reminders without guilt",
+      "headline": "How Bilal uses Steadycap",
+      "summary": "Bilal Khan from Karachi uses the app for daily routine and medicine reminders without guilt. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Daily routine and medicine reminders without guilt",
+          "shot": "bilal/01-home",
+          "alt": "Bilal Khan home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "bilal/02-task",
+          "alt": "Bilal Khan using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "bilal/story.mp4",
+        "webm": "bilal/story.webm",
+        "vtt": "bilal/story.vtt",
+        "poster": "bilal/poster.jpg",
+        "transcript": "Bilal Khan opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "sos-crisis-flow",
+        "medicine-tracker"
+      ],
+      "quote": "I log my day. Nobody scores me.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "steadycap-priya",
+      "name": "Priya Sharma",
+      "age": 47,
+      "city": "Toronto, Canada",
+      "goal": "Medicine schedule she can share at visits",
+      "headline": "How Priya uses Steadycap",
+      "summary": "Priya Sharma from Toronto uses the app for medicine schedule she can share at visits. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Medicine schedule she can share at visits",
+          "shot": "priya/01-home",
+          "alt": "Priya Sharma home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "priya/02-task",
+          "alt": "Priya Sharma using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "priya/story.mp4",
+        "webm": "priya/story.webm",
+        "vtt": "priya/story.vtt",
+        "poster": "priya/poster.jpg",
+        "transcript": "Priya Sharma opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "medicine-tracker",
+        "journal-check-ins"
+      ],
+      "quote": "His pills are in one list now.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    },
+    {
+      "id": "steadycap-hamza",
+      "name": "Hamza Ali",
+      "age": 22,
+      "city": "Islamabad, Pakistan",
+      "goal": "Gentle streaks and support contacts when stress spikes",
+      "headline": "How Hamza uses Steadycap",
+      "summary": "Hamza Ali from Islamabad uses the app for gentle streaks and support contacts when stress spikes. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Gentle streaks and support contacts when stress spikes",
+          "shot": "hamza/01-home",
+          "alt": "Hamza Ali home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "hamza/02-task",
+          "alt": "Hamza Ali using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "hamza/story.mp4",
+        "webm": "hamza/story.webm",
+        "vtt": "hamza/story.vtt",
+        "poster": "hamza/poster.jpg",
+        "transcript": "Hamza Ali opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "no-streak-guilt",
+        "sos-crisis-flow"
+      ],
+      "quote": "Support is one tap. No lecture.",
+      "fictional": true,
+      "needs": [
+        "health"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "slug": "carcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "carcap-faisal",
+      "name": "Faisal Sheikh",
+      "age": 42,
+      "city": "Karachi, Pakistan",
+      "goal": "Two cars, service and fuel in one garage",
+      "headline": "How Faisal uses Carcap",
+      "summary": "Faisal Sheikh from Karachi uses the app for two cars, service and fuel in one garage. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Two cars, service and fuel in one garage",
+          "shot": "faisal/01-home",
+          "alt": "Faisal Sheikh home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "faisal/02-task",
+          "alt": "Faisal Sheikh using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "faisal/story.mp4",
+        "webm": "faisal/story.webm",
+        "vtt": "faisal/story.vtt",
+        "poster": "faisal/poster.jpg",
+        "transcript": "Faisal Sheikh opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "multi-vehicle-garage",
+        "service-log"
+      ],
+      "quote": "Both cars. One app.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    },
+    {
+      "id": "carcap-sophie",
+      "name": "Sophie Turner",
+      "age": 33,
+      "city": "Manchester, UK",
+      "goal": "Charging and MOT reminders",
+      "headline": "How Sophie uses Carcap",
+      "summary": "Sophie Turner from Manchester uses the app for charging and mot reminders. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Charging and MOT reminders",
+          "shot": "sophie/01-home",
+          "alt": "Sophie Turner home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "sophie/02-task",
+          "alt": "Sophie Turner using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "sophie/story.mp4",
+        "webm": "sophie/story.webm",
+        "vtt": "sophie/story.vtt",
+        "poster": "sophie/poster.jpg",
+        "transcript": "Sophie Turner opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "fuel-odometer",
+        "service-log"
+      ],
+      "quote": "MOT date never sneaks up again.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    },
+    {
+      "id": "carcap-rashid",
+      "name": "Rashid Al-Otaibi",
+      "age": 50,
+      "city": "Riyadh, Saudi Arabia",
+      "goal": "Three vans with documents on device",
+      "headline": "How Rashid uses Carcap",
+      "summary": "Rashid Al-Otaibi from Riyadh uses the app for three vans with documents on device. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Three vans with documents on device",
+          "shot": "rashid/01-home",
+          "alt": "Rashid Al-Otaibi home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "rashid/02-task",
+          "alt": "Rashid Al-Otaibi using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "rashid/story.mp4",
+        "webm": "rashid/story.webm",
+        "vtt": "rashid/story.vtt",
+        "poster": "rashid/poster.jpg",
+        "transcript": "Rashid Al-Otaibi opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "documents-on-device",
+        "multi-vehicle-garage"
+      ],
+      "quote": "Registration scans stay offline.",
+      "fictional": true,
+      "needs": [
+        "money"
+      ]
+    }
+  ]
+}

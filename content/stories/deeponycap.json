@@ -1,0 +1,166 @@
+{
+  "slug": "deeponycap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "deeponycap-ali",
+      "name": "Ali Hassan",
+      "age": 27,
+      "city": "Karachi, Pakistan",
+      "goal": "Wishlist tiers and shelf photos offline",
+      "headline": "How Ali uses Deeponycap",
+      "summary": "Ali Hassan from Karachi uses the app for wishlist tiers and shelf photos offline. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Wishlist tiers and shelf photos offline",
+          "shot": "ali/01-home",
+          "alt": "Ali Hassan home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "ali/02-task",
+          "alt": "Ali Hassan using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "ali/story.mp4",
+        "webm": "ali/story.webm",
+        "vtt": "ali/story.vtt",
+        "poster": "ali/poster.jpg",
+        "transcript": "Ali Hassan opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "photo-shelves",
+        "wishlist-tiers"
+      ],
+      "quote": "My grails live on the phone, not in chats.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    },
+    {
+      "id": "deeponycap-fatima",
+      "name": "Fatima Noor",
+      "age": 36,
+      "city": "Dubai, UAE",
+      "goal": "Kids' book shelves with custom series",
+      "headline": "How Fatima uses Deeponycap",
+      "summary": "Fatima Noor from Dubai uses the app for kids' book shelves with custom series. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Kids' book shelves with custom series",
+          "shot": "fatima/01-home",
+          "alt": "Fatima Noor home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "fatima/02-task",
+          "alt": "Fatima Noor using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "fatima/story.mp4",
+        "webm": "fatima/story.webm",
+        "vtt": "fatima/story.vtt",
+        "poster": "fatima/poster.jpg",
+        "transcript": "Fatima Noor opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "user-defined-series",
+        "photo-shelves"
+      ],
+      "quote": "Each kid gets their own shelf.",
+      "fictional": true,
+      "needs": [
+        "family"
+      ]
+    },
+    {
+      "id": "deeponycap-george",
+      "name": "George Palmer",
+      "age": 61,
+      "city": "Manchester, UK",
+      "goal": "Condition notes and large labels",
+      "headline": "How George uses Deeponycap",
+      "summary": "George Palmer from Manchester uses the app for condition notes and large labels. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Condition notes and large labels",
+          "shot": "george/01-home",
+          "alt": "George Palmer home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "george/02-task",
+          "alt": "George Palmer using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "george/story.mp4",
+        "webm": "george/story.webm",
+        "vtt": "george/story.vtt",
+        "poster": "george/poster.jpg",
+        "transcript": "George Palmer opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "independent-tracker",
+        "photo-shelves"
+      ],
+      "quote": "Every pressing has a story in one place.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    }
+  ]
+}

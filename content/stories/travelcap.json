@@ -1,0 +1,166 @@
+{
+  "slug": "travelcap",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "travelcap-sana",
+      "name": "Sana & Kamran",
+      "age": 29,
+      "city": "Karachi, Pakistan",
+      "goal": "Istanbul tickets and hotel docs in one trip",
+      "headline": "How Sana uses Travelcap",
+      "summary": "Sana & Kamran from Karachi uses the app for istanbul tickets and hotel docs in one trip. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Istanbul tickets and hotel docs in one trip",
+          "shot": "sana/01-home",
+          "alt": "Sana & Kamran home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "sana/02-task",
+          "alt": "Sana & Kamran using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "sana/story.mp4",
+        "webm": "sana/story.webm",
+        "vtt": "sana/story.vtt",
+        "poster": "sana/poster.jpg",
+        "transcript": "Sana & Kamran opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "trip-dashboard",
+        "document-vault"
+      ],
+      "quote": "Boarding passes live next to the hotel.",
+      "fictional": true,
+      "needs": [
+        "travel"
+      ]
+    },
+    {
+      "id": "travelcap-hassan",
+      "name": "Hassan Iqbal",
+      "age": 39,
+      "city": "Dubai, UAE",
+      "goal": "Monthly business trips and visa notes",
+      "headline": "How Hassan uses Travelcap",
+      "summary": "Hassan Iqbal from Dubai uses the app for monthly business trips and visa notes. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Monthly business trips and visa notes",
+          "shot": "hassan/01-home",
+          "alt": "Hassan Iqbal home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "hassan/02-task",
+          "alt": "Hassan Iqbal using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "hassan/story.mp4",
+        "webm": "hassan/story.webm",
+        "vtt": "hassan/story.vtt",
+        "poster": "hassan/poster.jpg",
+        "transcript": "Hassan Iqbal opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "transit-stays",
+        "official-sources"
+      ],
+      "quote": "I check official sources before I fly.",
+      "fictional": true,
+      "needs": [
+        "travel"
+      ]
+    },
+    {
+      "id": "travelcap-malik",
+      "name": "The Malik family",
+      "age": 40,
+      "city": "London, UK",
+      "goal": "Umrah and Lahore visit with kids' passports",
+      "headline": "How The uses Travelcap",
+      "summary": "The Malik family from London uses the app for umrah and lahore visit with kids' passports. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Umrah and Lahore visit with kids' passports",
+          "shot": "malik/01-home",
+          "alt": "The Malik family home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "malik/02-task",
+          "alt": "The Malik family using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "malik/story.mp4",
+        "webm": "malik/story.webm",
+        "vtt": "malik/story.vtt",
+        "poster": "malik/poster.jpg",
+        "transcript": "The Malik family opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "document-vault",
+        "trip-dashboard"
+      ],
+      "quote": "Five passports. One trip folder.",
+      "fictional": true,
+      "needs": [
+        "family"
+      ]
+    }
+  ]
+}

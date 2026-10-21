@@ -1,0 +1,166 @@
+{
+  "slug": "deefoodie",
+  "fictional": true,
+  "disclaimer": "Illustrative story. People and data are fictional.",
+  "personas": [
+    {
+      "id": "deefoodie-dee",
+      "name": "Dee Khan",
+      "age": 27,
+      "city": "Karachi, Pakistan",
+      "goal": "Private journal of Karachi eats",
+      "headline": "How Dee uses Deefoodie",
+      "summary": "Dee Khan from Karachi uses the app for private journal of karachi eats. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Private journal of Karachi eats",
+          "shot": "dee/01-home",
+          "alt": "Dee Khan home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "dee/02-task",
+          "alt": "Dee Khan using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "dee/story.mp4",
+        "webm": "dee/story.webm",
+        "vtt": "dee/story.vtt",
+        "poster": "dee/poster.jpg",
+        "transcript": "Dee Khan opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "visit-journal",
+        "private-beta"
+      ],
+      "quote": "My ratings stay in the beta app.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    },
+    {
+      "id": "deefoodie-arsalan",
+      "name": "Arsalan Qureshi",
+      "age": 35,
+      "city": "Karachi, Pakistan",
+      "goal": "Family dinner spots with kid-friendly notes",
+      "headline": "How Arsalan uses Deefoodie",
+      "summary": "Arsalan Qureshi from Karachi uses the app for family dinner spots with kid-friendly notes. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Family dinner spots with kid-friendly notes",
+          "shot": "arsalan/01-home",
+          "alt": "Arsalan Qureshi home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "arsalan/02-task",
+          "alt": "Arsalan Qureshi using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "arsalan/story.mp4",
+        "webm": "arsalan/story.webm",
+        "vtt": "arsalan/story.vtt",
+        "poster": "arsalan/poster.jpg",
+        "transcript": "Arsalan Qureshi opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "visit-journal",
+        "sync-devices"
+      ],
+      "quote": "We remember which place has high chairs.",
+      "fictional": true,
+      "needs": [
+        "family"
+      ]
+    },
+    {
+      "id": "deefoodie-noor",
+      "name": "Noor Ali",
+      "age": 24,
+      "city": "Karachi, Pakistan",
+      "goal": "Budget eats list on her phone",
+      "headline": "How Noor uses Deefoodie",
+      "summary": "Noor Ali from Karachi uses the app for budget eats list on her phone. All people and numbers are fictional.",
+      "day": [
+        {
+          "time": "09:00",
+          "title": "Open app",
+          "text": "Budget eats list on her phone",
+          "shot": "noor/01-home",
+          "alt": "Noor Ali home screen"
+        },
+        {
+          "time": "13:00",
+          "title": "Main task",
+          "text": "They complete the core flow with sample data on device.",
+          "shot": "noor/02-task",
+          "alt": "Noor Ali using primary feature"
+        }
+      ],
+      "before": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "15 min"
+        }
+      ],
+      "after": [
+        {
+          "label": "Minutes lost to chaos",
+          "value": "2 min"
+        }
+      ],
+      "video": {
+        "mp4": "noor/story.mp4",
+        "webm": "noor/story.webm",
+        "vtt": "noor/story.vtt",
+        "poster": "noor/poster.jpg",
+        "transcript": "Noor Ali opens the app and completes a fictional sample flow."
+      },
+      "features_used": [
+        "visit-journal",
+        "delete-my-data"
+      ],
+      "quote": "I can delete everything in Settings.",
+      "fictional": true,
+      "needs": [
+        "fun"
+      ]
+    }
+  ]
+}
