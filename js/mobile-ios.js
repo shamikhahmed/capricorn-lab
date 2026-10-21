@@ -223,7 +223,7 @@ function appSheetHTML(app) {
         ${canRun(app) ? '<button type="button" class="ios-app__run" data-sheet-run>▶ Try it here</button>' : ''}
         <a class="ios-app__open" href="${launchHref(app)}" ${app.privateBeta ? '' : 'target="_blank" rel="noopener"'}>${app.privateBeta ? 'Private beta — ask for access' : `${launchLabel(app)} ↗`}</a>
         <a class="ios-app__open ios-app__open--secondary" href="/apps/${app.slug}/" target="_blank" rel="noopener">Website</a>
-        <a class="ios-app__open ios-app__open--secondary" href="/apps/${app.slug}/#who-h" target="_blank" rel="noopener">Real stories</a>
+        <a class="ios-app__open ios-app__open--secondary" href="/apps/${app.slug}/#who-h" target="_blank" rel="noopener">Example stories</a>
       </div>
       <p class="ios-app__pitch">${app.pitch}</p>
       ${shot ? `<figure class="ios-app__shot"><img src="${screenshotFor(app)}" alt="${app.name} screenshot" loading="lazy"></figure>` : ''}

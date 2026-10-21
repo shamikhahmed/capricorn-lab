@@ -267,12 +267,12 @@ ${extra}
 
 function topbar(app, links = true, storyNav = false) {
   const sectionNav = storyNav
-    ? '<a href="#stories">Stories</a><a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>'
+    ? '<a href="#stories">Examples</a><a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>'
     : '<a href="#screens">Screens</a><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>';
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <a class="brand" href="/" aria-label="Capricorn OS home"><img src="/assets/logo.svg" alt="" width="22" height="22"><span>Capricorn</span></a>
-  ${links ? `<nav class="top__nav" aria-label="Sections">${sectionNav}</nav>` : '<nav class="top__nav" aria-label="Site"><a href="/">Capricorn OS</a><a href="/stories/">Stories</a><a href="/support.html">Support</a></nav>'}
+  ${links ? `<nav class="top__nav" aria-label="Sections">${sectionNav}</nav>` : '<nav class="top__nav" aria-label="Site"><a href="/">Capricorn OS</a><a href="/stories/">Examples</a><a href="/support.html">Support</a></nav>'}
   <div class="seg seg--theme" role="group" aria-label="Colour scheme">
     <button type="button" data-scheme="auto" aria-pressed="true">Auto</button><button type="button" data-scheme="light" aria-pressed="false">Light</button><button type="button" data-scheme="dark" aria-pressed="false">Dark</button>
   </div>
@@ -413,7 +413,7 @@ ${topbar(app, true, hasStories)}
 <footer class="foot">
   <p class="foot__label">More Caps</p>
   <ul class="foot__caps">${others.map((o) => `<li><a href="/apps/${esc(o.slug)}/"><img src="/apps/assets/icons/${esc(o.slug)}.svg" alt="" width="40" height="40" loading="lazy"><span>${esc(o.name)}</span></a></li>`).join('')}</ul>
-  <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/stories/">Stories</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
+  <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/stories/">Examples</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
   <p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p>
 </footer>
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
@@ -451,7 +451,7 @@ ${topbar(null, false)}
   </section>
   <section class="section" aria-label="All Caps"><ul class="capgrid">${cards}</ul></section>
 </main>
-<footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/stories/">Stories</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
+<footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/stories/">Examples</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
 <script src="/apps/assets/minisite.js" defer></script>
 </body>
 </html>

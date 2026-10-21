@@ -43,7 +43,9 @@ for (const file of bundles) {
   }
   req(bundle, ['slug', 'fictional', 'disclaimer', 'personas'], ctx);
   if (bundle.fictional !== true) fail(`${ctx} fictional must be true`);
-  if (!String(bundle.disclaimer || '').includes('Illustrative story')) fail(`${ctx} disclaimer must mention Illustrative story`);
+  if (!/fictional|illustrative|example/i.test(String(bundle.disclaimer || ''))) {
+    fail(`${ctx} disclaimer must say fictional / illustrative / example`);
+  }
   const app = appsBySlug[bundle.slug];
   if (!app) fail(`${ctx} unknown slug ${bundle.slug}`);
   if (!Array.isArray(bundle.personas) || !bundle.personas.length) fail(`${ctx} personas empty`);

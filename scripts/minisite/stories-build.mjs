@@ -155,15 +155,15 @@ export function buildStoriesForApp(app, bundle, ctx) {
 <body data-app="${esc(app.slug)}" data-story="1">
 ${topbar(app, true, true)}
 <main id="main" class="story-main">
-  <p class="story-fictional"><span class="chip">Illustrative story</span> ${esc(bundle.disclaimer)}</p>
+  <p class="story-fictional"><span class="chip">Fictional example</span> ${esc(bundle.disclaimer)}</p>
   <section class="story-hero" aria-labelledby="story-h1">
     <div class="story-hero__text prose">
       <p class="eyebrow">${esc(app.name)} · ${esc(p.city)}</p>
       <h1 id="story-h1">${esc(p.headline)}</h1>
       <p class="hero__lead">${esc(p.summary)}</p>
-      <figure class="persona-card card" aria-label="Persona">
+      <figure class="persona-card card" aria-label="Fictional persona">
         <span class="persona-card__av" aria-hidden="true">${esc(initials(p.name))}</span>
-        <span class="persona-card__meta"><strong>${esc(p.name)}</strong>, ${p.age}<br>${esc(p.goal)}</span>
+        <span class="persona-card__meta"><strong>${esc(p.name)}</strong>, ${p.age} <span class="chip chip--sm">Fictional</span><br>${esc(p.goal)}</span>
         <blockquote class="persona-card__quote">“${esc(p.quote)}”</blockquote>
       </figure>
     </div>
@@ -171,7 +171,7 @@ ${topbar(app, true, true)}
   </section>
 
   <section class="section story-compare" aria-labelledby="compare-h">
-    <div class="section__head"><div><h2 id="compare-h">Before and after</h2><p>Illustrative numbers from a fictional week.</p></div></div>
+    <div class="section__head"><div><h2 id="compare-h">Before and after</h2><p>Made-up numbers for a fictional week — not a real customer case.</p></div></div>
     <div class="story-compare__grid">
       <div class="card story-compare__col"><h3>Before</h3>${beforeCol}</div>
       <div class="card story-compare__col story-compare__col--after"><h3>After ${esc(app.name)}</h3>${afterCol}</div>
@@ -179,7 +179,7 @@ ${topbar(app, true, true)}
   </section>
 
   <section class="section story-day" aria-labelledby="day-h">
-    <div class="section__head"><div><h2 id="day-h">A day with ${esc(p.name.split(' ')[0])}</h2></div></div>
+    <div class="section__head"><div><h2 id="day-h">A fictional day with ${esc(p.name.split(' ')[0])}</h2><p>Sample screens for the story — not a recorded real session.</p></div></div>
     <ol class="story-timeline">${timeline}</ol>
   </section>
 
@@ -190,7 +190,7 @@ ${topbar(app, true, true)}
     <div class="story-chips">${chips}</div>
   </section>
 
-  <nav class="story-nav" aria-label="More stories">
+  <nav class="story-nav" aria-label="More examples">
     <a class="btn btn--ghost" href="/apps/${esc(app.slug)}/stories/${esc(prev.id)}/">← ${esc(prev.name.split(' ')[0])}</a>
     <a class="btn btn--fill" href="${esc(app.url || `/apps/${app.slug}/`)}#install">Try ${esc(app.name)}</a>
     <a class="btn btn--ghost" href="/apps/${esc(app.slug)}/stories/${esc(next.id)}/">${esc(next.name.split(' ')[0])} →</a>
@@ -198,7 +198,7 @@ ${topbar(app, true, true)}
   <p class="story-fictional story-fictional--foot">${esc(bundle.disclaimer)}</p>
 </main>
 <footer class="foot">
-  <nav class="foot__links" aria-label="Footer"><a href="/apps/${esc(app.slug)}/">${esc(app.name)}</a><a href="/stories/">All stories</a><a href="/apps/">All Caps</a><a href="/">Capricorn OS</a></nav>
+  <nav class="foot__links" aria-label="Footer"><a href="/apps/${esc(app.slug)}/">${esc(app.name)}</a><a href="/stories/">All examples</a><a href="/apps/">All Caps</a><a href="/">Capricorn OS</a></nav>
   <p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p>
 </footer>
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
@@ -234,7 +234,7 @@ export function renderWhoUses(app, bundle, esc) {
     )
     .join('');
   return `<section class="section" id="stories" aria-labelledby="who-h">
-    <div class="section__head"><div><h2 id="who-h">Who uses ${esc(app.name)}</h2><p>Illustrative stories — people and numbers are fictional.</p></div><a class="btn btn--ghost btn--sm" href="/stories/?app=${esc(app.slug)}">All stories</a></div>
+    <div class="section__head"><div><h2 id="who-h">Example days with ${esc(app.name)}</h2><p>Fictional walkthroughs — people, screenshots, and numbers are made up for the story.</p></div><a class="btn btn--ghost btn--sm" href="/stories/?app=${esc(app.slug)}">All examples</a></div>
     <div class="persona-grid">${cards}</div>
   </section>`;
 }
@@ -264,21 +264,21 @@ export function renderStoriesIndex(allEntries, APPS, versions, ctx) {
 
   const needChips = NEEDS.map((n) => `<button type="button" class="story-filter" data-filter-need="${n}">${n.charAt(0).toUpperCase() + n.slice(1)}</button>`).join('');
 
-  return `${head({ title: 'Real stories — Capricorn Caps', desc: 'Illustrative day-in-the-life stories for Cap apps. People and data are fictional.', canonical: `${BASE}/stories/`, og: `${BASE}/assets/og.png`, pal })}
+  return `${head({ title: 'Example stories — Capricorn Caps', desc: 'Fictional example days with each Cap. People, screenshots, and numbers are made up — not real customer stories.', canonical: `${BASE}/stories/`, og: `${BASE}/assets/og.png`, pal })}
 <body data-stories-index="1">
 ${topbar(null, false)}
 <main id="main">
   <section class="hero hero--index" aria-labelledby="h1">
     <div class="hero__text prose">
       <p class="eyebrow">Capricorn Systems</p>
-      <h1 id="h1">Real stories</h1>
-      <p class="hero__lead">Illustrative day-in-the-life stories for each Cap. People and numbers are fictional.</p>
+      <h1 id="h1">Example stories</h1>
+      <p class="hero__lead">Fictional walkthroughs for each Cap. People, screenshots, and numbers are made up — not real customers or case studies.</p>
     </div>
   </section>
   <section class="section story-index" aria-labelledby="find-h">
-    <div class="section__head"><div><h2 id="find-h">Find a story</h2></div></div>
+    <div class="section__head"><div><h2 id="find-h">Find an example</h2></div></div>
     <label class="story-search">
-      <span class="visually-hidden">Search stories</span>
+      <span class="visually-hidden">Search examples</span>
       <input type="search" id="storySearch" enterkeyhint="search" autocomplete="off" placeholder="Search by name, city or app">
     </label>
     <div class="story-filters" role="group" aria-label="Filter by need">
@@ -289,7 +289,7 @@ ${topbar(null, false)}
       <button type="button" class="story-filter is-on" data-filter-app="all">All apps</button>
       ${appChips}
     </div>
-    <p id="storyEmpty" class="story-empty" hidden>No stories match. Try clearing filters.</p>
+    <p id="storyEmpty" class="story-empty" hidden>No examples match. Try clearing filters.</p>
     <ul class="story-index__list" id="storyList">${cards}</ul>
   </section>
 </main>

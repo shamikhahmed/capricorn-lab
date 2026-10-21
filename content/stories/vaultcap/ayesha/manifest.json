@@ -1,0 +1,135 @@
+{
+  "personaId": "vaultcap-ayesha",
+  "personaName": "Ayesha Siddiqui",
+  "app": "vaultcap",
+  "gitSha": "fe76379d4d69882a72d5f3fe6a90b8c752987aa2",
+  "capturedAt": "2026-10-21T13:19:19.762Z",
+  "files": [
+    {
+      "step": "01-home",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "01-home-iphone-16-pro-light.png",
+      "webp": "01-home-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "02-documents",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "02-documents-iphone-16-pro-light.png",
+      "webp": "02-documents-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "03-family",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "03-family-iphone-16-pro-light.png",
+      "webp": "03-family-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "04-banks",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "04-banks-iphone-16-pro-light.png",
+      "webp": "04-banks-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "05-zakat",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "05-zakat-iphone-16-pro-light.png",
+      "webp": "05-zakat-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "06-reminders",
+      "device": "iphone-16-pro",
+      "theme": "light",
+      "png": "06-reminders-iphone-16-pro-light.png",
+      "webp": "06-reminders-iphone-16-pro-light.webp"
+    },
+    {
+      "step": "01-home",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "01-home-ipad-air-light.png",
+      "webp": "01-home-ipad-air-light.webp"
+    },
+    {
+      "step": "02-documents",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "02-documents-ipad-air-light.png",
+      "webp": "02-documents-ipad-air-light.webp"
+    },
+    {
+      "step": "03-family",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "03-family-ipad-air-light.png",
+      "webp": "03-family-ipad-air-light.webp"
+    },
+    {
+      "step": "04-banks",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "04-banks-ipad-air-light.png",
+      "webp": "04-banks-ipad-air-light.webp"
+    },
+    {
+      "step": "05-zakat",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "05-zakat-ipad-air-light.png",
+      "webp": "05-zakat-ipad-air-light.webp"
+    },
+    {
+      "step": "06-reminders",
+      "device": "ipad-air",
+      "theme": "light",
+      "png": "06-reminders-ipad-air-light.png",
+      "webp": "06-reminders-ipad-air-light.webp"
+    },
+    {
+      "step": "01-home",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "01-home-macbook-14-light.png",
+      "webp": "01-home-macbook-14-light.webp"
+    },
+    {
+      "step": "02-documents",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "02-documents-macbook-14-light.png",
+      "webp": "02-documents-macbook-14-light.webp"
+    },
+    {
+      "step": "03-family",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "03-family-macbook-14-light.png",
+      "webp": "03-family-macbook-14-light.webp"
+    },
+    {
+      "step": "04-banks",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "04-banks-macbook-14-light.png",
+      "webp": "04-banks-macbook-14-light.webp"
+    },
+    {
+      "step": "05-zakat",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "05-zakat-macbook-14-light.png",
+      "webp": "05-zakat-macbook-14-light.webp"
+    },
+    {
+      "step": "06-reminders",
+      "device": "macbook-14",
+      "theme": "light",
+      "png": "06-reminders-macbook-14-light.png",
+      "webp": "06-reminders-macbook-14-light.webp"
+    }
+  ]
+}
