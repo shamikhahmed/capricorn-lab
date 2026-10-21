@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, cpSync, writeFileSync
 import { join, dirname } from 'node:path';
 
 const NEEDS = ['family', 'health', 'money', 'travel', 'learning', 'fun'];
+const STORY_DISCLAIMER = 'Illustrative story. People and data are fictional.';
 
 export function loadStoryBundles(contentDir) {
   const dir = join(contentDir, 'stories');
@@ -155,7 +156,7 @@ export function buildStoriesForApp(app, bundle, ctx) {
 <body data-app="${esc(app.slug)}" data-story="1">
 ${topbar(app, true, true)}
 <main id="main" class="story-main">
-  <p class="story-fictional"><span class="chip">Illustrative story</span> ${esc(bundle.disclaimer || 'Illustrative story. People and data are fictional.')}</p>
+  <p class="story-fictional"><span class="chip">Illustrative story</span> ${esc(bundle.disclaimer || STORY_DISCLAIMER)}</p>
   <section class="story-hero" aria-labelledby="story-h1">
     <div class="story-hero__text prose">
       <p class="eyebrow">${esc(app.name)} · ${esc(p.city)}</p>
@@ -251,7 +252,7 @@ export function renderStoriesIndex(allEntries, APPS, versions, ctx) {
           <span>
             <span class="eyebrow">${esc(app.name)}</span>
             <strong class="story-index__title">${esc(persona.headline)}</strong>
-            <span class="persona-teaser__meta">${esc(persona.name)}, ${persona.age} · ${esc(persona.city)}</span>
+            <span class="persona-teaser__meta">${esc(persona.name)}, ${persona.age} · ${esc(persona.city)} · <span class="chip chip--sm">Fictional</span></span>
           </span>
         </a>
       </li>`;
@@ -264,19 +265,22 @@ export function renderStoriesIndex(allEntries, APPS, versions, ctx) {
 
   const needChips = NEEDS.map((n) => `<button type="button" class="story-filter" data-filter-need="${n}">${n.charAt(0).toUpperCase() + n.slice(1)}</button>`).join('');
 
+  const exampleCount = allEntries.length;
+
   return `${head({ title: 'Example stories — Capricorn Caps', desc: 'Fictional example days with each Cap. People, screenshots, and numbers are made up — not real customer stories.', canonical: `${BASE}/stories/`, og: `${BASE}/assets/og.png`, pal })}
 <body data-stories-index="1">
 ${topbar(null, false)}
 <main id="main">
+  <p class="story-fictional story-fictional--index"><span class="chip">Illustrative story</span> ${esc(STORY_DISCLAIMER)}</p>
   <section class="hero hero--index" aria-labelledby="h1">
     <div class="hero__text prose">
       <p class="eyebrow">Capricorn Systems</p>
       <h1 id="h1">Example stories</h1>
-      <p class="hero__lead">Fictional walkthroughs for each Cap. People, screenshots, and numbers are made up — not real customers or case studies.</p>
+      <p class="hero__lead">${exampleCount} fictional walkthroughs across the live Caps — one persona per app, three per Cap. People, screenshots, and numbers are made up, not real customers or case studies.</p>
     </div>
   </section>
   <section class="section story-index" aria-labelledby="find-h">
-    <div class="section__head"><div><h2 id="find-h">Find an example</h2></div></div>
+    <div class="section__head"><div><h2 id="find-h">Find an example</h2><p id="storyCount" aria-live="polite">${exampleCount} examples · filter by need or app</p></div></div>
     <label class="story-search">
       <span class="visually-hidden">Search examples</span>
       <input type="search" id="storySearch" enterkeyhint="search" autocomplete="off" placeholder="Search by name, city or app">
