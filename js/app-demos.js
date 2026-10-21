@@ -5,7 +5,7 @@ import { sfx } from './sounds.js';
  * Each returns markup via demoHTML() and comes alive via initAppDemo().
  */
 
-const DEMO_SLUGS = ['vaultcap', 'pulsecap', 'prismcap'];
+const DEMO_SLUGS = ['vaultcap', 'pulsecap'];
 
 export function hasDemo(slug) {
   return DEMO_SLUGS.includes(slug);
@@ -30,15 +30,6 @@ export function demoHTML(app) {
         <div class="app-demo__ring">
           <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34"/><circle cx="40" cy="40" r="34" class="app-demo__ring-fill"/></svg>
           <strong class="num" data-ring="87">0</strong>
-        </div>
-      </div>`;
-  }
-  if (app.slug === 'prismcap') {
-    return `
-      <div class="app-demo app-demo--prism" data-demo="prismcap" aria-label="Playable demo — tap the lit tile">
-        <p class="app-demo__label">Playable · tap the lit tile <strong class="app-demo__score num">0</strong></p>
-        <div class="app-demo__grid">
-          ${Array.from({ length: 9 }, (_, i) => `<button type="button" class="app-demo__cell" data-cell="${i}" aria-label="Tile ${i + 1}"></button>`).join('')}
         </div>
       </div>`;
   }
@@ -91,39 +82,4 @@ export function initAppDemo(root, app) {
     requestAnimationFrame(tick);
   }
 
-  if (app.slug === 'prismcap') {
-    const cells = [...el.querySelectorAll('.app-demo__cell')];
-    const scoreEl = el.querySelector('.app-demo__score');
-    let score = 0;
-    let lit = -1;
-    let timer = 0;
-
-    const light = () => {
-      // panel swapped out (Run here) or window closed — stop this game loop
-      if (!cells[0]?.isConnected) { clearInterval(timer); return; }
-      cells[lit]?.classList.remove('is-lit');
-      lit = Math.floor(Math.random() * cells.length);
-      cells[lit].classList.add('is-lit');
-    };
-
-    cells.forEach((c, i) => {
-      c.addEventListener('click', () => {
-        if (i !== lit) return;
-        score += 1;
-        scoreEl.textContent = String(score);
-        sfx.click();
-        light();
-        clearInterval(timer);
-        timer = setInterval(light, Math.max(650, 1400 - score * 60));
-      });
-    });
-
-    light();
-    timer = setInterval(light, 1400);
-    // stop the game loop when the window is removed
-    const mo = new MutationObserver(() => {
-      if (!document.contains(el)) { clearInterval(timer); mo.disconnect(); }
-    });
-    mo.observe(document.getElementById('windows') || document.body, { childList: true, subtree: true });
-  }
 }

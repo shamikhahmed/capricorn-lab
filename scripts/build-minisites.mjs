@@ -37,16 +37,15 @@ const OUT = join(HUB, 'apps');
 const BASE = 'https://shamikhahmed.github.io';
 
 const REPO = {
-  vaultcap: 'VaultCap', pulsecap: 'PulseCap', prismcap: 'PrismCap', steadycap: 'SteadyCap',
+  vaultcap: 'VaultCap', pulsecap: 'PulseCap', steadycap: 'SteadyCap',
   ledgercap: 'LedgerCap', deeponycap: 'DeePonyCap', scentcap: 'ScentCap', soulcap: 'SoulCap',
-  travelcap: 'TravelCap', auracap: 'AuraCap', masterycap: 'MasteryCap', ideacap: 'IdeaCap',
+  travelcap: 'TravelCap', masterycap: 'MasteryCap', ideacap: 'IdeaCap',
   carcap: 'CarCap', cookcap: 'CookCap', deefoodie: 'DeeFoodieApp',
 };
 
 /* ── Approved copy (DECISIONS.md §4.1 / §4.2) ─────────────────────────── */
 
 const DESC = {
-  auracap: 'Organize your iPhone, iPad and Mac setup.',
   carcap: 'Service, fuel and documents for your cars.',
   cookcap: 'Your family cookbook, kept like a real book.',
   deefoodie: 'A private journal of where you eat in Karachi.',
@@ -54,7 +53,6 @@ const DESC = {
   ideacap: 'Capture ideas by voice or text. They stay on your device.',
   ledgercap: 'Track your PSX stocks and mutual funds in one place.',
   masterycap: 'Learn trading and software step by step, in English or Roman Urdu.',
-  prismcap: 'Party games for one phone, passed around the room.',
   pulsecap: 'Plan, log and track your training. Works offline.',
   scentcap: 'Your fragrance collection, and what to wear today.',
   soulcap: 'Quiet tools to steady yourself. Not therapy.',
@@ -74,21 +72,18 @@ const DISCLAIMER = {
   travelcap: 'Always check official sources for visas, entry rules and flight times.',
   scentcap: "Brand names belong to their owners. ScentCap isn't affiliated with any fragrance house.",
   deeponycap: "DeePonyCap is an independent collection tracker and isn't affiliated with or endorsed by any toy company.",
-  auracap: "Apple, iPhone, iPad and Mac are trademarks of Apple Inc. AuraCap isn't affiliated with Apple.",
 };
 
 /** Privacy, from each app's own privacy page (what may leave the device, and when). */
 const PRIVACY = {
   vaultcap: { stays: 'Accounts, cards, documents, family profiles and backups — encrypted with AES-256-GCM before they are saved.', network: [['Nothing by default', 'Optional Smart Import parsing goes to a Capricorn Cloudflare Worker only if you turn it on in Settings → Import.']] },
   pulsecap: { stays: 'Workouts, plans, PRs, body measurements, progress photos and nutrition.', network: [['Nothing for your data', 'Optional voice logging uses your browser’s speech service, which may process audio — type instead if you prefer.']] },
-  prismcap: { stays: 'Players, scores, XP, achievements and saved games.', network: [['Nothing', 'Games, saves and stats never leave the phone.']] },
   steadycap: { stays: 'Routines, medicines, check-ins, journal and recovery timelines.', network: [['Nothing', 'No sync server, no analytics — SOS works offline.']] },
   ledgercap: { stays: 'Holdings, transactions, watchlists, notes and settings.', network: [['Capricorn price Worker', 'Ticker queries for indicative PSX, fund, FX and news data when you open market screens. Your portfolio is never sent.']] },
   deeponycap: { stays: 'Your catalog, series, shelf photos, wishlist and backups.', network: [['Nothing', 'Photos stay in this browser’s storage on your device.']] },
   scentcap: { stays: 'Bottles, wear log, notes, layering combos and photos you add.', network: [['Open-Meteo', 'A city or your location — only after you enter a city or tap “Use my location” — for weather-aware picks.'], ['Optional catalog search', 'Search words, only when you look up a bottle.']] },
   soulcap: { stays: 'Check-ins, journal, people map, techniques and favourites.', network: [['Nothing', 'The app makes no third-party requests. Help numbers ship inside the app.']] },
   travelcap: { stays: 'Trips, tickets, documents, budgets, packing lists and memories.', network: [['Nominatim (OpenStreetMap)', 'Place and hotel searches you type.'], ['OpenStreetMap tiles', 'Map images for your stamps map.'], ['Open-Meteo', 'Weather for packing hints.'], ['AviationStack (optional)', 'Flight lookups — only with your own key.']] },
-  auracap: { stays: 'Your imported app list, profiles, scores and layouts.', network: [['Nothing', 'AuraCap makes no network calls for your data.']] },
   masterycap: { stays: 'Progress, quiz answers, records and certificates.', network: [['Nothing', 'No third-party learning APIs.']] },
   ideacap: { stays: 'Notes, recordings, tags, summaries, folders and reminders.', network: [['Nothing by default', 'Voice is transcribed on the device when your phone supports it. On the web you type.']] },
   carcap: { stays: 'Vehicles, service log, fuel entries and documents.', network: [['Nothing', 'CarCap makes no network calls for your data.']] },
@@ -100,14 +95,12 @@ const PRIVACY = {
 const FAQ = {
   vaultcap: [['What if I forget my PIN?', DISCLAIMER.vaultcap], ['Can my family use it?', 'Yes — family vault profiles keep each person’s records separate and encrypted.']],
   pulsecap: [['Is Smart Coach an AI?', 'No. Smart Coach is rules applied to your own training history, on your phone.'], ['Do I need a wearable?', 'No. Recovery readiness comes from your logs and check-ins.'], ['Is this medical advice?', DISCLAIMER.pulsecap]],
-  prismcap: [['How do we play?', 'Pick a game, add players, then pass the phone around. Hidden-role games only show each player their own screen.'], ['Does it need Wi-Fi?', 'No. Every game works offline once the app has loaded.']],
   steadycap: [['Is this medical advice?', DISCLAIMER.steadycap], ['Does it count streaks?', 'No. SteadyCap tracks progress without streak pressure.'], ['Where is SOS?', 'The centre tab, from every screen — it works offline.']],
   ledgercap: [['Are prices live?', 'Prices are indicative and may be delayed. ' + DISCLAIMER.ledgercap], ['Does it support Urdu?', 'Yes — English, اردو and Roman Urdu, in Settings → General.']],
   deeponycap: [['Is it affiliated with a toy brand?', DISCLAIMER.deeponycap], ['Can I export my collection?', 'Yes — a full backup or a CSV, from Settings.']],
   scentcap: [['Is ScentCap affiliated with perfume brands?', DISCLAIMER.scentcap], ['How does it pick today’s scent?', 'Rules that use your wardrobe, what you wore recently and — if you allow it — the weather.']],
   soulcap: [['Is SoulCap therapy?', DISCLAIMER.soulcap], ['What if I need help now?', 'Open Help from any screen for region-aware crisis numbers. If you are in danger, call your local emergency number.']],
   travelcap: [['Can I book flights in TravelCap?', 'No. TravelCap organises trips you have booked. ' + DISCLAIMER.travelcap], ['Can I lock my documents?', 'Yes — an optional app lock protects your travel documents.']],
-  auracap: [['Does AuraCap read my iPhone?', 'No. You import an app list yourself, and nothing is uploaded.'], ['Is AuraCap made by Apple?', DISCLAIMER.auracap]],
   masterycap: [['Are the certificates accredited?', DISCLAIMER.masterycap], ['Which languages?', 'English and Roman Urdu, switchable in every lesson.']],
   ideacap: [['Is my voice sent to the cloud?', 'Not by IdeaCap. Native apps transcribe on the device; on the web you type your idea.'], ['Can I organise ideas?', 'Yes — folders, tags and soft reminders.']],
   carcap: [['Will it remind me about service?', 'Reminders work while CarCap is installed on your Home Screen. Your phone may delay them.'], ['Can I track more than one car?', 'Yes — add as many vehicles as you like.']],
@@ -444,14 +437,14 @@ function renderIndex(apps, versions) {
     <span class="capcard__desc">${esc(DESC[a.slug] || a.tagline)}</span>
     <span class="capcard__meta">${esc(a.category)} · v${esc(versions[a.slug] || a.ver)}</span>
   </a></li>`).join('');
-  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Fifteen Cap apps by Capricorn Systems. Each one looks different; none has ads or analytics, and each says plainly what stays on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
+  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Thirteen Cap apps by Capricorn Systems. Each one looks different; none has ads or analytics, and each says plainly what stays on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
 <body>
 ${topbar(null, false)}
 <main id="main">
   <section class="hero hero--index" aria-labelledby="h1">
     <div class="hero__text">
       <p class="eyebrow">Capricorn Systems</p>
-      <h1 id="h1">Fifteen Caps. One rule.</h1>
+      <h1 id="h1">Thirteen Caps. One rule.</h1>
       <p class="hero__lead">Every Cap looks and feels different. None of them has ads or analytics, and each page says plainly what stays on your device — and what, if anything, leaves it.</p>
       <div class="hero__cta"><a class="btn btn--fill" href="/">Open Capricorn OS</a><a class="btn btn--ghost" href="/support.html">Support</a></div>
     </div>

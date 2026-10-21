@@ -9,7 +9,7 @@ const WIFI_BLOCKERS = [
   },
   {
     title: 'Sovereignty has limits.',
-    body: 'VaultCap, PulseCap, PrismCap — all fine without Wi‑Fi. Capricorn Lab in your browser? Not so much. Wi‑Fi stays on.',
+    body: 'VaultCap, PulseCap, LedgerCap — all fine without Wi‑Fi. Capricorn Lab in your browser? Not so much. Wi‑Fi stays on.',
   },
   {
     title: 'You cannot unplug the demo.',

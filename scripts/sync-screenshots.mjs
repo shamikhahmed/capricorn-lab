@@ -17,9 +17,9 @@ const LAB = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FLEET = join(LAB, '..');
 const IPHONE_R = 2.164; // 393 × 852 viewport
 const REPO = {
-  vaultcap: 'VaultCap', pulsecap: 'PulseCap', prismcap: 'PrismCap', steadycap: 'SteadyCap',
+  vaultcap: 'VaultCap', pulsecap: 'PulseCap', steadycap: 'SteadyCap',
   ledgercap: 'LedgerCap', deeponycap: 'DeePonyCap', scentcap: 'ScentCap', soulcap: 'SoulCap',
-  travelcap: 'TravelCap', auracap: 'AuraCap', masterycap: 'MasteryCap', ideacap: 'IdeaCap',
+  travelcap: 'TravelCap', masterycap: 'MasteryCap', ideacap: 'IdeaCap',
   carcap: 'CarCap', cookcap: 'CookCap',
 };
 

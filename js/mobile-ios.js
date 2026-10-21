@@ -11,8 +11,8 @@ import { canRun, runnerHTML, bindRunner } from './app-runner.js';
 import { syncVersions } from './live-catalog.js';
 
 /** Phone dock = 4 favourites (iOS limit). iPad dock = 9 + App Library. */
-const DOCK_PHONE = ['vaultcap', 'pulsecap', 'ledgercap', 'prismcap'];
-const DOCK_TABLET = ['vaultcap', 'pulsecap', 'ledgercap', 'prismcap', 'steadycap', 'soulcap', 'travelcap', 'scentcap', 'cookcap'];
+const DOCK_PHONE = ['vaultcap', 'pulsecap', 'ledgercap', 'scentcap'];
+const DOCK_TABLET = ['vaultcap', 'pulsecap', 'ledgercap', 'steadycap', 'soulcap', 'travelcap', 'scentcap', 'cookcap'];
 
 const isTablet = () => document.documentElement.dataset.view === 'tablet';
 const appBySlug = (slug) => APPS.find((a) => a.slug === slug);

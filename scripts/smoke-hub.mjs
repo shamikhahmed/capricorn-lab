@@ -19,7 +19,7 @@ const check = (cond, msg) => (cond ? ok(msg) : fail(msg));
 
 /* catalog */
 const products = read('js/products.js');
-const SLUGS = ['vaultcap', 'pulsecap', 'prismcap', 'steadycap', 'ledgercap', 'deeponycap', 'scentcap', 'soulcap', 'travelcap', 'auracap', 'masterycap', 'ideacap', 'carcap', 'cookcap', 'deefoodie'];
+const SLUGS = ['vaultcap', 'pulsecap', 'steadycap', 'ledgercap', 'deeponycap', 'scentcap', 'soulcap', 'travelcap', 'masterycap', 'ideacap', 'carcap', 'cookcap', 'deefoodie'];
 for (const slug of SLUGS) {
   const m = products.match(new RegExp(`slug: '${slug}'[\\s\\S]*?ver: '([^']+)'`));
   check(m && /^\d+\.\d+/.test(m[1]), `catalog ${slug} ${m?.[1] || 'missing'}`);

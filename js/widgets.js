@@ -25,10 +25,6 @@ const WIDGET_TEASE = {
     title: 'Nice widget. Wrong biceps.',
     body: 'Smart Coach can\'t coach fake reps. Download PulseCap and log a real session.',
   },
-  prismcap: {
-    title: 'Demo arcade closed.',
-    body: 'Cipher Duel doesn\'t run in a browser tile. Get PrismCap — 38 games, zero Wi‑Fi.',
-  },
   steadycap: {
     title: 'Day 47 isn\'t yours yet.',
     body: 'Recovery isn\'t a screenshot. Install SteadyCap — habits, meds, and SOS on your device.',
@@ -44,10 +40,6 @@ const WIDGET_TEASE = {
   scentcap: {
     title: 'Oud Wood not detected.',
     body: 'We can\'t smell through glass. Install ScentCap and log what you actually wore.',
-  },
-  auracap: {
-    title: 'Aura Score: unreleased.',
-    body: 'Digital DNA needs your real app list. Download AuraCap — nothing gets uploaded.',
   },
   travelcap: {
     title: 'Barcelona isn\'t packed yet.',
@@ -143,26 +135,12 @@ const WIDGET_RENDERERS = {
       ${wLine('Flight <strong>BCN 14:20</strong> · hotel confirmed', 'info')}
       ${wFoot(a, 'Open trip →')}`),
 
-  auracap: (a) => widgetRoot(a.slug, 'mw--aura', a.accent, 'medium', `
-      ${wHead(a)}
-      ${wHero('<span class="num">84</span>', 'Aura Score')}
-      <div class="mw__bars">${wBar('Modules', 75, '12/16')}</div>
-      ${wLine('Digital DNA ready · <strong>42</strong> wallpapers')}
-      ${wFoot(a, 'Run DNA scan')}`),
-
   pulsecap: (a) => widgetRoot(a.slug, 'mw--pulse', a.accent, 'small', `
       ${wHead(a)}
       ${wHero('<span class="num">87</span>', 'recovery ready')}
       ${wMeta([{ k: 'Today', v: 'Push' }, { k: 'Last PR', v: '+2.5 kg', tone: 'up' }])}
       ${wLine('Smart Coach · <strong>deload</strong> not needed', 'ok')}
       ${wFoot(a, 'Start session')}`),
-
-  prismcap: (a) => widgetRoot(a.slug, 'mw--prism', a.accent, 'small', `
-      ${wHead(a)}
-      ${wHero('<span class="num">38</span>', 'games offline')}
-      ${wLine('<strong>Cipher Duel</strong> · Level 4')}
-      ${wLine('Daily challenge · streak <strong>6</strong>', 'info')}
-      ${wFoot(a, 'Play now')}`),
 
   scentcap: (a) => widgetRoot(a.slug, 'mw--scent', a.accent, 'small', `
       ${wHead(a)}
@@ -218,12 +196,10 @@ const WIDGET_RENDERERS = {
 export const IOS_WIDGET_SNAPSHOTS = {
   vaultcap: { big: '£284,520', small: 'net worth', extra: '<em class="warn">Zakat review due</em>' },
   pulsecap: { big: '87', small: 'recovery ready', extra: '<em class="ok">Smart Coach ready</em>' },
-  prismcap: { big: '38', small: 'games offline', extra: '<em>Cipher Duel · Lv 4</em>' },
   steadycap: { big: 'Day 47', small: 'steady · 0 relapses', extra: '<em class="ok">Trigger forecast low</em>' },
   ledgercap: { big: 'Rs 4.2M', small: 'net worth', extra: '<em class="up">ENGRO ▲ 2.1%</em>' },
   deeponycap: { big: '127', small: 'in your collection', extra: '<em>3 favorites on wishlist</em>' },
   scentcap: { big: 'Oud Wood', small: 'worn today', extra: '<em>Bleu de Chanel 22%</em>' },
-  auracap: { big: '84', small: 'Aura Score', extra: '<em>12/16 modules</em>' },
   travelcap: { big: '12 days', small: 'to Barcelona', extra: '<em class="info">Packed 78%</em>' },
   soulcap: { big: 'Steady', small: 'mood · checked in', extra: '<em class="info">Journal 4 days</em>' },
   masterycap: { big: '15 min', small: "today's session", extra: '<em>Foundations · EN · UR</em>' },
@@ -236,14 +212,12 @@ export const IOS_WIDGET_SNAPSHOTS = {
 const WIDGET_SIZES = {
   vaultcap: 'medium',
   pulsecap: 'small',
-  prismcap: 'small',
   steadycap: 'medium',
   ledgercap: 'medium',
   deeponycap: 'medium',
   scentcap: 'small',
   soulcap: 'small',
   travelcap: 'medium',
-  auracap: 'medium',
   masterycap: 'small',
   ideacap: 'small',
   carcap: 'small',
