@@ -203,7 +203,9 @@ ${topbar(app, true, true)}
 </footer>
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
   <button type="button" class="lightbox__close" data-lb="close" aria-label="Close">✕</button>
-  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb="-1" aria-label="Previous">‹</button>
+  <figure><img id="lbImg" alt="" decoding="async"><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lightbox__nav lightbox__nav--next" data-lb="1" aria-label="Next">›</button>
 </dialog>
 <script type="application/json" id="story-shots">${JSON.stringify(p.day.map((s) => ({ title: s.title, alt: s.alt, src: existsMedia(`${s.shot}.webp`) ? `../media/${s.shot}.webp` : existsMedia(`${s.shot}.png`) ? `../media/${s.shot}.png` : '' }))).replace(/</g, '\\u003c')}</script>
 <script src="/apps/assets/minisite.js" defer></script>
