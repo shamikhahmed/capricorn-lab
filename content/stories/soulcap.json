@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "soulcap-zainab",
-      "name": "Zainab Raza",
+      "name": "Zainab Farooq",
       "age": 31,
       "city": "Lahore, Pakistan",
-      "goal": "Breathing and journaling before work \u2014 not therapy",
-      "headline": "How Zainab uses Soulcap",
-      "summary": "Zainab Raza from Lahore uses the app for breathing and journaling before work \u2014 not therapy. All people and numbers are fictional.",
+      "goal": "Breathing and a short journal before work",
+      "headline": "How Zainab starts work without borrowing tomorrow’s worry",
+      "summary": "Zainab teaches mornings. Phone for a physiological sigh, laptop for a longer journal on Fridays, tablet when she wants a calmer landscape view.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Breathing and journaling before work \u2014 not therapy",
-          "shot": "zainab/01-home",
-          "alt": "Zainab Raza home screen"
+          "time": "06:50",
+          "title": "Breath first",
+          "text": "Before email, Zainab runs a physiological sigh on her iPhone — two minutes in the dark hallway outside the classroom, feet on the floor, then the day can start.",
+          "shot": "zainab/01-iphone",
+          "device": "iphone",
+          "alt": "Breathing on iPhone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "zainab/02-task",
-          "alt": "Zainab Raza using primary feature"
+          "time": "07:05",
+          "title": "Feeling check",
+          "text": "Same phone: she taps how she feels without writing an essay — a check-in that takes less time than scrolling the news.",
+          "shot": "zainab/02-iphone",
+          "device": "iphone",
+          "alt": "Check-in on phone"
+        },
+        {
+          "time": "12:30",
+          "title": "Tablet calm",
+          "text": "At lunch the shared iPad opens Calm tools; landscape view, no autoplay noise, just a reset before afternoon classes.",
+          "shot": "zainab/03-ipad",
+          "device": "ipad",
+          "alt": "Calm on tablet"
+        },
+        {
+          "time": "21:00",
+          "title": "Friday laptop journal",
+          "text": "Friday night she writes a longer journal on the laptop — still private, still on-device — naming the week without turning it into content.",
+          "shot": "zainab/04-mac",
+          "device": "mac",
+          "alt": "Journal on laptop"
+        },
+        {
+          "time": "21:40",
+          "title": "Close kindly",
+          "text": "Phone shows crisis info is reachable if she ever needs it. Tonight she does not. She locks the screen kindly.",
+          "shot": "zainab/05-iphone",
+          "device": "iphone",
+          "alt": "Help nearby on phone"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Spirals before class",
+          "value": "Most mornings"
+        },
+        {
+          "label": "Wrote anything down",
+          "value": "Rarely"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Breath before class",
+          "value": "Habit"
+        },
+        {
+          "label": "Friday journal",
+          "value": "On device"
         }
       ],
       "video": {
@@ -44,13 +78,14 @@
         "webm": "zainab/story.webm",
         "vtt": "zainab/story.vtt",
         "poster": "zainab/poster.jpg",
-        "transcript": "Zainab Raza opens the app and completes a fictional sample flow."
+        "transcript": "Zainab breathes and checks in on phone, uses Calm on tablet, journals on laptop. Crisis copy unchanged. Fictional."
       },
       "features_used": [
         "guided-techniques",
-        "on-device-journal"
+        "on-device-journal",
+        "one-tap-check-in"
       ],
-      "quote": "Five minutes. Then the day starts.",
+      "quote": "Two minutes. Then the day can start.",
       "fictional": true,
       "needs": [
         "health"
@@ -58,38 +93,64 @@
     },
     {
       "id": "soulcap-tom",
-      "name": "Tom Becker",
+      "name": "Tom Weber",
       "age": 44,
       "city": "Berlin, Germany",
-      "goal": "Sleep routine and check-ins on device",
-      "headline": "How Tom uses Soulcap",
-      "summary": "Tom Becker from Berlin uses the app for sleep routine and check-ins on device. All people and numbers are fictional.",
+      "goal": "An evening wind-down he can keep after late meetings",
+      "headline": "How Tom ends loud days quietly",
+      "summary": "Tom consults across time zones. Phone for a short wind-down on the U-Bahn, laptop for evening reflection, tablet on the sofa.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Sleep routine and check-ins on device",
-          "shot": "tom/01-home",
-          "alt": "Tom Becker home screen"
+          "time": "19:10",
+          "title": "Commute breath",
+          "text": "On the U-Bahn Tom runs a short physiological sigh on his phone between stations — meetings still echoing, scroll hole deferred.",
+          "shot": "tom/01-iphone",
+          "device": "iphone",
+          "alt": "Breath on commute"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "tom/02-task",
-          "alt": "Tom Becker using primary feature"
+          "time": "21:00",
+          "title": "Sofa tablet",
+          "text": "On the sofa the iPad opens Calm tools without autoplay noise; he picks one reset and leaves the rest alone.",
+          "shot": "tom/02-ipad",
+          "device": "ipad",
+          "alt": "Calm on iPad"
+        },
+        {
+          "time": "22:15",
+          "title": "Laptop reflection",
+          "text": "Three lines of reflection on the laptop, then the lid closes. The day is allowed to stop.",
+          "shot": "tom/03-mac",
+          "device": "mac",
+          "alt": "Reflection on laptop"
+        },
+        {
+          "time": "22:45",
+          "title": "Phone away",
+          "text": "Last phone check confirms help is listed, then Do Not Disturb. Berlin can wait until morning.",
+          "shot": "tom/04-iphone",
+          "device": "iphone",
+          "alt": "Phone wind-down"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Doomscroll after work",
+          "value": "45 min"
+        },
+        {
+          "label": "Sleep onset",
+          "value": "Late"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Wind-down",
+          "value": "10 min"
+        },
+        {
+          "label": "Screens down",
+          "value": "Earlier"
         }
       ],
       "video": {
@@ -97,13 +158,14 @@
         "webm": "tom/story.webm",
         "vtt": "tom/story.vtt",
         "poster": "tom/poster.jpg",
-        "transcript": "Tom Becker opens the app and completes a fictional sample flow."
+        "transcript": "Tom winds down across phone, iPad, and laptop. Fictional Berlin evening."
       },
       "features_used": [
-        "one-tap-check-in",
-        "guided-techniques"
+        "guided-techniques",
+        "on-device-journal",
+        "help-numbers"
       ],
-      "quote": "I close the laptop. Then SoulCap.",
+      "quote": "The day can stop without a scroll hole.",
       "fictional": true,
       "needs": [
         "health"
@@ -111,38 +173,64 @@
     },
     {
       "id": "soulcap-amina",
-      "name": "Amina Okello",
+      "name": "Amina Otieno",
       "age": 19,
       "city": "Nairobi, Kenya",
-      "goal": "Grounding tools; crisis help numbers unchanged from app",
-      "headline": "How Amina uses Soulcap",
-      "summary": "Amina Okello from Nairobi uses the app for grounding tools; crisis help numbers unchanged from app. All people and numbers are fictional.",
+      "goal": "Grounding before exams — with crisis info exactly as locked",
+      "headline": "How Amina grounds before exams",
+      "summary": "Amina is a first-year student. Phone for grounding before papers, laptop in the library for journaling, shared tablet at home.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Grounding tools; crisis help numbers unchanged from app",
-          "shot": "amina/01-home",
-          "alt": "Amina Okello home screen"
+          "time": "08:00",
+          "title": "Grounding",
+          "text": "Outside the exam hall Amina grounds on her phone — five things she can see, feet on the concrete — until her pulse is boring again.",
+          "shot": "amina/01-iphone",
+          "device": "iphone",
+          "alt": "Grounding on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "amina/02-task",
-          "alt": "Amina Okello using primary feature"
+          "time": "14:00",
+          "title": "Library laptop",
+          "text": "Between papers she opens a quiet journal on the library laptop; no performance, just what her hands are doing.",
+          "shot": "amina/02-mac",
+          "device": "mac",
+          "alt": "Journal on laptop"
+        },
+        {
+          "time": "18:30",
+          "title": "Home tablet",
+          "text": "At home the shared iPad gets a short Calm reset while her sister revises across the table.",
+          "shot": "amina/03-ipad",
+          "device": "ipad",
+          "alt": "Calm on tablet"
+        },
+        {
+          "time": "21:00",
+          "title": "Help is there",
+          "text": "Phone shows locked crisis info exactly as shipped. She reads it once, calmly, and puts the phone away.",
+          "shot": "amina/04-iphone",
+          "device": "iphone",
+          "alt": "Crisis info as locked"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Exam panic peaks",
+          "value": "Weekly"
+        },
+        {
+          "label": "Knew helplines existed",
+          "value": "Vague"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Grounding used",
+          "value": "Before papers"
+        },
+        {
+          "label": "Helplines visible",
+          "value": "As shipped"
         }
       ],
       "video": {
@@ -150,13 +238,14 @@
         "webm": "amina/story.webm",
         "vtt": "amina/story.vtt",
         "poster": "amina/poster.jpg",
-        "transcript": "Amina Okello opens the app and completes a fictional sample flow."
+        "transcript": "Amina grounds on phone, journals on laptop, resets on tablet. Crisis copy exact. Fictional."
       },
       "features_used": [
-        "help-numbers",
-        "guided-techniques"
+        "guided-techniques",
+        "on-device-journal",
+        "help-numbers"
       ],
-      "quote": "When panic hits, I know where help is.",
+      "quote": "I can feel my feet again.",
       "fictional": true,
       "needs": [
         "health"

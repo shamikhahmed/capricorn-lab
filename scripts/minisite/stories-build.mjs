@@ -88,6 +88,9 @@ export function buildStoriesForApp(app, bundle, ctx) {
     const pageDir = join(outDir, 'stories', p.id);
     mkdirSync(pageDir, { recursive: true });
 
+    const deviceDims = { iphone: [402, 874], ipad: [820, 1180], mac: [1280, 800] };
+    const normDevice = (d) => (d === 'ipad' || d === 'mac' ? d : 'iphone');
+
     const heroShot = p.day[0];
     const heroRel = storyMediaSrc(heroShot?.shot, existsMedia);
     const heroExt = heroShot?.shot && existsMedia(`${heroShot.shot}.webp`)
@@ -95,20 +98,24 @@ export function buildStoriesForApp(app, bundle, ctx) {
       : heroShot?.shot && existsMedia(`${heroShot.shot}.png`)
         ? '.png'
         : null;
+    const heroDevice = normDevice(heroShot?.device);
+    const [heroW, heroH] = deviceDims[heroDevice];
     const heroDev = heroRel && heroExt
-      ? { device: 'iphone', src: `../media/${heroShot.shot}${heroExt}`, screen: heroShot.title, w: 402, h: 874, theme: 'light' }
+      ? { device: heroDevice, src: `../media/${heroShot.shot}${heroExt}`, screen: heroShot.title, w: heroW, h: heroH, theme: 'light' }
       : null;
 
     const timeline = p.day
       .map((step, si) => {
         const rel = storyMediaSrc(step.shot, existsMedia);
         const ext = existsMedia(`${step.shot}.webp`) ? '.webp' : existsMedia(`${step.shot}.png`) ? '.png' : null;
+        const device = normDevice(step.device);
+        const [dw, dh] = deviceDims[device];
         const img = rel && ext
           ? `<button type="button" class="shot story-shot" data-story-i="${si}" aria-label="${esc(step.title)} — open larger">
-          <figure class="dev dev--iphone"><img src="../media/${step.shot}${ext}" alt="${esc(step.alt)}" width="402" height="874" loading="lazy" decoding="async"></figure></button>`
+          ${deviceFigure({ device, src: `../media/${step.shot}${ext}`, screen: step.title, w: dw, h: dh }, '')}</button>`
           : `<div class="story-shot__ph" role="status">Screenshot pending capture</div>`;
-        return `<li class="story-step${si % 2 ? ' story-step--alt' : ''}">
-          <time datetime="${esc(step.time)}">${esc(step.time)}</time>
+        return `<li class="story-step story-step--${device}${si % 2 ? ' story-step--alt' : ''}">
+          <time datetime="${esc(step.time)}">${esc(step.time)} <span class="story-step__device">${device === 'mac' ? 'Mac' : device === 'ipad' ? 'iPad' : 'iPhone'}</span></time>
           <div class="story-step__body prose">
             <h3>${esc(step.title)}</h3>
             <p>${esc(step.text)}</p>
@@ -130,7 +137,7 @@ export function buildStoriesForApp(app, bundle, ctx) {
     const vtt = p.video?.vtt && existsMedia(p.video.vtt) ? `../media/${p.video.vtt}` : '';
 
     const videoBlock = `<section class="section story-video" aria-labelledby="watch-h">
-      <div class="section__head"><div><h2 id="watch-h">Watch it</h2><p>A short walkthrough with captions. No autoplay with sound.</p></div></div>
+      <div class="section__head"><div><h2 id="watch-h">Watch it</h2><p>A day across devices — silent walkthrough with captions. No autoplay with sound.</p></div></div>
       ${hasVideo
         ? `<figure class="story-video__fig">
           <video controls playsinline preload="none" ${poster ? `poster="${esc(poster)}"` : ''} width="960" height="540">

@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "ideacap-zara",
-      "name": "Zara Hussain",
+      "name": "Zara Malik",
       "age": 32,
       "city": "Lahore, Pakistan",
-      "goal": "Voice ideas while commuting \u2014 stays on device",
-      "headline": "How Zara uses Ideacap",
-      "summary": "Zara Hussain from Lahore uses the app for voice ideas while commuting \u2014 stays on device. All people and numbers are fictional.",
+      "goal": "Voice ideas while commuting",
+      "headline": "How Zara catches ideas before they vanish",
+      "summary": "Zara records on phone in the rickshaw, tags on iPad at the studio, reviews on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Voice ideas while commuting \u2014 stays on device",
-          "shot": "zara/01-home",
-          "alt": "Zara Hussain home screen"
+          "time": "08:40",
+          "title": "Voice capture",
+          "text": "In the rickshaw Zara hits voice capture on her phone — if she can say it before the idea vanishes, it is saved on-device.",
+          "shot": "zara/01-iphone",
+          "device": "iphone",
+          "alt": "Voice capture"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "zara/02-task",
-          "alt": "Zara Hussain using primary feature"
+          "time": "11:00",
+          "title": "Tag on iPad",
+          "text": "Studio iPad tags the morning captures by project so they do not drown in a single undated inbox.",
+          "shot": "zara/02-ipad",
+          "device": "ipad",
+          "alt": "Tags"
+        },
+        {
+          "time": "18:00",
+          "title": "Laptop review",
+          "text": "Laptop idea list at end of day; she promotes one seed and parks the rest without guilt.",
+          "shot": "zara/03-mac",
+          "device": "mac",
+          "alt": "Ideas"
+        },
+        {
+          "time": "19:00",
+          "title": "Note detail",
+          "text": "Note detail on the laptop expands the keeper into something she can pitch tomorrow.",
+          "shot": "zara/04-mac",
+          "device": "mac",
+          "alt": "Detail"
+        },
+        {
+          "time": "19:30",
+          "title": "Phone",
+          "text": "Phone inbox feels lighter. Saying it was enough to keep it.",
+          "shot": "zara/05-iphone",
+          "device": "iphone",
+          "alt": "Inbox"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Lost ideas",
+          "value": "Daily"
+        },
+        {
+          "label": "Notes app mess",
+          "value": "Bad"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Captured",
+          "value": "On device"
+        },
+        {
+          "label": "Tagged",
+          "value": "By project"
         }
       ],
       "video": {
@@ -44,13 +78,13 @@
         "webm": "zara/story.webm",
         "vtt": "zara/story.vtt",
         "poster": "zara/poster.jpg",
-        "transcript": "Zara Hussain opens the app and completes a fictional sample flow."
+        "transcript": "Zara captures on phone, tags on iPad, reviews on laptop. Fictional."
       },
       "features_used": [
         "voice-text-capture",
         "ideas-board"
       ],
-      "quote": "I speak it. It lands on the board.",
+      "quote": "If I can say it, it is saved.",
       "fictional": true,
       "needs": [
         "learning"
@@ -58,38 +92,72 @@
     },
     {
       "id": "ideacap-kevin",
-      "name": "Kevin O'Brien",
+      "name": "Kevin Ortiz",
       "age": 45,
       "city": "Toronto, Canada",
       "goal": "Product ideas tagged by project",
-      "headline": "How Kevin uses Ideacap",
-      "summary": "Kevin O'Brien from Toronto uses the app for product ideas tagged by project. All people and numbers are fictional.",
+      "headline": "How Kevin keeps product ideas from drowning in Slack",
+      "summary": "Kevin dumps ideas on phone, sorts on iPad, decisions on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Product ideas tagged by project",
-          "shot": "kevin/01-home",
-          "alt": "Kevin O'Brien home screen"
+          "time": "07:30",
+          "title": "Quick capture",
+          "text": "Kevin dumps a product idea on his phone before standup — Slack is not his notebook, and he is done pretending it is.",
+          "shot": "kevin/01-iphone",
+          "device": "iphone",
+          "alt": "Capture"
         },
         {
           "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "kevin/02-task",
-          "alt": "Kevin O'Brien using primary feature"
+          "title": "iPad sort",
+          "text": "iPad sort by project at lunch; tags beat scrolling a year of threads for “that one thought.”",
+          "shot": "kevin/02-ipad",
+          "device": "ipad",
+          "alt": "Sort"
+        },
+        {
+          "time": "21:00",
+          "title": "Laptop decide",
+          "text": "Laptop note detail becomes a decision log — ship, park, or ask — instead of eternal emoji reactions.",
+          "shot": "kevin/03-mac",
+          "device": "mac",
+          "alt": "Decide"
+        },
+        {
+          "time": "21:40",
+          "title": "Settings",
+          "text": "Settings confirm offline-friendly habits; the ideas stay his even when the VPN sulks.",
+          "shot": "kevin/04-mac",
+          "device": "mac",
+          "alt": "Settings"
+        },
+        {
+          "time": "22:00",
+          "title": "Phone",
+          "text": "Phone clears. Ideas live in IdeaCap, not in a channel he will never search.",
+          "shot": "kevin/05-iphone",
+          "device": "iphone",
+          "alt": "Clear"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Ideas in Slack",
+          "value": "Lost"
+        },
+        {
+          "label": "Decision log",
+          "value": "None"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Ideas in IdeaCap",
+          "value": "Tagged"
+        },
+        {
+          "label": "Decisions",
+          "value": "Notes"
         }
       ],
       "video": {
@@ -97,13 +165,13 @@
         "webm": "kevin/story.webm",
         "vtt": "kevin/story.vtt",
         "poster": "kevin/poster.jpg",
-        "transcript": "Kevin O'Brien opens the app and completes a fictional sample flow."
+        "transcript": "Kevin captures on phone, sorts on iPad, decides on laptop. Fictional."
       },
       "features_used": [
         "ideas-board",
         "summary-local"
       ],
-      "quote": "Tags beat scrolling old notes.",
+      "quote": "Slack is not my notebook.",
       "fictional": true,
       "needs": [
         "learning"
@@ -111,38 +179,72 @@
     },
     {
       "id": "ideacap-hamid",
-      "name": "Hamid Latif",
+      "name": "Hamid Siddiqui",
       "age": 60,
       "city": "Karachi, Pakistan",
-      "goal": "Story ideas offline only",
-      "headline": "How Hamid uses Ideacap",
-      "summary": "Hamid Latif from Karachi uses the app for story ideas offline only. All people and numbers are fictional.",
+      "goal": "Story ideas, offline only",
+      "headline": "How Hamid keeps story seeds offline",
+      "summary": "Hamid writes on phone in the garden, expands on iPad, manuscripts on laptop — no account wall.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Story ideas offline only",
-          "shot": "hamid/01-home",
-          "alt": "Hamid Latif home screen"
+          "time": "07:00",
+          "title": "Garden phone",
+          "text": "Garden morning: Hamid writes a story seed on his phone — offline is the point, no account wall between him and the line.",
+          "shot": "hamid/01-iphone",
+          "device": "iphone",
+          "alt": "Seed"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "hamid/02-task",
-          "alt": "Hamid Latif using primary feature"
+          "time": "11:00",
+          "title": "iPad expand",
+          "text": "iPad expand turns the seed into a scene without uploading anything to a stranger’s cloud.",
+          "shot": "hamid/02-ipad",
+          "device": "ipad",
+          "alt": "Expand"
+        },
+        {
+          "time": "17:00",
+          "title": "Laptop draft",
+          "text": "Laptop draft gathers the day’s seeds into something that might become a chapter.",
+          "shot": "hamid/03-mac",
+          "device": "mac",
+          "alt": "Draft"
+        },
+        {
+          "time": "18:00",
+          "title": "Laptop list",
+          "text": "Ideas list on the laptop stays local; he owns the folder the way he owns the notebooks.",
+          "shot": "hamid/04-mac",
+          "device": "mac",
+          "alt": "List"
+        },
+        {
+          "time": "18:30",
+          "title": "Phone",
+          "text": "Phone locks. Offline won. The seed is still there.",
+          "shot": "hamid/05-iphone",
+          "device": "iphone",
+          "alt": "Lock"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Ideas on paper scraps",
+          "value": "Lost"
+        },
+        {
+          "label": "Needed an account",
+          "value": "Elsewhere"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Seeds saved",
+          "value": "On device"
+        },
+        {
+          "label": "Accounts",
+          "value": "None"
         }
       ],
       "video": {
@@ -150,13 +252,13 @@
         "webm": "hamid/story.webm",
         "vtt": "hamid/story.vtt",
         "poster": "hamid/poster.jpg",
-        "transcript": "Hamid Latif opens the app and completes a fictional sample flow."
+        "transcript": "Hamid works fully offline across phone, iPad, laptop. Fictional."
       },
       "features_used": [
-        "voice-text-capture",
+        "ideas-board",
         "optional-keys"
       ],
-      "quote": "Nothing leaves unless I add a key.",
+      "quote": "Offline is the point.",
       "fictional": true,
       "needs": [
         "learning"

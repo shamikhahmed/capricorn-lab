@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "ledgercap-usman",
-      "name": "Usman Javed",
+      "name": "Usman Malik",
       "age": 45,
       "city": "Karachi, Pakistan",
-      "goal": "Tracks holdings \u2014 never recommends trades",
-      "headline": "How Usman uses Ledgercap",
-      "summary": "Usman Javed from Karachi uses the app for tracks holdings \u2014 never recommends trades. All people and numbers are fictional.",
+      "goal": "PSX portfolio tracking without advice",
+      "headline": "How Usman tracks without being told what to buy",
+      "summary": "Usman tracks holdings on phone, reads markets on iPad, reviews on laptop — LedgerCap tracks, never advises.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Tracks holdings \u2014 never recommends trades",
-          "shot": "usman/01-home",
-          "alt": "Usman Javed home screen"
+          "time": "09:15",
+          "title": "Open wealth",
+          "text": "After chai Usman opens wealth on his phone — positions in one portfolio, not four notebooks and a calculator app.",
+          "shot": "usman/01-iphone",
+          "device": "iphone",
+          "alt": "Wealth on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "usman/02-task",
-          "alt": "Usman Javed using primary feature"
+          "time": "11:00",
+          "title": "Watchlist",
+          "text": "Watchlist on the same phone holds fictional symbols he tracks; LedgerCap tracks, it does not tip or whisper buys.",
+          "shot": "usman/02-iphone",
+          "device": "iphone",
+          "alt": "Watchlist"
+        },
+        {
+          "time": "15:30",
+          "title": "iPad markets",
+          "text": "After close he reads markets on the iPad with tea — calm scan, no pushy “trade now” chrome.",
+          "shot": "usman/03-ipad",
+          "device": "ipad",
+          "alt": "Markets on iPad"
+        },
+        {
+          "time": "21:00",
+          "title": "Laptop dividends",
+          "text": "Dividend log on the laptop catches what the broker statements bury in PDFs; illustrative figures only.",
+          "shot": "usman/04-mac",
+          "device": "mac",
+          "alt": "Dividends on laptop"
+        },
+        {
+          "time": "21:40",
+          "title": "Paper trade note",
+          "text": "A paper trade on the laptop is practice only — he notes the thesis and closes the lid without placing anything real.",
+          "shot": "usman/05-mac",
+          "device": "mac",
+          "alt": "Paper trade"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Positions across notebooks",
+          "value": "4"
+        },
+        {
+          "label": "Dividend log",
+          "value": "Missing"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Positions",
+          "value": "One portfolio"
+        },
+        {
+          "label": "Dividends",
+          "value": "Logged"
         }
       ],
       "video": {
@@ -44,13 +78,14 @@
         "webm": "usman/story.webm",
         "vtt": "usman/story.vtt",
         "poster": "usman/poster.jpg",
-        "transcript": "Usman Javed opens the app and completes a fictional sample flow."
+        "transcript": "Usman tracks on phone, markets on iPad, dividends on laptop. No advice. Fictional."
       },
       "features_used": [
         "psx-holdings",
+        "research-tools",
         "net-worth-pkr"
       ],
-      "quote": "I see totals. The app never tells me to buy.",
+      "quote": "It tracks. It does not tip.",
       "fictional": true,
       "needs": [
         "money"
@@ -58,38 +93,72 @@
     },
     {
       "id": "ledgercap-nida",
-      "name": "Nida Farooq",
+      "name": "Nida Khan",
       "age": 30,
       "city": "Islamabad, Pakistan",
-      "goal": "Mutual fund positions and monthly SIP log",
-      "headline": "How Nida uses Ledgercap",
-      "summary": "Nida Farooq from Islamabad uses the app for mutual fund positions and monthly sip log. All people and numbers are fictional.",
+      "goal": "Funds and a monthly SIP log",
+      "headline": "How Nida logs SIPs without spreadsheets",
+      "summary": "Nida logs SIPs on phone, reviews funds on iPad, monthly summary on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Mutual fund positions and monthly SIP log",
-          "shot": "nida/01-home",
-          "alt": "Nida Farooq home screen"
+          "time": "08:00",
+          "title": "SIP tick",
+          "text": "Salary day: Nida ticks the SIP on her phone so the line lives in the app, not in a buried email receipt.",
+          "shot": "nida/01-iphone",
+          "device": "iphone",
+          "alt": "SIP on phone"
         },
         {
           "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "nida/02-task",
-          "alt": "Nida Farooq using primary feature"
+          "title": "Funds on iPad",
+          "text": "Fund list on the iPad at lunch — NAVs visible, no lecture about what she “should” buy.",
+          "shot": "nida/02-ipad",
+          "device": "ipad",
+          "alt": "Funds on iPad"
+        },
+        {
+          "time": "19:00",
+          "title": "Monthly laptop",
+          "text": "Month summary on the laptop replaces the spreadsheet she always meant to update on Sundays.",
+          "shot": "nida/03-mac",
+          "device": "mac",
+          "alt": "Monthly on laptop"
+        },
+        {
+          "time": "19:40",
+          "title": "Watchlist trim",
+          "text": "Watchlist trimmed on the laptop; fewer tickers, clearer intent, still zero advice.",
+          "shot": "nida/04-mac",
+          "device": "mac",
+          "alt": "Watchlist"
+        },
+        {
+          "time": "20:00",
+          "title": "Phone lock",
+          "text": "Phone confirms the SIP line before she puts the device face-down. The SIP is a line, not a lecture.",
+          "shot": "nida/05-iphone",
+          "device": "iphone",
+          "alt": "Confirm"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "SIP proof",
+          "value": "In email"
+        },
+        {
+          "label": "Fund list",
+          "value": "Messy"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "SIP log",
+          "value": "In app"
+        },
+        {
+          "label": "Funds",
+          "value": "Listed"
         }
       ],
       "video": {
@@ -97,13 +166,13 @@
         "webm": "nida/story.webm",
         "vtt": "nida/story.vtt",
         "poster": "nida/poster.jpg",
-        "transcript": "Nida Farooq opens the app and completes a fictional sample flow."
+        "transcript": "Nida logs SIPs on phone, funds on iPad, month on laptop. Fictional."
       },
       "features_used": [
         "mutual-funds",
-        "psx-holdings"
+        "net-worth-pkr"
       ],
-      "quote": "Every SIP line is on my phone.",
+      "quote": "The SIP is a line, not a lecture.",
       "fictional": true,
       "needs": [
         "money"
@@ -114,35 +183,69 @@
       "name": "Raza Ahmed",
       "age": 63,
       "city": "Lahore, Pakistan",
-      "goal": "Dividend log with larger text",
-      "headline": "How Raza uses Ledgercap",
-      "summary": "Raza Ahmed from Lahore uses the app for dividend log with larger text. All people and numbers are fictional.",
+      "goal": "Retirement holdings and dividends, large text",
+      "headline": "How Raza keeps retirement holdings readable",
+      "summary": "Raza uses large text on phone, iPad with his daughter, laptop for dividend history.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Dividend log with larger text",
-          "shot": "raza/01-home",
-          "alt": "Raza Ahmed home screen"
+          "time": "10:00",
+          "title": "Large-text wealth",
+          "text": "Raza opens wealth on his iPhone at large text — retirement holdings readable without asking his daughter to translate pixels.",
+          "shot": "raza/01-iphone",
+          "device": "iphone",
+          "alt": "Large text wealth"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "raza/02-task",
-          "alt": "Raza Ahmed using primary feature"
+          "time": "15:00",
+          "title": "Daughter on iPad",
+          "text": "Together on the iPad they review the portfolio; she can see it without taking the paper file away.",
+          "shot": "raza/02-ipad",
+          "device": "ipad",
+          "alt": "Review on iPad"
+        },
+        {
+          "time": "19:00",
+          "title": "Dividend history",
+          "text": "Dividend history on the laptop replaces a drawer of statements; informational, not advisory.",
+          "shot": "raza/03-mac",
+          "device": "mac",
+          "alt": "Dividends"
+        },
+        {
+          "time": "19:45",
+          "title": "Announcements",
+          "text": "Announcements on the laptop stay informational — he reads, he does not get hustled into a product.",
+          "shot": "raza/04-mac",
+          "device": "mac",
+          "alt": "Announcements"
+        },
+        {
+          "time": "20:10",
+          "title": "Phone goodnight",
+          "text": "Phone locks. Holdings stay visible. Pride stays quiet.",
+          "shot": "raza/05-iphone",
+          "device": "iphone",
+          "alt": "Phone"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Statements in drawers",
+          "value": "Years"
+        },
+        {
+          "label": "Could read the app",
+          "value": "Hard"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Holdings visible",
+          "value": "Large text"
+        },
+        {
+          "label": "Dividends",
+          "value": "History"
         }
       ],
       "video": {
@@ -150,16 +253,17 @@
         "webm": "raza/story.webm",
         "vtt": "raza/story.vtt",
         "poster": "raza/poster.jpg",
-        "transcript": "Raza Ahmed opens the app and completes a fictional sample flow."
+        "transcript": "Raza uses large text on phone, reviews on iPad, dividends on laptop. Fictional."
       },
       "features_used": [
         "psx-holdings",
-        "research-tools"
+        "net-worth-pkr"
       ],
-      "quote": "I track dividends. I decide what to do.",
+      "quote": "She can see it without taking the file away.",
       "fictional": true,
       "needs": [
-        "money"
+        "money",
+        "family"
       ]
     }
   ]

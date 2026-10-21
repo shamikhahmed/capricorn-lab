@@ -7,36 +7,70 @@
       "id": "travelcap-sana",
       "name": "Sana & Kamran",
       "age": 29,
-      "city": "Karachi, Pakistan",
-      "goal": "Istanbul tickets and hotel docs in one trip",
-      "headline": "How Sana uses Travelcap",
-      "summary": "Sana & Kamran from Karachi uses the app for istanbul tickets and hotel docs in one trip. All people and numbers are fictional.",
+      "city": "Karachi → Istanbul",
+      "goal": "Honeymoon tickets, hotel, docs",
+      "headline": "How Sana kept the honeymoon docs in one trip",
+      "summary": "Phone for boarding passes, iPad for the itinerary on the sofa, laptop for documents before departure.",
       "day": [
         {
           "time": "09:00",
-          "title": "Open app",
-          "text": "Istanbul tickets and hotel docs in one trip",
-          "shot": "sana/01-home",
-          "alt": "Sana & Kamran home screen"
+          "title": "Trip home",
+          "text": "Sana opens the honeymoon trip on her phone — tickets, hotel, the shape of Istanbul — without diving into WhatsApp archaeology.",
+          "shot": "sana/01-iphone",
+          "device": "iphone",
+          "alt": "Trip on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "sana/02-task",
-          "alt": "Sana & Kamran using primary feature"
+          "time": "11:00",
+          "title": "Flights",
+          "text": "Flight details on the phone are readable at the gate; Kamran can glance without hunting a forwarded PDF.",
+          "shot": "sana/02-iphone",
+          "device": "iphone",
+          "alt": "Flights"
+        },
+        {
+          "time": "16:00",
+          "title": "iPad itinerary",
+          "text": "Sofa iPad itinerary for the day plan; they argue about museums, not about which chat has the booking.",
+          "shot": "sana/03-ipad",
+          "device": "ipad",
+          "alt": "Itinerary"
+        },
+        {
+          "time": "20:00",
+          "title": "Docs laptop",
+          "text": "Laptop document list before departure — passports, visas, confirmations — one trip, one checklist.",
+          "shot": "sana/04-mac",
+          "device": "mac",
+          "alt": "Documents"
+        },
+        {
+          "time": "21:00",
+          "title": "Budget",
+          "text": "Budget on the laptop is illustrative; they set a calm ceiling and close the lid excited, not panicked.",
+          "shot": "sana/05-mac",
+          "device": "mac",
+          "alt": "Budget"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Docs across chats",
+          "value": "Dozens"
+        },
+        {
+          "label": "Day-of panic",
+          "value": "High"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Docs in trip",
+          "value": "One place"
+        },
+        {
+          "label": "Day-of",
+          "value": "Calm"
         }
       ],
       "video": {
@@ -44,52 +78,88 @@
         "webm": "sana/story.webm",
         "vtt": "sana/story.vtt",
         "poster": "sana/poster.jpg",
-        "transcript": "Sana & Kamran opens the app and completes a fictional sample flow."
+        "transcript": "Sana runs the honeymoon trip across phone, iPad, laptop. Fictional."
       },
       "features_used": [
         "trip-dashboard",
-        "document-vault"
+        "document-vault",
+        "transit-stays"
       ],
-      "quote": "Boarding passes live next to the hotel.",
+      "quote": "One trip. No WhatsApp archaeology.",
       "fictional": true,
       "needs": [
-        "travel"
+        "travel",
+        "family"
       ]
     },
     {
       "id": "travelcap-hassan",
-      "name": "Hassan Iqbal",
+      "name": "Hassan Qureshi",
       "age": 39,
       "city": "Dubai, UAE",
-      "goal": "Monthly business trips and visa notes",
-      "headline": "How Hassan uses Travelcap",
-      "summary": "Hassan Iqbal from Dubai uses the app for monthly business trips and visa notes. All people and numbers are fictional.",
+      "goal": "Monthly business trips and visas",
+      "headline": "How Hassan stopped re-finding the same visa PDF",
+      "summary": "Hassan opens trips on phone in rides, iPad in lounges, laptop at the hotel desk.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Monthly business trips and visa notes",
-          "shot": "hassan/01-home",
-          "alt": "Hassan Iqbal home screen"
+          "time": "06:00",
+          "title": "Airport phone",
+          "text": "In the ride to the airport Hassan opens the trip on his phone — visa pinned with the itinerary, not lost in email.",
+          "shot": "hassan/01-iphone",
+          "device": "iphone",
+          "alt": "Trip"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "hassan/02-task",
-          "alt": "Hassan Iqbal using primary feature"
+          "time": "09:00",
+          "title": "Lounge iPad",
+          "text": "Lounge iPad shows documents without digging through folders named “final_final_visa.”",
+          "shot": "hassan/02-ipad",
+          "device": "ipad",
+          "alt": "Docs"
+        },
+        {
+          "time": "21:00",
+          "title": "Hotel laptop",
+          "text": "Hotel desk laptop drafts the next trip while this one is still warm; continuity instead of starting from zero.",
+          "shot": "hassan/03-mac",
+          "device": "mac",
+          "alt": "Next trip"
+        },
+        {
+          "time": "21:40",
+          "title": "Expenses",
+          "text": "Expenses on the laptop are illustrative — enough to reclaim the month without a shoebox of receipts.",
+          "shot": "hassan/04-mac",
+          "device": "mac",
+          "alt": "Expenses"
+        },
+        {
+          "time": "22:00",
+          "title": "Phone",
+          "text": "Phone tomorrow view. The visa lives with the trip. He sleeps.",
+          "shot": "hassan/05-iphone",
+          "device": "iphone",
+          "alt": "Tomorrow"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Visa PDF hunts",
+          "value": "Every trip"
+        },
+        {
+          "label": "Lounge chaos",
+          "value": "High"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Visa with trip",
+          "value": "Pinned"
+        },
+        {
+          "label": "Lounge",
+          "value": "Clear"
         }
       ],
       "video": {
@@ -97,52 +167,88 @@
         "webm": "hassan/story.webm",
         "vtt": "hassan/story.vtt",
         "poster": "hassan/poster.jpg",
-        "transcript": "Hassan Iqbal opens the app and completes a fictional sample flow."
+        "transcript": "Hassan uses phone, iPad, laptop across a business hop. Fictional."
       },
       "features_used": [
-        "transit-stays",
+        "trip-dashboard",
+        "document-vault",
         "official-sources"
       ],
-      "quote": "I check official sources before I fly.",
+      "quote": "The visa lives with the trip.",
       "fictional": true,
       "needs": [
-        "travel"
+        "travel",
+        "money"
       ]
     },
     {
       "id": "travelcap-malik",
       "name": "The Malik family",
-      "age": 40,
-      "city": "London, UK",
-      "goal": "Umrah and Lahore visit with kids' passports",
-      "headline": "How The uses Travelcap",
-      "summary": "The Malik family from London uses the app for umrah and lahore visit with kids' passports. All people and numbers are fictional.",
+      "age": 42,
+      "city": "London → Lahore",
+      "goal": "Umrah + family visit, kids’ passports",
+      "headline": "How the Maliks kept five passports visible",
+      "summary": "Phone for day-of, iPad for kids’ list, laptop for the full document pack.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Umrah and Lahore visit with kids' passports",
-          "shot": "malik/01-home",
-          "alt": "The Malik family home screen"
+          "time": "08:00",
+          "title": "Family trip",
+          "text": "Family trip overview on the phone — London to Lahore, Umrah plus visits — five people, one dashboard.",
+          "shot": "malik/01-iphone",
+          "device": "iphone",
+          "alt": "Trip"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "malik/02-task",
-          "alt": "The Malik family using primary feature"
+          "time": "10:00",
+          "title": "Kids on iPad",
+          "text": "iPad checklist with the kids pointing at passport rows; scramble becomes a game with a finish line.",
+          "shot": "malik/02-ipad",
+          "device": "ipad",
+          "alt": "Checklist"
+        },
+        {
+          "time": "19:00",
+          "title": "Laptop pack",
+          "text": "Laptop full document pack before packing night; nothing lives only in a parent’s head.",
+          "shot": "malik/03-mac",
+          "device": "mac",
+          "alt": "Docs"
+        },
+        {
+          "time": "20:00",
+          "title": "Flights",
+          "text": "Flights on the laptop for the whole party; seats and times visible without five separate screenshots.",
+          "shot": "malik/04-mac",
+          "device": "mac",
+          "alt": "Flights"
+        },
+        {
+          "time": "21:00",
+          "title": "Phone",
+          "text": "Phone day-of view at the door. Five passports. One checklist. Calm enough to joke.",
+          "shot": "malik/05-iphone",
+          "device": "iphone",
+          "alt": "Day-of"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Passport scramble",
+          "value": "Every departure"
+        },
+        {
+          "label": "Kids’ docs",
+          "value": "Scattered"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Checklist",
+          "value": "Complete"
+        },
+        {
+          "label": "Kids’ docs",
+          "value": "In trip"
         }
       ],
       "video": {
@@ -150,15 +256,17 @@
         "webm": "malik/story.webm",
         "vtt": "malik/story.vtt",
         "poster": "malik/poster.jpg",
-        "transcript": "The Malik family opens the app and completes a fictional sample flow."
+        "transcript": "The Maliks coordinate across phone, iPad, laptop. Fictional."
       },
       "features_used": [
+        "trip-dashboard",
         "document-vault",
-        "trip-dashboard"
+        "transit-stays"
       ],
-      "quote": "Five passports. One trip folder.",
+      "quote": "Five passports. One checklist.",
       "fictional": true,
       "needs": [
+        "travel",
         "family"
       ]
     }

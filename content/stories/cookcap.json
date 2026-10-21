@@ -8,35 +8,69 @@
       "name": "Shahida Begum",
       "age": 70,
       "city": "Karachi, Pakistan",
-      "goal": "Family recipes preserved for grandchildren",
-      "headline": "How Shahida uses Cookcap",
-      "summary": "Shahida Begum from Karachi uses the app for family recipes preserved for grandchildren. All people and numbers are fictional.",
+      "goal": "Family recipes for grandchildren",
+      "headline": "How Nani saved the recipes that lived in her head",
+      "summary": "Shahida dictates on phone with her granddaughter, browses the book on iPad, edits on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Family recipes preserved for grandchildren",
-          "shot": "shahida/01-home",
-          "alt": "Shahida Begum home screen"
+          "time": "10:00",
+          "title": "Add a recipe",
+          "text": "With her granddaughter’s help Shahida captures a masala recipe on the phone — measures that lived only in her hands finally have a page.",
+          "shot": "shahida/01-iphone",
+          "device": "iphone",
+          "alt": "Add recipe"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "shahida/02-task",
-          "alt": "Shahida Begum using primary feature"
+          "time": "15:00",
+          "title": "Book on iPad",
+          "text": "iPad cookbook browse in the afternoon; she finds last week’s daal and smiles at her own voice notes.",
+          "shot": "shahida/02-ipad",
+          "device": "ipad",
+          "alt": "Cookbook"
+        },
+        {
+          "time": "19:00",
+          "title": "Laptop edit",
+          "text": "Laptop chapter edit tidies titles so the grandkids can find “Eid pulao” without calling her mid-stir.",
+          "shot": "shahida/03-mac",
+          "device": "mac",
+          "alt": "Edit"
+        },
+        {
+          "time": "20:00",
+          "title": "Family profiles",
+          "text": "Family profiles on the laptop mark who likes less chilli; the book becomes usable, not just archived.",
+          "shot": "shahida/04-mac",
+          "device": "mac",
+          "alt": "Family"
+        },
+        {
+          "time": "20:30",
+          "title": "Phone",
+          "text": "Phone shows tonight’s dish. The masala finally has a page, and dinner has a plan.",
+          "shot": "shahida/05-iphone",
+          "device": "iphone",
+          "alt": "Tonight"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Recipes only in memory",
+          "value": "Most"
+        },
+        {
+          "label": "Grandkids could cook them",
+          "value": "No"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Recipes written",
+          "value": "In book"
+        },
+        {
+          "label": "Shared on device",
+          "value": "Yes"
         }
       ],
       "video": {
@@ -44,52 +78,87 @@
         "webm": "shahida/story.webm",
         "vtt": "shahida/story.vtt",
         "poster": "shahida/poster.jpg",
-        "transcript": "Shahida Begum opens the app and completes a fictional sample flow."
+        "transcript": "Shahida captures on phone, browses on iPad, edits on laptop. Fictional."
       },
       "features_used": [
         "family-cookbook",
         "cook-mode"
       ],
-      "quote": "Nani's biryani steps are saved forever.",
+      "quote": "The masala finally has a page.",
       "fictional": true,
       "needs": [
-        "family"
+        "family",
+        "fun"
       ]
     },
     {
       "id": "cookcap-rohan",
-      "name": "Rohan Patel",
+      "name": "Rohan Mehta",
       "age": 31,
       "city": "London, UK",
-      "goal": "Meal plan and shopping list",
-      "headline": "How Rohan uses Cookcap",
-      "summary": "Rohan Patel from London uses the app for meal plan and shopping list. All people and numbers are fictional.",
+      "goal": "Weeknight meal plan that survives 8pm",
+      "headline": "How Rohan meal-plans without heroics",
+      "summary": "Rohan plans on laptop Sunday, cooks from phone, shops from iPad list.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Meal plan and shopping list",
-          "shot": "rohan/01-home",
-          "alt": "Rohan Patel home screen"
+          "time": "11:00",
+          "title": "Sunday plan",
+          "text": "Sunday laptop meal plan — five dinners that survive an 8pm arrival, not a fantasy chef schedule.",
+          "shot": "rohan/01-mac",
+          "device": "mac",
+          "alt": "Meal plan"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "rohan/02-task",
-          "alt": "Rohan Patel using primary feature"
+          "time": "18:30",
+          "title": "Phone cook",
+          "text": "Phone recipe on the counter while he cooks; steps big enough to read with wet hands.",
+          "shot": "rohan/02-iphone",
+          "device": "iphone",
+          "alt": "Recipe"
+        },
+        {
+          "time": "19:40",
+          "title": "iPad shop",
+          "text": "iPad shopping list on the walk to the shop; Tuesday still has a dinner because the list existed.",
+          "shot": "rohan/03-ipad",
+          "device": "ipad",
+          "alt": "Shopping"
+        },
+        {
+          "time": "20:30",
+          "title": "Laptop tweak",
+          "text": "Laptop tweak for next week — swap one night, keep the spine of the plan intact.",
+          "shot": "rohan/04-mac",
+          "device": "mac",
+          "alt": "Tweak"
+        },
+        {
+          "time": "21:00",
+          "title": "Phone",
+          "text": "Phone tomorrow reminder. Takeaway is a choice now, not the default.",
+          "shot": "rohan/05-iphone",
+          "device": "iphone",
+          "alt": "Tomorrow"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Takeaway default",
+          "value": "4 / week"
+        },
+        {
+          "label": "Shopping chaos",
+          "value": "Yes"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Cooked nights",
+          "value": "5 / week"
+        },
+        {
+          "label": "List",
+          "value": "Ready"
         }
       ],
       "video": {
@@ -97,52 +166,87 @@
         "webm": "rohan/story.webm",
         "vtt": "rohan/story.vtt",
         "poster": "rohan/poster.jpg",
-        "transcript": "Rohan Patel opens the app and completes a fictional sample flow."
+        "transcript": "Rohan plans on laptop, cooks on phone, shops on iPad. Fictional."
       },
       "features_used": [
         "shopping-list",
-        "cook-mode"
+        "cook-mode",
+        "family-cookbook"
       ],
-      "quote": "Shop once. Cook four nights.",
+      "quote": "Tuesday still has a dinner.",
       "fictional": true,
       "needs": [
-        "family"
+        "fun"
       ]
     },
     {
       "id": "cookcap-mariam",
-      "name": "Mariam Saleem",
+      "name": "Mariam Syed",
       "age": 26,
       "city": "Islamabad, Pakistan",
-      "goal": "Learning recipes with cook mode",
-      "headline": "How Mariam uses Cookcap",
-      "summary": "Mariam Saleem from Islamabad uses the app for learning recipes with cook mode. All people and numbers are fictional.",
+      "goal": "Learning to cook with a shopping list",
+      "headline": "How Mariam went from recipes to a real list",
+      "summary": "Mariam saves recipes on phone, studies on iPad, builds the shopping list on laptop.",
       "day": [
         {
           "time": "09:00",
-          "title": "Open app",
-          "text": "Learning recipes with cook mode",
-          "shot": "mariam/01-home",
-          "alt": "Mariam Saleem home screen"
+          "title": "Save recipe",
+          "text": "Mariam saves a recipe on her phone between classes — wanting to cook is easy; remembering which tab is hard.",
+          "shot": "mariam/01-iphone",
+          "device": "iphone",
+          "alt": "Save"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "mariam/02-task",
-          "alt": "Mariam Saleem using primary feature"
+          "time": "14:00",
+          "title": "iPad study",
+          "text": "iPad study of the same recipe: mise en place notes she will actually follow tonight.",
+          "shot": "mariam/02-ipad",
+          "device": "ipad",
+          "alt": "Study"
+        },
+        {
+          "time": "18:00",
+          "title": "Laptop list",
+          "text": "Laptop shopping list turns the recipe into ingredients she can buy once, not improvise three times.",
+          "shot": "mariam/03-mac",
+          "device": "mac",
+          "alt": "List"
+        },
+        {
+          "time": "19:00",
+          "title": "Cook phone",
+          "text": "Phone propped while cooking; she finishes the dish instead of abandoning it mid-scroll.",
+          "shot": "mariam/04-iphone",
+          "device": "iphone",
+          "alt": "Cook"
+        },
+        {
+          "time": "20:30",
+          "title": "Laptop notes",
+          "text": "Laptop notes for next time — salt, timing, what to skip. The list was half the cooking.",
+          "shot": "mariam/05-mac",
+          "device": "mac",
+          "alt": "Notes"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Abandoned recipes",
+          "value": "Many"
+        },
+        {
+          "label": "Shopping",
+          "value": "Improvised"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Recipes tried",
+          "value": "Weekly"
+        },
+        {
+          "label": "List",
+          "value": "Complete"
         }
       ],
       "video": {
@@ -150,16 +254,18 @@
         "webm": "mariam/story.webm",
         "vtt": "mariam/story.vtt",
         "poster": "mariam/poster.jpg",
-        "transcript": "Mariam Saleem opens the app and completes a fictional sample flow."
+        "transcript": "Mariam learns across phone, iPad, laptop. Fictional."
       },
       "features_used": [
-        "cook-mode",
-        "nutrition-estimates"
+        "family-cookbook",
+        "shopping-list",
+        "cook-mode"
       ],
-      "quote": "Cook mode keeps the screen awake.",
+      "quote": "The list is half the cooking.",
       "fictional": true,
       "needs": [
-        "learning"
+        "learning",
+        "fun"
       ]
     }
   ]

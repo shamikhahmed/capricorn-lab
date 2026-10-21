@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "deefoodie-dee",
-      "name": "Dee Khan",
+      "name": "Dee Rahman",
       "age": 27,
       "city": "Karachi, Pakistan",
-      "goal": "Private journal of Karachi eats",
-      "headline": "How Dee uses Deefoodie",
-      "summary": "Dee Khan from Karachi uses the app for private journal of karachi eats. All people and numbers are fictional.",
+      "goal": "Food journal and ratings",
+      "headline": "How Dee journals eats without performing them",
+      "summary": "Dee logs visits on phone, maps on a larger phone view, taste profile when reviewing the week — private beta sample screens.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Private journal of Karachi eats",
-          "shot": "dee/01-home",
-          "alt": "Dee Khan home screen"
+          "time": "13:00",
+          "title": "Log a visit",
+          "text": "Dee logs a Karachi lunch on her phone before the walk back — place, dish, a private rating, no performance for strangers.",
+          "shot": "dee/01-iphone",
+          "device": "iphone",
+          "alt": "Add visit"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "dee/02-task",
-          "alt": "Dee Khan using primary feature"
+          "time": "13:20",
+          "title": "Rate it",
+          "text": "Same phone: she adjusts the rating while the taste is still honest, not after a week of forgetting.",
+          "shot": "dee/02-iphone",
+          "device": "iphone",
+          "alt": "Rating"
+        },
+        {
+          "time": "18:00",
+          "title": "Map",
+          "text": "Map of eats on the phone shows where she has been; useful for her, not a public flex.",
+          "shot": "dee/03-iphone",
+          "device": "iphone",
+          "alt": "Map"
+        },
+        {
+          "time": "21:00",
+          "title": "Taste profile",
+          "text": "Taste profile at night is a quiet summary — what she actually likes, not what she thinks she should like.",
+          "shot": "dee/04-iphone",
+          "device": "iphone",
+          "alt": "Taste"
+        },
+        {
+          "time": "21:30",
+          "title": "Wishlist",
+          "text": "Wishlist gets one pin for next weekend. The journal stays hers. Private beta screens, fictional visits.",
+          "shot": "dee/05-iphone",
+          "device": "iphone",
+          "alt": "Wishlist"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Forgot where she ate",
+          "value": "Weekly"
+        },
+        {
+          "label": "Ratings",
+          "value": "In head"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Visits logged",
+          "value": "Journal"
+        },
+        {
+          "label": "Ratings",
+          "value": "Saved"
         }
       ],
       "video": {
@@ -44,13 +78,13 @@
         "webm": "dee/story.webm",
         "vtt": "dee/story.vtt",
         "poster": "dee/poster.jpg",
-        "transcript": "Dee Khan opens the app and completes a fictional sample flow."
+        "transcript": "Dee journals and rates on phone across a Karachi day. Fictional. Private beta UI."
       },
       "features_used": [
-        "visit-journal",
-        "private-beta"
+        "private-beta",
+        "visit-journal"
       ],
-      "quote": "My ratings stay in the beta app.",
+      "quote": "The rating is for me.",
       "fictional": true,
       "needs": [
         "fun"
@@ -58,38 +92,72 @@
     },
     {
       "id": "deefoodie-arsalan",
-      "name": "Arsalan Qureshi",
+      "name": "Arsalan Khan",
       "age": 35,
       "city": "Karachi, Pakistan",
-      "goal": "Family dinner spots with kid-friendly notes",
-      "headline": "How Arsalan uses Deefoodie",
-      "summary": "Arsalan Qureshi from Karachi uses the app for family dinner spots with kid-friendly notes. All people and numbers are fictional.",
+      "goal": "Family dinner spots, kid-friendly notes",
+      "headline": "How Arsalan remembers kid-friendly tables",
+      "summary": "Arsalan tags kid-friendly notes on phone after family dinners.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Family dinner spots with kid-friendly notes",
-          "shot": "arsalan/01-home",
-          "alt": "Arsalan Qureshi home screen"
+          "time": "14:00",
+          "title": "After lunch log",
+          "text": "After a family lunch Arsalan logs the visit on his phone — kid-friendly is a tag, not a guess next month.",
+          "shot": "arsalan/01-iphone",
+          "device": "iphone",
+          "alt": "Visit"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "arsalan/02-task",
-          "alt": "Arsalan Qureshi using primary feature"
+          "time": "14:15",
+          "title": "Kid note",
+          "text": "A short note on high chairs and noise lands in the same entry so the next booking is kinder.",
+          "shot": "arsalan/02-iphone",
+          "device": "iphone",
+          "alt": "Note"
+        },
+        {
+          "time": "20:00",
+          "title": "Wishlist",
+          "text": "Wishlist on the phone holds places to retry without drowning in chat recommendations.",
+          "shot": "arsalan/03-iphone",
+          "device": "iphone",
+          "alt": "Wishlist"
+        },
+        {
+          "time": "20:20",
+          "title": "Areas",
+          "text": "Areas view helps him remember which neighbourhood worked for the kids last time.",
+          "shot": "arsalan/04-iphone",
+          "device": "iphone",
+          "alt": "Areas"
+        },
+        {
+          "time": "20:40",
+          "title": "Home",
+          "text": "Home screen closes the loop. Tomorrow’s dinner decision starts from data, not vibes.",
+          "shot": "arsalan/05-iphone",
+          "device": "iphone",
+          "alt": "Home"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Forgot kid-friendly spots",
+          "value": "Often"
+        },
+        {
+          "label": "Notes in chat",
+          "value": "Lost"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Tagged spots",
+          "value": "In journal"
+        },
+        {
+          "label": "Wishlist",
+          "value": "Shared intent"
         }
       ],
       "video": {
@@ -97,52 +165,87 @@
         "webm": "arsalan/story.webm",
         "vtt": "arsalan/story.vtt",
         "poster": "arsalan/poster.jpg",
-        "transcript": "Arsalan Qureshi opens the app and completes a fictional sample flow."
+        "transcript": "Arsalan logs family dinners on phone. Fictional."
       },
       "features_used": [
         "visit-journal",
         "sync-devices"
       ],
-      "quote": "We remember which place has high chairs.",
+      "quote": "Kid-friendly is a tag, not a guess.",
       "fictional": true,
       "needs": [
-        "family"
+        "family",
+        "fun"
       ]
     },
     {
       "id": "deefoodie-noor",
-      "name": "Noor Ali",
+      "name": "Noor Fatima",
       "age": 24,
       "city": "Karachi, Pakistan",
-      "goal": "Budget eats list on her phone",
-      "headline": "How Noor uses Deefoodie",
-      "summary": "Noor Ali from Karachi uses the app for budget eats list on her phone. All people and numbers are fictional.",
+      "goal": "Budget eats list",
+      "headline": "How Noor keeps budget eats honest",
+      "summary": "Noor tracks budget-friendly spots on phone between classes.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Budget eats list on her phone",
-          "shot": "noor/01-home",
-          "alt": "Noor Ali home screen"
+          "time": "12:00",
+          "title": "Log cheap eat",
+          "text": "Between classes Noor logs a budget eat on her phone — cheap and good can both be true, and now it is written down.",
+          "shot": "noor/01-iphone",
+          "device": "iphone",
+          "alt": "Visit"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "noor/02-task",
-          "alt": "Noor Ali using primary feature"
+          "time": "12:20",
+          "title": "Wishlist",
+          "text": "Wishlist collects spots under her ceiling so Friday is not a coin-flip between expensive and regrettable.",
+          "shot": "noor/02-iphone",
+          "device": "iphone",
+          "alt": "Wishlist"
+        },
+        {
+          "time": "17:00",
+          "title": "Map",
+          "text": "Map on the phone pins the honest places; she stops relying on a mental map that forgets after exams.",
+          "shot": "noor/03-iphone",
+          "device": "iphone",
+          "alt": "Map"
+        },
+        {
+          "time": "21:00",
+          "title": "Journal",
+          "text": "Journal entry captures what she ordered and what she would skip — future Noor will thank her.",
+          "shot": "noor/04-iphone",
+          "device": "iphone",
+          "alt": "Journal"
+        },
+        {
+          "time": "21:20",
+          "title": "Seasonal",
+          "text": "Seasonal note for mango season. Budget list stays honest. Fictional sample data throughout.",
+          "shot": "noor/05-iphone",
+          "device": "iphone",
+          "alt": "Seasonal"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Budget spots forgotten",
+          "value": "Yes"
+        },
+        {
+          "label": "Map",
+          "value": "In head"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Budget list",
+          "value": "Wishlist"
+        },
+        {
+          "label": "Map",
+          "value": "Pinned"
         }
       ],
       "video": {
@@ -150,16 +253,18 @@
         "webm": "noor/story.webm",
         "vtt": "noor/story.vtt",
         "poster": "noor/poster.jpg",
-        "transcript": "Noor Ali opens the app and completes a fictional sample flow."
+        "transcript": "Noor tracks budget eats on phone. Fictional."
       },
       "features_used": [
         "visit-journal",
+        "private-beta",
         "delete-my-data"
       ],
-      "quote": "I can delete everything in Settings.",
+      "quote": "Cheap and good can both be true.",
       "fictional": true,
       "needs": [
-        "fun"
+        "fun",
+        "money"
       ]
     }
   ]

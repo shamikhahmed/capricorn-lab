@@ -8,35 +8,69 @@
       "name": "Faisal Sheikh",
       "age": 42,
       "city": "Karachi, Pakistan",
-      "goal": "Two cars, service and fuel in one garage",
-      "headline": "How Faisal uses Carcap",
-      "summary": "Faisal Sheikh from Karachi uses the app for two cars, service and fuel in one garage. All people and numbers are fictional.",
+      "goal": "Two family cars — service and fuel",
+      "headline": "How Faisal keeps two cars honest",
+      "summary": "Faisal logs fuel on phone, service on iPad in the driveway, documents on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Two cars, service and fuel in one garage",
-          "shot": "faisal/01-home",
-          "alt": "Faisal Sheikh home screen"
+          "time": "08:00",
+          "title": "Today",
+          "text": "Faisal opens Today on his phone — both family cars, next service, fuel trend — before the school run begins.",
+          "shot": "faisal/01-iphone",
+          "device": "iphone",
+          "alt": "Today on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "faisal/02-task",
-          "alt": "Faisal Sheikh using primary feature"
+          "time": "08:20",
+          "title": "Fuel tick",
+          "text": "At the pump he logs litres and odometer on the phone; glovebox receipts stop being the system of record.",
+          "shot": "faisal/02-iphone",
+          "device": "iphone",
+          "alt": "Fuel log"
+        },
+        {
+          "time": "17:00",
+          "title": "Service on iPad",
+          "text": "Driveway iPad shows service history while the mechanic talks; dates visible, no “I think it was March.”",
+          "shot": "faisal/03-ipad",
+          "device": "ipad",
+          "alt": "Service on iPad"
+        },
+        {
+          "time": "21:00",
+          "title": "Docs laptop",
+          "text": "Laptop documents hold fictional registration and insurance scans so the second car’s papers are not a scavenger hunt.",
+          "shot": "faisal/04-mac",
+          "device": "mac",
+          "alt": "Docs on laptop"
+        },
+        {
+          "time": "21:30",
+          "title": "Garage overview",
+          "text": "Garage overview on the laptop covers both cars. He closes the lid knowing neither is a mystery.",
+          "shot": "faisal/05-mac",
+          "device": "mac",
+          "alt": "Garage"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Missed services",
+          "value": "1 / year"
+        },
+        {
+          "label": "Fuel receipts",
+          "value": "Glovebox"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Services logged",
+          "value": "On time"
+        },
+        {
+          "label": "Fuel",
+          "value": "In app"
         }
       ],
       "video": {
@@ -44,52 +78,89 @@
         "webm": "faisal/story.webm",
         "vtt": "faisal/story.vtt",
         "poster": "faisal/poster.jpg",
-        "transcript": "Faisal Sheikh opens the app and completes a fictional sample flow."
+        "transcript": "Faisal uses phone at the pump, iPad for service, laptop for docs. Fictional."
       },
       "features_used": [
         "multi-vehicle-garage",
-        "service-log"
+        "fuel-odometer",
+        "service-log",
+        "documents-on-device"
       ],
-      "quote": "Both cars. One app.",
+      "quote": "Both cars. One garage.",
       "fictional": true,
       "needs": [
+        "family",
         "money"
       ]
     },
     {
       "id": "carcap-sophie",
-      "name": "Sophie Turner",
+      "name": "Sophie Bennett",
       "age": 33,
       "city": "Manchester, UK",
-      "goal": "Charging and MOT reminders",
-      "headline": "How Sophie uses Carcap",
-      "summary": "Sophie Turner from Manchester uses the app for charging and mot reminders. All people and numbers are fictional.",
+      "goal": "EV charging and MOT reminders",
+      "headline": "How Sophie never misses an MOT again",
+      "summary": "Sophie tracks charging on phone, reminders on iPad, MOT docs on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Charging and MOT reminders",
-          "shot": "sophie/01-home",
-          "alt": "Sophie Turner home screen"
+          "time": "07:40",
+          "title": "Charge log",
+          "text": "After an overnight charge Sophie logs kWh on her phone — a habit that beats guessing range on a Monday.",
+          "shot": "sophie/01-iphone",
+          "device": "iphone",
+          "alt": "Charge on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "sophie/02-task",
-          "alt": "Sophie Turner using primary feature"
+          "time": "12:00",
+          "title": "Reminder check",
+          "text": "iPad reminders at lunch show MOT window thirty days out; the reminder beats the fine, every time.",
+          "shot": "sophie/02-ipad",
+          "device": "ipad",
+          "alt": "Reminders"
+        },
+        {
+          "time": "19:00",
+          "title": "MOT docs",
+          "text": "Laptop document pack holds MOT and insurance; she finds the PDF in seconds, not in email search limbo.",
+          "shot": "sophie/03-mac",
+          "device": "mac",
+          "alt": "MOT docs"
+        },
+        {
+          "time": "19:40",
+          "title": "Garage",
+          "text": "Garage on the laptop is one calm overview — EV and reminders in one place.",
+          "shot": "sophie/04-mac",
+          "device": "mac",
+          "alt": "Garage"
+        },
+        {
+          "time": "20:00",
+          "title": "Phone",
+          "text": "Phone Today confirms tomorrow’s charge window. She locks the screen without a paperwork spike.",
+          "shot": "sophie/05-iphone",
+          "device": "iphone",
+          "alt": "Today"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "MOT surprise",
+          "value": "Last year"
+        },
+        {
+          "label": "Charge log",
+          "value": "None"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "MOT reminder",
+          "value": "30 days out"
+        },
+        {
+          "label": "Charges",
+          "value": "Logged"
         }
       ],
       "video": {
@@ -97,13 +168,14 @@
         "webm": "sophie/story.webm",
         "vtt": "sophie/story.vtt",
         "poster": "sophie/poster.jpg",
-        "transcript": "Sophie Turner opens the app and completes a fictional sample flow."
+        "transcript": "Sophie logs charge on phone, reminders on iPad, MOT on laptop. Fictional."
       },
       "features_used": [
+        "service-log",
         "fuel-odometer",
-        "service-log"
+        "documents-on-device"
       ],
-      "quote": "MOT date never sneaks up again.",
+      "quote": "The reminder beats the fine.",
       "fictional": true,
       "needs": [
         "money"
@@ -111,38 +183,72 @@
     },
     {
       "id": "carcap-rashid",
-      "name": "Rashid Al-Otaibi",
+      "name": "Rashid Nasser",
       "age": 50,
       "city": "Riyadh, Saudi Arabia",
-      "goal": "Three vans with documents on device",
-      "headline": "How Rashid uses Carcap",
-      "summary": "Rashid Al-Otaibi from Riyadh uses the app for three vans with documents on device. All people and numbers are fictional.",
+      "goal": "Three business cars and their papers",
+      "headline": "How Rashid keeps a tiny fleet documented",
+      "summary": "Rashid checks Today on phone, service on iPad at the yard, papers on laptop at the office.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Three vans with documents on device",
-          "shot": "rashid/01-home",
-          "alt": "Rashid Al-Otaibi home screen"
+          "time": "06:30",
+          "title": "Yard Today",
+          "text": "At the yard Rashid opens Today on his phone across three business cars — what moves today, what waits.",
+          "shot": "rashid/01-iphone",
+          "device": "iphone",
+          "alt": "Fleet Today"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "rashid/02-task",
-          "alt": "Rashid Al-Otaibi using primary feature"
+          "time": "10:00",
+          "title": "Service iPad",
+          "text": "iPad service board on the bench keeps the tiny fleet honest; gaps show up before a customer does.",
+          "shot": "rashid/02-ipad",
+          "device": "ipad",
+          "alt": "Service board"
+        },
+        {
+          "time": "16:00",
+          "title": "Office laptop",
+          "text": "Office laptop holds papers — registration, insurance — so “where is the file?” stops being a weekly sport.",
+          "shot": "rashid/03-mac",
+          "device": "mac",
+          "alt": "Documents"
+        },
+        {
+          "time": "17:00",
+          "title": "Fuel costs",
+          "text": "Fuel rollup on the laptop is illustrative; he uses it to see patterns, not to micromanage drivers by the litre.",
+          "shot": "rashid/04-mac",
+          "device": "mac",
+          "alt": "Fuel"
+        },
+        {
+          "time": "20:00",
+          "title": "Phone close",
+          "text": "Phone confirms tomorrow’s plan. Three cars. Zero missing papers in his head.",
+          "shot": "rashid/05-iphone",
+          "device": "iphone",
+          "alt": "Tomorrow"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Paper hunts",
+          "value": "Weekly"
+        },
+        {
+          "label": "Service gaps",
+          "value": "Common"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Papers found",
+          "value": "Seconds"
+        },
+        {
+          "label": "Service",
+          "value": "Scheduled"
         }
       ],
       "video": {
@@ -150,13 +256,14 @@
         "webm": "rashid/story.webm",
         "vtt": "rashid/story.vtt",
         "poster": "rashid/poster.jpg",
-        "transcript": "Rashid Al-Otaibi opens the app and completes a fictional sample flow."
+        "transcript": "Rashid runs a three-car day across phone, iPad, laptop. Fictional."
       },
       "features_used": [
-        "documents-on-device",
-        "multi-vehicle-garage"
+        "multi-vehicle-garage",
+        "service-log",
+        "documents-on-device"
       ],
-      "quote": "Registration scans stay offline.",
+      "quote": "Three cars. Zero missing papers.",
       "fictional": true,
       "needs": [
         "money"

@@ -4,7 +4,12 @@
   "title": "Cap app story bundle",
   "type": "object",
   "additionalProperties": false,
-  "required": ["slug", "fictional", "disclaimer", "personas"],
+  "required": [
+    "slug",
+    "fictional",
+    "disclaimer",
+    "personas"
+  ],
   "properties": {
     "slug": {
       "type": "string",
@@ -22,41 +27,98 @@
     "personas": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/persona" }
+      "items": {
+        "$ref": "#/$defs/persona"
+      }
     }
   },
   "$defs": {
     "metric": {
       "type": "object",
-      "required": ["label", "value"],
+      "required": [
+        "label",
+        "value"
+      ],
       "additionalProperties": false,
       "properties": {
-        "label": { "type": "string", "minLength": 1 },
-        "value": { "type": "string", "minLength": 1 }
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "dayStep": {
       "type": "object",
-      "required": ["time", "title", "text", "shot", "alt"],
+      "required": [
+        "time",
+        "title",
+        "text",
+        "shot",
+        "alt"
+      ],
       "additionalProperties": false,
       "properties": {
-        "time": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
-        "title": { "type": "string", "minLength": 1 },
-        "text": { "type": "string", "minLength": 1 },
-        "shot": { "type": "string", "minLength": 1 },
-        "alt": { "type": "string", "minLength": 1 }
+        "time": {
+          "type": "string",
+          "pattern": "^\\d{2}:\\d{2}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "device": {
+          "type": "string",
+          "enum": [
+            "iphone",
+            "ipad",
+            "mac"
+          ]
+        }
       }
     },
     "video": {
       "type": "object",
-      "required": ["mp4", "webm", "vtt", "poster", "transcript"],
+      "required": [
+        "mp4",
+        "webm",
+        "vtt",
+        "poster",
+        "transcript"
+      ],
       "additionalProperties": false,
       "properties": {
-        "mp4": { "type": "string" },
-        "webm": { "type": "string" },
-        "vtt": { "type": "string" },
-        "poster": { "type": "string" },
-        "transcript": { "type": "string", "minLength": 1 }
+        "mp4": {
+          "type": "string"
+        },
+        "webm": {
+          "type": "string"
+        },
+        "vtt": {
+          "type": "string"
+        },
+        "poster": {
+          "type": "string"
+        },
+        "transcript": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "persona": {
@@ -80,42 +142,88 @@
         "needs"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 3 },
-        "name": { "type": "string", "minLength": 1 },
-        "age": { "type": "integer", "minimum": 18, "maximum": 99 },
-        "city": { "type": "string", "minLength": 1 },
-        "goal": { "type": "string", "minLength": 1 },
-        "headline": { "type": "string", "minLength": 1 },
-        "summary": { "type": "string", "minLength": 20 },
+        "id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 99
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1
+        },
+        "goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "headline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 20
+        },
         "day": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/dayStep" }
+          "items": {
+            "$ref": "#/$defs/dayStep"
+          }
         },
         "before": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/metric" }
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
         },
         "after": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/metric" }
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
         },
-        "video": { "$ref": "#/$defs/video" },
+        "video": {
+          "$ref": "#/$defs/video"
+        },
         "features_used": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" }
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          }
         },
-        "quote": { "type": "string", "minLength": 1 },
-        "fictional": { "type": "boolean", "const": true },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fictional": {
+          "type": "boolean",
+          "const": true
+        },
         "needs": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "string",
-            "enum": ["family", "health", "money", "travel", "learning", "fun"]
+            "enum": [
+              "family",
+              "health",
+              "money",
+              "travel",
+              "learning",
+              "fun"
+            ]
           }
         }
       }

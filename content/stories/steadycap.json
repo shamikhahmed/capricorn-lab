@@ -8,35 +8,77 @@
       "name": "Bilal Khan",
       "age": 34,
       "city": "Karachi, Pakistan",
-      "goal": "Daily routine and medicine reminders without guilt",
-      "headline": "How Bilal uses Steadycap",
-      "summary": "Bilal Khan from Karachi uses the app for daily routine and medicine reminders without guilt. All people and numbers are fictional.",
+      "goal": "A daily recovery routine he can keep without guilt",
+      "headline": "How Bilal rebuilt a quiet morning routine",
+      "summary": "Bilal works late warehouse shifts in Karachi. Dawn check-ins on iPhone, craving forecast on a shared iPad at lunch, journal and SOS on laptop and phone at night — never scored, never shamed, always fictional.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Daily routine and medicine reminders without guilt",
-          "shot": "bilal/01-home",
-          "alt": "Bilal Khan home screen"
+          "time": "06:40",
+          "title": "Wake check-in",
+          "text": "Still half-asleep in the dark kitchen, Bilal opens Today on his iPhone and marks how the night went — no streak banner, no red shame, just a quiet tick before the bus.",
+          "shot": "bilal/01-iphone",
+          "device": "iphone",
+          "alt": "Bilal’s Today screen on iPhone at dawn"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "bilal/02-task",
-          "alt": "Bilal Khan using primary feature"
+          "time": "07:05",
+          "title": "Medicine list",
+          "text": "He scrolls the medicine list on the same phone and ticks morning meds while the kettle boils, then drops the phone in his pocket and locks the door.",
+          "shot": "bilal/02-iphone",
+          "device": "iphone",
+          "alt": "Medicine tracker on Bilal’s phone"
+        },
+        {
+          "time": "13:20",
+          "title": "Craving forecast",
+          "text": "On warehouse break he borrows the shared iPad and opens the craving forecast — a hard window flagged for late afternoon, so he texts his sponsor a simple “watching it.”",
+          "shot": "bilal/03-ipad",
+          "device": "ipad",
+          "alt": "Craving forecast on iPad"
+        },
+        {
+          "time": "18:45",
+          "title": "Journal on the laptop",
+          "text": "At home he types three honest lines on his laptop while tea cools — private, on-device, nobody scoring the words.",
+          "shot": "bilal/04-mac",
+          "device": "mac",
+          "alt": "Journal entry on laptop"
+        },
+        {
+          "time": "21:10",
+          "title": "SOS contacts",
+          "text": "Before bed he opens SOS on the phone and confirms his brother and sponsor are still one tap away, names readable, no scavenger hunt through contacts.",
+          "shot": "bilal/05-iphone",
+          "device": "iphone",
+          "alt": "SOS contacts on phone"
+        },
+        {
+          "time": "22:00",
+          "title": "Quiet close",
+          "text": "Laptop stays on the desk with Today closed. He missed one tick at lunch; the app does not punish him for it.",
+          "shot": "bilal/06-mac",
+          "device": "mac",
+          "alt": "SteadyCap on laptop evening"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Mornings he skipped logging",
+          "value": "4 / week"
+        },
+        {
+          "label": "Panic without a plan",
+          "value": "Often"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Mornings logged",
+          "value": "6 / week"
+        },
+        {
+          "label": "SOS plan ready",
+          "value": "1 tap"
         }
       ],
       "video": {
@@ -44,11 +86,12 @@
         "webm": "bilal/story.webm",
         "vtt": "bilal/story.vtt",
         "poster": "bilal/poster.jpg",
-        "transcript": "Bilal Khan opens the app and completes a fictional sample flow."
+        "transcript": "Bilal checks in on iPhone at dawn, ticks meds, reads a craving forecast on iPad, journals on laptop, confirms SOS contacts, and closes the day without guilt. Fictional sample data throughout."
       },
       "features_used": [
         "sos-crisis-flow",
-        "medicine-tracker"
+        "medicine-tracker",
+        "no-streak-guilt"
       ],
       "quote": "I log my day. Nobody scores me.",
       "fictional": true,
@@ -61,35 +104,69 @@
       "name": "Priya Sharma",
       "age": 47,
       "city": "Toronto, Canada",
-      "goal": "Medicine schedule she can share at visits",
-      "headline": "How Priya uses Steadycap",
-      "summary": "Priya Sharma from Toronto uses the app for medicine schedule she can share at visits. All people and numbers are fictional.",
+      "goal": "A medicine schedule she can show at clinic visits",
+      "headline": "How Priya keeps her father’s meds readable",
+      "summary": "Priya cares for her father between work calls. Phone for quick ticks, tablet for the full schedule at appointments, laptop for export before the next visit — all fictional sample data.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Medicine schedule she can share at visits",
-          "shot": "priya/01-home",
-          "alt": "Priya Sharma home screen"
+          "time": "08:15",
+          "title": "Morning ticks",
+          "text": "While toast browns, Priya opens the medicine tracker on her iPhone and ticks Dad’s morning pills in the order the clinic printed — large enough to read without glasses.",
+          "shot": "priya/01-iphone",
+          "device": "iphone",
+          "alt": "Priya’s medicine list on iPhone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "priya/02-task",
-          "alt": "Priya Sharma using primary feature"
+          "time": "11:00",
+          "title": "Clinic preview",
+          "text": "In the waiting room she flips to the iPad so the nurse can see the full day schedule without flipping through a paper pad full of crossed-out times.",
+          "shot": "priya/02-ipad",
+          "device": "ipad",
+          "alt": "Full schedule on iPad"
+        },
+        {
+          "time": "14:30",
+          "title": "Notes after the visit",
+          "text": "Back home she journals what the doctor said on her laptop — dose change, next bloodwork date — while it is still fresh, still private on the device.",
+          "shot": "priya/03-mac",
+          "device": "mac",
+          "alt": "Journal on laptop"
+        },
+        {
+          "time": "19:00",
+          "title": "Evening meds",
+          "text": "Evening ticks happen on the phone again; she stands at the counter and clears each row before dinner, no scavenger hunt through blister packs.",
+          "shot": "priya/04-iphone",
+          "device": "iphone",
+          "alt": "Evening meds on phone"
+        },
+        {
+          "time": "21:30",
+          "title": "Tomorrow’s plan",
+          "text": "Before her brother visits she leaves Tomorrow open on the laptop so he can glance the plan without asking Dad to “remember everything.”",
+          "shot": "priya/05-mac",
+          "device": "mac",
+          "alt": "Tomorrow plan on laptop"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Clinic questions unanswered",
+          "value": "Most visits"
+        },
+        {
+          "label": "Med list on paper scraps",
+          "value": "3 pads"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Clinic questions answered",
+          "value": "From one screen"
+        },
+        {
+          "label": "Shared list",
+          "value": "On device"
         }
       ],
       "video": {
@@ -97,7 +174,7 @@
         "webm": "priya/story.webm",
         "vtt": "priya/story.vtt",
         "poster": "priya/poster.jpg",
-        "transcript": "Priya Sharma opens the app and completes a fictional sample flow."
+        "transcript": "Priya ticks meds on iPhone, shows the schedule on iPad at clinic, journals on laptop, and closes the evening on phone. Fictional."
       },
       "features_used": [
         "medicine-tracker",
@@ -114,35 +191,69 @@
       "name": "Hamza Ali",
       "age": 22,
       "city": "Islamabad, Pakistan",
-      "goal": "Gentle streaks and support contacts when stress spikes",
-      "headline": "How Hamza uses Steadycap",
-      "summary": "Hamza Ali from Islamabad uses the app for gentle streaks and support contacts when stress spikes. All people and numbers are fictional.",
+      "goal": "Gentle streaks and a support contact when stress spikes",
+      "headline": "How Hamza stays steady through exam week",
+      "summary": "Hamza is a student who hates streak shaming. He checks in on his phone, uses Knowledge on a shared iPad at the hostel, and keeps SOS on the laptop he studies on.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Gentle streaks and support contacts when stress spikes",
-          "shot": "hamza/01-home",
-          "alt": "Hamza Ali home screen"
+          "time": "09:30",
+          "title": "Quick check-in",
+          "text": "Between classes Hamza opens Today on his phone — he missed yesterday during a midterm, and the screen does not turn red or lecture him about streaks.",
+          "shot": "hamza/01-iphone",
+          "device": "iphone",
+          "alt": "Hamza Today on iPhone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "hamza/02-task",
-          "alt": "Hamza Ali using primary feature"
+          "time": "15:00",
+          "title": "Learn something small",
+          "text": "On the hostel iPad he reads a short Knowledge card about sleep debt, bookmarks nothing flashy, just something he can try tonight without buying a course.",
+          "shot": "hamza/02-ipad",
+          "device": "ipad",
+          "alt": "Knowledge on iPad"
+        },
+        {
+          "time": "20:15",
+          "title": "Study laptop, SOS ready",
+          "text": "His study laptop stays open to SOS while he revises; roommate is the contact. Knowing the button exists is half the calm.",
+          "shot": "hamza/03-mac",
+          "device": "mac",
+          "alt": "SOS on laptop"
+        },
+        {
+          "time": "23:40",
+          "title": "One line journal",
+          "text": "In bed he writes one honest sentence on the phone journal — exam dread, not a performance — then locks the screen.",
+          "shot": "hamza/04-iphone",
+          "device": "iphone",
+          "alt": "Journal on phone"
+        },
+        {
+          "time": "00:10",
+          "title": "Close the day",
+          "text": "He puts the phone face-down. The app does not nag him for a second check-in or a perfect week.",
+          "shot": "hamza/05-iphone",
+          "device": "iphone",
+          "alt": "SteadyCap closed quietly"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Nights he spiralled alone",
+          "value": "2 / week"
+        },
+        {
+          "label": "Knew who to call",
+          "value": "Unclear"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Nights with a check-in",
+          "value": "Most"
+        },
+        {
+          "label": "SOS contact",
+          "value": "Saved"
         }
       ],
       "video": {
@@ -150,11 +261,12 @@
         "webm": "hamza/story.webm",
         "vtt": "hamza/story.vtt",
         "poster": "hamza/poster.jpg",
-        "transcript": "Hamza Ali opens the app and completes a fictional sample flow."
+        "transcript": "Hamza checks in on phone, reads Knowledge on iPad, keeps SOS on laptop, journals once. Fictional exam-week sample."
       },
       "features_used": [
         "no-streak-guilt",
-        "sos-crisis-flow"
+        "sos-crisis-flow",
+        "journal-check-ins"
       ],
       "quote": "Support is one tap. No lecture.",
       "fictional": true,

@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "masterycap-ahmed",
-      "name": "Ahmed Rizvi",
+      "name": "Ahmed Iqbal",
       "age": 20,
       "city": "Lahore, Pakistan",
-      "goal": "Trading basics in Roman Urdu \u2014 educational only",
-      "headline": "How Ahmed uses Masterycap",
-      "summary": "Ahmed Rizvi from Lahore uses the app for trading basics in roman urdu \u2014 educational only. All people and numbers are fictional.",
+      "goal": "Trading basics in Roman Urdu",
+      "headline": "How Ahmed learns without fake tips",
+      "summary": "Ahmed studies Campus on phone, practices on iPad, reviews records on laptop — education, not advice.",
       "day": [
         {
           "time": "09:00",
-          "title": "Open app",
-          "text": "Trading basics in Roman Urdu \u2014 educational only",
-          "shot": "ahmed/01-home",
-          "alt": "Ahmed Rizvi home screen"
+          "title": "Campus phone",
+          "text": "Ahmed opens Campus on his phone in Roman Urdu — trading basics without fake tips or English-only gatekeeping.",
+          "shot": "ahmed/01-iphone",
+          "device": "iphone",
+          "alt": "Campus on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "ahmed/02-task",
-          "alt": "Ahmed Rizvi using primary feature"
+          "time": "14:00",
+          "title": "Practice iPad",
+          "text": "iPad practice lab in the afternoon; he tries a scenario, logs the attempt, leaves ego outside the room.",
+          "shot": "ahmed/02-ipad",
+          "device": "ipad",
+          "alt": "Practice on iPad"
+        },
+        {
+          "time": "20:00",
+          "title": "Records laptop",
+          "text": "Laptop records show what he finished — education, not a brokerage pitch dressed as a lesson.",
+          "shot": "ahmed/03-mac",
+          "device": "mac",
+          "alt": "Records"
+        },
+        {
+          "time": "20:40",
+          "title": "School of money",
+          "text": "School of Money module on the laptop stays calm and factual; he notes questions for a human mentor later.",
+          "shot": "ahmed/04-mac",
+          "device": "mac",
+          "alt": "Module"
+        },
+        {
+          "time": "21:00",
+          "title": "Phone recap",
+          "text": "Phone Today recap before sleep. Roman Urdu first. Hustle culture never.",
+          "shot": "ahmed/05-iphone",
+          "device": "iphone",
+          "alt": "Today"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Confused by English-only",
+          "value": "Often"
+        },
+        {
+          "label": "Practice log",
+          "value": "None"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Lessons done",
+          "value": "Campus"
+        },
+        {
+          "label": "Practice",
+          "value": "Logged"
         }
       ],
       "video": {
@@ -44,13 +78,14 @@
         "webm": "ahmed/story.webm",
         "vtt": "ahmed/story.vtt",
         "poster": "ahmed/poster.jpg",
-        "transcript": "Ahmed Rizvi opens the app and completes a fictional sample flow."
+        "transcript": "Ahmed learns on phone, practices on iPad, records on laptop. Fictional."
       },
       "features_used": [
         "bilingual-tracks",
+        "quizzes-practice",
         "not-financial-advice"
       ],
-      "quote": "I learn terms. No income promises.",
+      "quote": "Roman Urdu first. Ego later.",
       "fictional": true,
       "needs": [
         "learning"
@@ -58,38 +93,72 @@
     },
     {
       "id": "masterycap-ruth",
-      "name": "Ruth Mwangi",
+      "name": "Ruth Wanjiku",
       "age": 35,
       "city": "Nairobi, Kenya",
-      "goal": "Software track in English with quizzes",
-      "headline": "How Ruth uses Masterycap",
-      "summary": "Ruth Mwangi from Nairobi uses the app for software track in english with quizzes. All people and numbers are fictional.",
+      "goal": "Career switch into software basics",
+      "headline": "How Ruth practices without performative hustle",
+      "summary": "Ruth uses Campus on phone between shifts, iPad on weekends, laptop for HTTP lab.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Software track in English with quizzes",
-          "shot": "ruth/01-home",
-          "alt": "Ruth Mwangi home screen"
+          "time": "07:00",
+          "title": "Lesson phone",
+          "text": "Before her shift Ruth opens Campus on the phone — one lesson, not twelve tutorial tabs she will never finish.",
+          "shot": "ruth/01-iphone",
+          "device": "iphone",
+          "alt": "Campus"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "ruth/02-task",
-          "alt": "Ruth Mwangi using primary feature"
+          "time": "15:00",
+          "title": "Weekend iPad",
+          "text": "Weekend iPad practice is quiet on purpose; progress without performative hustle posts.",
+          "shot": "ruth/02-ipad",
+          "device": "ipad",
+          "alt": "Practice"
+        },
+        {
+          "time": "21:00",
+          "title": "HTTP lab laptop",
+          "text": "Laptop HTTP lab finally gets a finished run; she logs it instead of promising “tomorrow.”",
+          "shot": "ruth/03-mac",
+          "device": "mac",
+          "alt": "HTTP lab"
+        },
+        {
+          "time": "21:45",
+          "title": "Records",
+          "text": "Records on the laptop show labs done — fewer tabs, more closure.",
+          "shot": "ruth/04-mac",
+          "device": "mac",
+          "alt": "Records"
+        },
+        {
+          "time": "22:00",
+          "title": "Phone",
+          "text": "Phone closes the day. Practice is quiet. That is fine.",
+          "shot": "ruth/05-iphone",
+          "device": "iphone",
+          "alt": "Close"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Tutorial tabs forever",
+          "value": "12+"
+        },
+        {
+          "label": "Finished labs",
+          "value": "0"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Labs finished",
+          "value": "Logged"
+        },
+        {
+          "label": "Tabs",
+          "value": "Fewer"
         }
       ],
       "video": {
@@ -97,13 +166,13 @@
         "webm": "ruth/story.webm",
         "vtt": "ruth/story.vtt",
         "poster": "ruth/poster.jpg",
-        "transcript": "Ruth Mwangi opens the app and completes a fictional sample flow."
+        "transcript": "Ruth studies on phone, practices on iPad, labs on laptop. Fictional."
       },
       "features_used": [
         "quizzes-practice",
         "bilingual-tracks"
       ],
-      "quote": "Quizzes show what I missed.",
+      "quote": "Practice is quiet. That is fine.",
       "fictional": true,
       "needs": [
         "learning"
@@ -111,38 +180,72 @@
     },
     {
       "id": "masterycap-bilqees",
-      "name": "Bilqees Fatima",
+      "name": "Bilqees Rahman",
       "age": 45,
       "city": "Karachi, Pakistan",
-      "goal": "Progress tracking for upskilling",
-      "headline": "How Bilqees uses Masterycap",
-      "summary": "Bilqees Fatima from Karachi uses the app for progress tracking for upskilling. All people and numbers are fictional.",
+      "goal": "Teacher upskilling with progress she can see",
+      "headline": "How Bilqees tracks progress between classes",
+      "summary": "Bilqees learns on phone, reviews on iPad after school, deep practice on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Progress tracking for upskilling",
-          "shot": "bilqees/01-home",
-          "alt": "Bilqees Fatima home screen"
+          "time": "06:30",
+          "title": "Before school",
+          "text": "Before school Bilqees steals ten minutes of Campus on her phone — progress she can see, not a vague intention.",
+          "shot": "bilqees/01-iphone",
+          "device": "iphone",
+          "alt": "Campus"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "bilqees/02-task",
-          "alt": "Bilqees Fatima using primary feature"
+          "time": "14:30",
+          "title": "iPad review",
+          "text": "After classes the iPad review catches what stuck; she bookmarks one idea for tomorrow’s stolen minute.",
+          "shot": "bilqees/02-ipad",
+          "device": "ipad",
+          "alt": "Review"
+        },
+        {
+          "time": "21:00",
+          "title": "Laptop practice",
+          "text": "Laptop practice block at night is short and real — depth over a performance of busyness.",
+          "shot": "bilqees/03-mac",
+          "device": "mac",
+          "alt": "Practice"
+        },
+        {
+          "time": "21:50",
+          "title": "Records",
+          "text": "Records on the laptop make the week visible; minutes used are logged, not romanticised.",
+          "shot": "bilqees/04-mac",
+          "device": "mac",
+          "alt": "Records"
+        },
+        {
+          "time": "22:10",
+          "title": "Phone",
+          "text": "Phone goodnight. Progress is a page, not a stage.",
+          "shot": "bilqees/05-iphone",
+          "device": "iphone",
+          "alt": "Phone"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Progress felt invisible",
+          "value": "Yes"
+        },
+        {
+          "label": "Time to study",
+          "value": "Stolen minutes"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Progress visible",
+          "value": "Records"
+        },
+        {
+          "label": "Minutes used",
+          "value": "Logged"
         }
       ],
       "video": {
@@ -150,13 +253,13 @@
         "webm": "bilqees/story.webm",
         "vtt": "bilqees/story.vtt",
         "poster": "bilqees/poster.jpg",
-        "transcript": "Bilqees Fatima opens the app and completes a fictional sample flow."
+        "transcript": "Bilqees uses phone, iPad, and laptop across a school day. Fictional."
       },
       "features_used": [
-        "self-issued-certificates",
-        "quizzes-practice"
+        "bilingual-tracks",
+        "self-issued-certificates"
       ],
-      "quote": "My certificate is self-issued and honest.",
+      "quote": "Progress is a page, not a performance.",
       "fictional": true,
       "needs": [
         "learning"

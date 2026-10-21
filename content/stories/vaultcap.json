@@ -8,174 +8,275 @@
       "name": "Ayesha Siddiqui",
       "age": 41,
       "city": "Lahore, Pakistan",
-      "goal": "Keep the family's passports, bank accounts and school documents in one safe place",
-      "headline": "How Ayesha keeps her family's documents in one place",
-      "summary": "Ayesha runs a pharmacy shift and two school runs. She uses VaultCap's family profiles and expiry reminders so passports and school papers live in one encrypted vault instead of drawers and chat threads.",
+      "goal": "Family documents and expiries in one encrypted vault",
+      "headline": "How Ayesha stopped digging through drawers",
+      "summary": "Ayesha runs a pharmacy and two school runs in Lahore. She finds documents on her phone between customers, reviews family profiles on the kitchen iPad, and does banks plus Zakat on the laptop — always on-device, always fictional sample data.",
       "day": [
         {
           "time": "07:40",
-          "title": "Morning check",
-          "text": "She opens the vault home and sees three documents expiring this month — including her son's passport.",
-          "shot": "ayesha/01-home",
-          "alt": "Ayesha's vault home showing sample net worth and upcoming reminders"
+          "title": "Morning vault",
+          "text": "Pharmacy keys in one hand, Ayesha opens VaultCap on her iPhone — three expiries this month, including a school passport she would have found in a drawer too late.",
+          "shot": "ayesha/01-iphone",
+          "device": "iphone",
+          "alt": "Vault home on iPhone"
         },
         {
           "time": "12:15",
-          "title": "Documents",
-          "text": "Between customers she pulls up scanned passports and school letters — search finds a file in seconds.",
-          "shot": "ayesha/02-documents",
-          "alt": "Documents list with passport and school papers"
+          "title": "Documents find",
+          "text": "Between customers a phone search finds the passport scan in seconds; she texts the school office without leaving the counter or digging through WhatsApp.",
+          "shot": "ayesha/02-iphone",
+          "device": "iphone",
+          "alt": "Documents on phone"
         },
         {
           "time": "18:30",
-          "title": "Family vault",
-          "text": "Her husband's profile stays separate but shared on the same phone — each person's records stay encrypted.",
-          "shot": "ayesha/03-family",
-          "alt": "Family profiles section for shared household vault"
+          "title": "Family on iPad",
+          "text": "Kitchen iPad after school runs: husband’s profile separate, kids’ docs labeled, everything still on-device — no family Dropbox argument.",
+          "shot": "ayesha/03-ipad",
+          "device": "ipad",
+          "alt": "Family profiles on iPad"
+        },
+        {
+          "time": "20:10",
+          "title": "Banks glance",
+          "text": "Laptop for a calm look at sample bank accounts before Ramadan planning; numbers illustrative, tone quiet, no tipping or advice.",
+          "shot": "ayesha/04-mac",
+          "device": "mac",
+          "alt": "Banks on laptop"
         },
         {
           "time": "21:00",
-          "title": "Ramadan planning",
-          "text": "She glances at the Zakat summary from holdings in the sample vault before talking to her accountant.",
-          "shot": "ayesha/05-zakat",
-          "alt": "Zakat summary from holdings in the sample vault"
+          "title": "Zakat summary",
+          "text": "Same laptop shows a Zakat summary from holdings so she can email the accountant without photographing paper ledgers.",
+          "shot": "ayesha/05-mac",
+          "device": "mac",
+          "alt": "Zakat on laptop"
+        },
+        {
+          "time": "21:40",
+          "title": "Reminders set",
+          "text": "Phone locks with renewal reminders confirmed. Drawers stay drawers. The vault stays the vault.",
+          "shot": "ayesha/06-iphone",
+          "device": "iphone",
+          "alt": "Reminders on phone"
         }
       ],
       "before": [
-        { "label": "Time to find a passport", "value": "20 min" },
-        { "label": "Places documents lived", "value": "3 drawers + chats" }
+        {
+          "label": "Time to find a passport",
+          "value": "20 min"
+        },
+        {
+          "label": "Places documents lived",
+          "value": "3 drawers + chats"
+        }
       ],
       "after": [
-        { "label": "Time to find a passport", "value": "1 min" },
-        { "label": "Expiry surprises per year", "value": "0 missed" }
+        {
+          "label": "Time to find a passport",
+          "value": "1 min"
+        },
+        {
+          "label": "Expiry surprises",
+          "value": "0 missed"
+        }
       ],
       "video": {
         "mp4": "ayesha/story.mp4",
         "webm": "ayesha/story.webm",
         "vtt": "ayesha/story.vtt",
         "poster": "ayesha/poster.jpg",
-        "transcript": "Ayesha opens VaultCap, checks reminders, finds a passport scan, switches to her husband's family profile, then views the Zakat summary. All numbers and names are fictional sample data."
+        "transcript": "Morning vault on iPhone shows expiries. Midday search finds a passport scan. Evening iPad separates family profiles. Laptop banks and Zakat stay calm and illustrative. Phone reminders lock the day. Fictional sample vault throughout."
       },
-      "features_used": ["family-profiles", "expiry-reminders", "zakat", "aes-gcm-vault"],
+      "features_used": [
+        "family-profiles",
+        "expiry-reminders",
+        "zakat",
+        "documents"
+      ],
       "quote": "I stopped digging through drawers.",
       "fictional": true,
-      "needs": ["family", "money"]
+      "needs": [
+        "family",
+        "money"
+      ]
     },
     {
       "id": "vaultcap-omar",
-      "name": "Omar Farooq",
+      "name": "Omar Rahman",
       "age": 29,
       "city": "Dubai, UAE",
-      "goal": "Track multi-currency accounts and take an encrypted backup before changing phones",
-      "headline": "How Omar backs up before every phone upgrade",
-      "summary": "Omar freelances across AED, GBP and PKR accounts. He lists banks in VaultCap, then exports an encrypted backup to Files before he swaps phones — no more lost IBAN notes.",
+      "goal": "Multi-currency accounts and a backup before a phone change",
+      "headline": "How Omar backed up before swapping phones",
+      "summary": "Omar freelances across currencies. Phone for day balances, laptop for encrypted export, iPad when reviewing cards on the sofa.",
       "day": [
         {
           "time": "09:00",
-          "title": "Bank list",
-          "text": "He reviews AED, GBP and PKR accounts in one scroll — favourites pin the accounts he checks daily.",
-          "shot": "omar/01-banks",
-          "alt": "Omar's multi-currency bank list in the sample vault"
+          "title": "Currency glance",
+          "text": "Omar’s phone dashboard shows AED and GBP sample balances before the first client call — multi-currency without opening three banking apps.",
+          "shot": "omar/01-iphone",
+          "device": "iphone",
+          "alt": "Dashboard on phone"
         },
         {
           "time": "11:30",
-          "title": "Dashboard",
-          "text": "Net worth rolls up in one dashboard so he knows whether to move cash before a client pays late.",
-          "shot": "omar/02-dashboard",
-          "alt": "Dashboard with AED GBP and PKR balances summarised"
+          "title": "Cards check",
+          "text": "On the sofa he reviews cards on the iPad before lunch, expiry dates visible, no glovebox archaeology.",
+          "shot": "omar/02-ipad",
+          "device": "ipad",
+          "alt": "Cards on iPad"
         },
         {
-          "time": "17:45",
-          "title": "Encrypted backup",
-          "text": "Before a new iPhone arrives he exports a .vos backup to Files — restore is a guided flow on the next device.",
-          "shot": "omar/03-backup",
-          "alt": "Encrypted backup screen before a phone change"
+          "time": "16:00",
+          "title": "Export on laptop",
+          "text": "Laptop writes an encrypted .vos backup to a disk he owns — new phone week, no cloud rent, no “upload everything” pitch.",
+          "shot": "omar/03-mac",
+          "device": "mac",
+          "alt": "Backup on laptop"
         },
         {
-          "time": "20:10",
-          "title": "Security check",
-          "text": "He confirms PIN and encryption settings — the vault never leaves the device unless he chooses to export.",
-          "shot": "omar/04-security",
-          "alt": "Security settings for PIN-protected vault"
+          "time": "19:20",
+          "title": "Security review",
+          "text": "Security settings on the laptop get a once-over before the swap: demo labeled, passphrase habits intact.",
+          "shot": "omar/04-mac",
+          "device": "mac",
+          "alt": "Security on laptop"
+        },
+        {
+          "time": "21:00",
+          "title": "Phone ready",
+          "text": "New phone restores from the backup; the sample vault opens like nothing moved. He smiles at the boring success.",
+          "shot": "omar/05-iphone",
+          "device": "iphone",
+          "alt": "Restored vault on phone"
         }
       ],
       "before": [
-        { "label": "Minutes to check all accounts", "value": "15 min" },
-        { "label": "Lost notes when migrating phones", "value": "Twice" }
+        {
+          "label": "Fear of losing vault on swap",
+          "value": "High"
+        },
+        {
+          "label": "Backup age",
+          "value": "Unknown"
+        }
       ],
       "after": [
-        { "label": "Minutes to check all accounts", "value": "2 min" },
-        { "label": "Backup before phone swap", "value": "Every time" }
+        {
+          "label": "Encrypted export",
+          "value": "Done"
+        },
+        {
+          "label": "Restore tested",
+          "value": "On device"
+        }
       ],
       "video": {
         "mp4": "omar/story.mp4",
         "webm": "omar/story.webm",
         "vtt": "omar/story.vtt",
         "poster": "omar/poster.jpg",
-        "transcript": "Omar opens banks, checks the dashboard, creates an encrypted backup, and reviews security. Illustrative balances only."
+        "transcript": "Omar reviews money on phone and iPad, exports on laptop, restores on a new phone. Fictional."
       },
-      "features_used": ["bank-import", "aes-gcm-vault", "encrypted-backup"],
-      "quote": "Backup first. New phone second.",
+      "features_used": [
+        "encrypted-backup",
+        "aes-gcm-vault",
+        "documents"
+      ],
+      "quote": "New phone. Same vault. No cloud rent.",
       "fictional": true,
-      "needs": ["money"]
+      "needs": [
+        "money"
+      ]
     },
     {
       "id": "vaultcap-margaret",
       "name": "Margaret Ellis",
       "age": 68,
       "city": "Manchester, UK",
-      "goal": "One place for pension and insurance documents her son can help with",
+      "goal": "Pension and insurance papers her son can help with — large text",
       "headline": "How Margaret keeps pension papers readable",
-      "summary": "Margaret retired from teaching and uses larger text in VaultCap. Insurance and pension PDFs sit in one documents list; her son helps via a local family profile when she visits.",
+      "summary": "Margaret uses larger text on iPhone, reviews documents on iPad with her son, and keeps settings clear on the laptop in the study.",
       "day": [
         {
           "time": "10:00",
-          "title": "Home at large text",
-          "text": "She opens the vault with text large enough to read without glasses — reminders show policy renewals clearly.",
-          "shot": "margaret/01-home-large",
-          "alt": "Margaret's vault home at larger text size on iPhone SE"
+          "title": "Large-text home",
+          "text": "Margaret’s iPhone home uses larger text so renewals are readable without asking her son to “just read this bit.”",
+          "shot": "margaret/01-iphone",
+          "device": "iphone",
+          "alt": "Large text home"
         },
         {
           "time": "14:20",
           "title": "Documents",
-          "text": "Pension letters and insurance schedules are tagged — search beats hunting through folders in two rooms.",
-          "shot": "margaret/02-documents",
-          "alt": "Documents list with pension and insurance files"
+          "text": "Documents list on the same phone holds pension letters she used to lose in the bureau — titles clear, not tiny scan thumbnails.",
+          "shot": "margaret/02-iphone",
+          "device": "iphone",
+          "alt": "Documents large text"
         },
         {
           "time": "16:00",
-          "title": "Renewal reminder",
-          "text": "A reminder nudges her two weeks before home insurance renews — she sets a note for the call centre.",
-          "shot": "margaret/03-reminders",
-          "alt": "Reminders showing an insurance renewal coming up"
+          "title": "Son on iPad",
+          "text": "iPad on the table while her son helps label files; he can help without taking the papers away in a plastic bag.",
+          "shot": "margaret/03-ipad",
+          "device": "ipad",
+          "alt": "Documents on iPad"
         },
         {
-          "time": "19:30",
-          "title": "Settings at large text",
-          "text": "She keeps Larger Text on and checks that demo mode is clearly labelled before handing the phone to her son.",
-          "shot": "margaret/04-settings",
-          "alt": "Settings screen with text size and demo labelling"
+          "time": "19:00",
+          "title": "Reminders",
+          "text": "Laptop reminders for home insurance sit in the study beside the kettle — dates she can actually see.",
+          "shot": "margaret/04-mac",
+          "device": "mac",
+          "alt": "Reminders on laptop"
+        },
+        {
+          "time": "19:40",
+          "title": "Settings check",
+          "text": "Settings on the laptop stay honest: demo labelled, text size kept. She closes the lid feeling organised, not managed.",
+          "shot": "margaret/05-mac",
+          "device": "mac",
+          "alt": "Settings on laptop"
         }
       ],
       "before": [
-        { "label": "Time to find a policy", "value": "25 min" },
-        { "label": "Could read small print", "value": "Often no" }
+        {
+          "label": "Time to find a policy",
+          "value": "25 min"
+        },
+        {
+          "label": "Could read small print",
+          "value": "Often no"
+        }
       ],
       "after": [
-        { "label": "Time to find a policy", "value": "2 min" },
-        { "label": "Text size comfort", "value": "Large enough" }
+        {
+          "label": "Time to find a policy",
+          "value": "2 min"
+        },
+        {
+          "label": "Text size",
+          "value": "Comfortable"
+        }
       ],
       "video": {
         "mp4": "margaret/story.mp4",
         "webm": "margaret/story.webm",
         "vtt": "margaret/story.vtt",
         "poster": "margaret/poster.jpg",
-        "transcript": "Margaret opens the vault at large text, finds documents, shows her son the family profile, and checks a renewal reminder. Fictional policy names throughout."
+        "transcript": "Margaret uses large text on iPhone, reviews with her son on iPad, settings on laptop. Fictional."
       },
-      "features_used": ["documents", "family-profiles", "expiry-reminders", "dynamic-type"],
-      "quote": "The writing is big enough. My son can find it too.",
+      "features_used": [
+        "expiry-reminders",
+        "documents",
+        "dynamic-type"
+      ],
+      "quote": "He can help without taking the papers away.",
       "fictional": true,
-      "needs": ["family", "money"]
+      "needs": [
+        "family",
+        "money"
+      ]
     }
   ]
 }

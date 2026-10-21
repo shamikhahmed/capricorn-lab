@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "deeponycap-ali",
-      "name": "Ali Hassan",
+      "name": "Ali Raza",
       "age": 27,
       "city": "Karachi, Pakistan",
-      "goal": "Wishlist tiers and shelf photos offline",
-      "headline": "How Ali uses Deeponycap",
-      "summary": "Ali Hassan from Karachi uses the app for wishlist tiers and shelf photos offline. All people and numbers are fictional.",
+      "goal": "Sneaker collection + wishlist on every shelf",
+      "headline": "How Ali finally knew what he owned",
+      "summary": "Ali photographs pairs on phone, browses the shelf on iPad, and plans wishlist buys on laptop.",
       "day": [
         {
           "time": "09:00",
-          "title": "Open app",
-          "text": "Wishlist tiers and shelf photos offline",
-          "shot": "ali/01-home",
-          "alt": "Ali Hassan home screen"
+          "title": "Shelf on phone",
+          "text": "Ali opens the collection on his phone while a box sits on the bed — finally matching what he owns to what he remembers owning.",
+          "shot": "ali/01-iphone",
+          "device": "iphone",
+          "alt": "Collection on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "ali/02-task",
-          "alt": "Ali Hassan using primary feature"
+          "time": "11:00",
+          "title": "Detail photos",
+          "text": "A quick phone photo attaches to a pair’s detail page so the shelf and the under-bed storage stop arguing.",
+          "shot": "ali/02-iphone",
+          "device": "iphone",
+          "alt": "Pair detail"
+        },
+        {
+          "time": "15:00",
+          "title": "iPad shelf map",
+          "text": "Wider shelf map on the iPad shows gaps and doubles; he laughs at two identical colourways he swore were unique.",
+          "shot": "ali/03-ipad",
+          "device": "ipad",
+          "alt": "Shelf on iPad"
+        },
+        {
+          "time": "20:00",
+          "title": "Wishlist laptop",
+          "text": "Laptop wishlist before payday — wants, not cart panic — with notes on size and why he wants them.",
+          "shot": "ali/04-mac",
+          "device": "mac",
+          "alt": "Wishlist on laptop"
+        },
+        {
+          "time": "21:00",
+          "title": "Stats glance",
+          "text": "Laptop stats show fictional counts only; he closes the lid knowing the shelf finally matches the boxes.",
+          "shot": "ali/05-mac",
+          "device": "mac",
+          "alt": "Stats on laptop"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Pairs he forgot he owned",
+          "value": "6+"
+        },
+        {
+          "label": "Wishlist in chats",
+          "value": "Scattered"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Catalogued pairs",
+          "value": "On device"
+        },
+        {
+          "label": "Wishlist",
+          "value": "One list"
         }
       ],
       "video": {
@@ -44,13 +78,14 @@
         "webm": "ali/story.webm",
         "vtt": "ali/story.vtt",
         "poster": "ali/poster.jpg",
-        "transcript": "Ali Hassan opens the app and completes a fictional sample flow."
+        "transcript": "Ali catalogues on phone, reviews on iPad, plans on laptop. Fictional."
       },
       "features_used": [
         "photo-shelves",
-        "wishlist-tiers"
+        "wishlist-tiers",
+        "user-defined-series"
       ],
-      "quote": "My grails live on the phone, not in chats.",
+      "quote": "The shelf matches the box under the bed.",
       "fictional": true,
       "needs": [
         "fun"
@@ -58,38 +93,72 @@
     },
     {
       "id": "deeponycap-fatima",
-      "name": "Fatima Noor",
+      "name": "Fatima Hassan",
       "age": 36,
       "city": "Dubai, UAE",
-      "goal": "Kids' book shelves with custom series",
-      "headline": "How Fatima uses Deeponycap",
-      "summary": "Fatima Noor from Dubai uses the app for kids' book shelves with custom series. All people and numbers are fictional.",
+      "goal": "Kids’ book shelves she can tidy weekly",
+      "headline": "How Fatima keeps the kids’ shelves honest",
+      "summary": "Fatima logs books on phone, sorts shelves on iPad with the kids, plans donations on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Kids' book shelves with custom series",
-          "shot": "fatima/01-home",
-          "alt": "Fatima Noor home screen"
+          "time": "08:30",
+          "title": "Scan a spine",
+          "text": "During breakfast tidy Fatima adds a spine on her phone so the kids’ shelves stop lying about what is already owned.",
+          "shot": "fatima/01-iphone",
+          "device": "iphone",
+          "alt": "Add book on phone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "fatima/02-task",
-          "alt": "Fatima Noor using primary feature"
+          "time": "16:00",
+          "title": "Kids on iPad",
+          "text": "After school the iPad shelf is a game: they point at favourites, she marks duplicates before the next book fair.",
+          "shot": "fatima/02-ipad",
+          "device": "ipad",
+          "alt": "Shelf with kids"
+        },
+        {
+          "time": "20:30",
+          "title": "Donation list",
+          "text": "Laptop donation list for the weekend drop — titles leaving the house on purpose, not vanishing into a car boot.",
+          "shot": "fatima/03-mac",
+          "device": "mac",
+          "alt": "Donation plan"
+        },
+        {
+          "time": "21:00",
+          "title": "Wishlist trim",
+          "text": "Wishlist trimmed on the laptop so the next buy is intentional, not a double of something under the bed.",
+          "shot": "fatima/04-mac",
+          "device": "mac",
+          "alt": "Wishlist"
+        },
+        {
+          "time": "21:20",
+          "title": "Phone lock",
+          "text": "Phone confirms tonight’s adds before she locks the screen and calls it a weekly win.",
+          "shot": "fatima/05-iphone",
+          "device": "iphone",
+          "alt": "Confirm on phone"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Duplicate buys",
+          "value": "Monthly"
+        },
+        {
+          "label": "Shelf chaos",
+          "value": "High"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Duplicates caught",
+          "value": "Before checkout"
+        },
+        {
+          "label": "Weekly tidy",
+          "value": "Logged"
         }
       ],
       "video": {
@@ -97,52 +166,87 @@
         "webm": "fatima/story.webm",
         "vtt": "fatima/story.vtt",
         "poster": "fatima/poster.jpg",
-        "transcript": "Fatima Noor opens the app and completes a fictional sample flow."
+        "transcript": "Fatima logs on phone, sorts on iPad, plans on laptop. Fictional."
       },
       "features_used": [
-        "user-defined-series",
-        "photo-shelves"
+        "photo-shelves",
+        "wishlist-tiers"
       ],
-      "quote": "Each kid gets their own shelf.",
+      "quote": "We stopped buying doubles.",
       "fictional": true,
       "needs": [
-        "family"
+        "family",
+        "fun"
       ]
     },
     {
       "id": "deeponycap-george",
-      "name": "George Palmer",
+      "name": "George Whitfield",
       "age": 61,
       "city": "Manchester, UK",
-      "goal": "Condition notes and large labels",
-      "headline": "How George uses Deeponycap",
-      "summary": "George Palmer from Manchester uses the app for condition notes and large labels. All people and numbers are fictional.",
+      "goal": "Vinyl with condition notes",
+      "headline": "How George keeps condition notes with the sleeves",
+      "summary": "George photographs sleeves on phone, reviews the collection on iPad, updates condition on laptop.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Condition notes and large labels",
-          "shot": "george/01-home",
-          "alt": "George Palmer home screen"
+          "time": "10:00",
+          "title": "Sleeve photo",
+          "text": "George photographs a sleeve on his phone and adds a condition note that will travel with the record, not live in his head.",
+          "shot": "george/01-iphone",
+          "device": "iphone",
+          "alt": "Vinyl detail"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "george/02-task",
-          "alt": "George Palmer using primary feature"
+          "time": "14:00",
+          "title": "iPad browse",
+          "text": "Afternoon iPad browse through the collection feels like standing at the shelves without kneeling on the floor.",
+          "shot": "george/02-ipad",
+          "device": "ipad",
+          "alt": "Collection on iPad"
+        },
+        {
+          "time": "19:00",
+          "title": "Laptop inventory",
+          "text": "Laptop inventory for insurance — full list current, fictional values illustrative, no spreadsheet from 2011.",
+          "shot": "george/03-mac",
+          "device": "mac",
+          "alt": "Inventory on laptop"
+        },
+        {
+          "time": "20:00",
+          "title": "Wishlist pressings",
+          "text": "Wishlist of pressings on the laptop; he wants fewer impulse buys and better notes when he finds one.",
+          "shot": "george/04-mac",
+          "device": "mac",
+          "alt": "Wishlist"
+        },
+        {
+          "time": "20:30",
+          "title": "Phone end",
+          "text": "Phone confirms today’s adds. The note finally travels with the sleeve.",
+          "shot": "george/05-iphone",
+          "device": "iphone",
+          "alt": "Phone confirm"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Condition forgotten",
+          "value": "Often"
+        },
+        {
+          "label": "Insurance list",
+          "value": "Out of date"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Condition noted",
+          "value": "Per sleeve"
+        },
+        {
+          "label": "List current",
+          "value": "On device"
         }
       ],
       "video": {
@@ -150,13 +254,13 @@
         "webm": "george/story.webm",
         "vtt": "george/story.vtt",
         "poster": "george/poster.jpg",
-        "transcript": "George Palmer opens the app and completes a fictional sample flow."
+        "transcript": "George notes condition on phone, browses on iPad, inventories on laptop. Fictional."
       },
       "features_used": [
-        "independent-tracker",
-        "photo-shelves"
+        "photo-shelves",
+        "independent-tracker"
       ],
-      "quote": "Every pressing has a story in one place.",
+      "quote": "The note travels with the record.",
       "fictional": true,
       "needs": [
         "fun"

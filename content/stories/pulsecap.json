@@ -5,38 +5,72 @@
   "personas": [
     {
       "id": "pulsecap-sara",
-      "name": "Sara Malik",
+      "name": "Sara Ahmed",
       "age": 26,
       "city": "Karachi, Pakistan",
-      "goal": "Three-day split logged offline in a basement gym",
-      "headline": "How Sara uses Pulsecap",
-      "summary": "Sara Malik from Karachi uses the app for three-day split logged offline in a basement gym. All people and numbers are fictional.",
+      "goal": "A beginner 3-day split she can log offline at a basement gym",
+      "headline": "How Sara logged her first consistent month",
+      "summary": "Sara trains in a basement gym with weak signal. Phone for the logger on the floor, iPad for My Plan on the bus, laptop for progress charts on Sundays.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Three-day split logged offline in a basement gym",
-          "shot": "sara/01-home",
-          "alt": "Sara Malik home screen"
+          "time": "07:00",
+          "title": "Plan on the bus",
+          "text": "On the bus Sara opens My Plan on her iPad and confirms today’s 3-day split before she even reaches the basement gym with the unreliable signal.",
+          "shot": "sara/01-ipad",
+          "device": "ipad",
+          "alt": "My Plan on iPad"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "sara/02-task",
-          "alt": "Sara Malik using primary feature"
+          "time": "07:40",
+          "title": "First warm-up set",
+          "text": "Phone logger open on the first warm-up set — kilograms and reps save locally with no cloud spinner, which matters when the Wi-Fi dies mid-session.",
+          "shot": "sara/02-iphone",
+          "device": "iphone",
+          "alt": "Workout logger on iPhone"
+        },
+        {
+          "time": "08:15",
+          "title": "Superset done",
+          "text": "Still offline for the superset; the rest timer ticks on the phone while she watches the clock on the wall, not an app store login wall.",
+          "shot": "sara/03-iphone",
+          "device": "iphone",
+          "alt": "Rest timer on phone"
+        },
+        {
+          "time": "20:00",
+          "title": "Sunday charts",
+          "text": "Sunday evening she opens the laptop progress chart and smiles at three finished sessions — volume up gently, ego left outside.",
+          "shot": "sara/04-mac",
+          "device": "mac",
+          "alt": "Progress on laptop"
+        },
+        {
+          "time": "20:30",
+          "title": "Next week tweak",
+          "text": "She nudges next week’s load on My Plan from the laptop, then closes the lid. The basement will still be offline. The log will still work.",
+          "shot": "sara/05-mac",
+          "device": "mac",
+          "alt": "Plan edit on laptop"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Workouts abandoned mid-set",
+          "value": "Half"
+        },
+        {
+          "label": "Remembered last weights",
+          "value": "Guesswork"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Workouts finished",
+          "value": "11 / 12"
+        },
+        {
+          "label": "Last weights",
+          "value": "On screen"
         }
       ],
       "video": {
@@ -44,13 +78,13 @@
         "webm": "sara/story.webm",
         "vtt": "sara/story.vtt",
         "poster": "sara/poster.jpg",
-        "transcript": "Sara Malik opens the app and completes a fictional sample flow."
+        "transcript": "Sara reviews My Plan on iPad, logs sets offline on iPhone, and checks progress on laptop. Fictional."
       },
       "features_used": [
         "exercise-library",
         "pr-tracking"
       ],
-      "quote": "I log sets even when the signal dies.",
+      "quote": "The basement has no signal. The log still works.",
       "fictional": true,
       "needs": [
         "health"
@@ -58,38 +92,72 @@
     },
     {
       "id": "pulsecap-daniel",
-      "name": "Daniel Wright",
+      "name": "Daniel Okonkwo",
       "age": 38,
       "city": "London, UK",
-      "goal": "Charts that show progress without a wearable",
-      "headline": "How Daniel uses Pulsecap",
-      "summary": "Daniel Wright from London uses the app for charts that show progress without a wearable. All people and numbers are fictional.",
+      "goal": "Runner-plus-strength progress he can trust",
+      "headline": "How Daniel mixes runs and lifts without losing the thread",
+      "summary": "Daniel coaches himself between client meetings. Phone at the track, iPad for mobility, laptop for long progress reviews.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Charts that show progress without a wearable",
-          "shot": "daniel/01-home",
-          "alt": "Daniel Wright home screen"
+          "time": "06:20",
+          "title": "Track intervals",
+          "text": "At the track Daniel keeps the phone in hand for interval notes — pace, rest, how the left knee felt — one log instead of a separate running app he never opens.",
+          "shot": "daniel/01-iphone",
+          "device": "iphone",
+          "alt": "Cardio log on iPhone"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "daniel/02-task",
-          "alt": "Daniel Wright using primary feature"
+          "time": "12:40",
+          "title": "Desk mobility",
+          "text": "Between client calls he opens a short mobility block on the iPad at his desk, twelve minutes, then back to email without changing clothes.",
+          "shot": "daniel/02-ipad",
+          "device": "ipad",
+          "alt": "Mobility on iPad"
+        },
+        {
+          "time": "18:50",
+          "title": "Strength session",
+          "text": "After work the phone logger takes squats and accessories; last week’s numbers are already there so he is not guessing under fluorescent lights.",
+          "shot": "daniel/03-iphone",
+          "device": "iphone",
+          "alt": "Strength log on phone"
+        },
+        {
+          "time": "21:00",
+          "title": "Week review",
+          "text": "Laptop charts at night show volume trending up gently — strength and runs in one place, no spreadsheet archaeology.",
+          "shot": "daniel/04-mac",
+          "device": "mac",
+          "alt": "Charts on laptop"
+        },
+        {
+          "time": "21:25",
+          "title": "Coach tip",
+          "text": "A rules-based Smart Coach tip appears on the laptop — not an LLM sermon, just a cue he accepts or dismisses with one tap.",
+          "shot": "daniel/05-mac",
+          "device": "mac",
+          "alt": "Smart Coach on laptop"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Separate apps for run vs lift",
+          "value": "3 apps"
+        },
+        {
+          "label": "Skipped mobility",
+          "value": "Often"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Single log",
+          "value": "PulseCap"
+        },
+        {
+          "label": "Mobility done",
+          "value": "2× / week"
         }
       ],
       "video": {
@@ -97,13 +165,14 @@
         "webm": "daniel/story.webm",
         "vtt": "daniel/story.vtt",
         "poster": "daniel/poster.jpg",
-        "transcript": "Daniel Wright opens the app and completes a fictional sample flow."
+        "transcript": "Daniel logs runs and lifts on phone, mobility on iPad, reviews charts on laptop. Fictional."
       },
       "features_used": [
-        "recovery-readiness",
-        "pr-tracking"
+        "smart-coach",
+        "pr-tracking",
+        "recovery-readiness"
       ],
-      "quote": "Recovery score matches how my legs feel.",
+      "quote": "One log for legs and long runs.",
       "fictional": true,
       "needs": [
         "health"
@@ -111,38 +180,72 @@
     },
     {
       "id": "pulsecap-khalid",
-      "name": "Khalid Mansour",
+      "name": "Khalid Al-Rashid",
       "age": 55,
       "city": "Riyadh, Saudi Arabia",
-      "goal": "Light weights and walks with larger text",
-      "headline": "How Khalid uses Pulsecap",
-      "summary": "Khalid Mansour from Riyadh uses the app for light weights and walks with larger text. All people and numbers are fictional.",
+      "goal": "Doctor-approved walking plus light weights, large text",
+      "headline": "How Khalid kept moving after clearance",
+      "summary": "Khalid’s doctor cleared light training. Large text on phone, iPad for calm plan view, laptop when his son visits to help.",
       "day": [
         {
-          "time": "09:00",
-          "title": "Open app",
-          "text": "Light weights and walks with larger text",
-          "shot": "khalid/01-home",
-          "alt": "Khalid Mansour home screen"
+          "time": "05:50",
+          "title": "Morning walk log",
+          "text": "Before fajr traffic, Khalid logs a 25-minute walk on his iPhone with large text — slow is still training, and the doctor’s clearance lives in the note.",
+          "shot": "khalid/01-iphone",
+          "device": "iphone",
+          "alt": "Walk log large text"
         },
         {
-          "time": "13:00",
-          "title": "Main task",
-          "text": "They complete the core flow with sample data on device.",
-          "shot": "khalid/02-task",
-          "alt": "Khalid Mansour using primary feature"
+          "time": "16:00",
+          "title": "Light session plan",
+          "text": "Afternoon iPad shows today’s light weights clearly enough that he does not need his son to interpret tiny labels at the gym.",
+          "shot": "khalid/02-ipad",
+          "device": "ipad",
+          "alt": "Plan on iPad"
+        },
+        {
+          "time": "16:40",
+          "title": "Sets done",
+          "text": "Phone logger for two machines only; he finishes, drinks water, and leaves without chasing a streak or a personal record.",
+          "shot": "khalid/03-iphone",
+          "device": "iphone",
+          "alt": "Light sets on phone"
+        },
+        {
+          "time": "20:10",
+          "title": "Son checks in",
+          "text": "When his son visits they open the laptop together and skim the week at a glance — walks logged, light days honest, nothing performative.",
+          "shot": "khalid/04-mac",
+          "device": "mac",
+          "alt": "Week on laptop"
+        },
+        {
+          "time": "20:40",
+          "title": "Tomorrow ready",
+          "text": "Phone reminder set for tomorrow’s walk. He locks the screen feeling capable, not behind.",
+          "shot": "khalid/05-iphone",
+          "device": "iphone",
+          "alt": "Reminder on phone"
         }
       ],
       "before": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "15 min"
+          "label": "Skipped walks when unsure",
+          "value": "3 / week"
+        },
+        {
+          "label": "Could read the plan",
+          "value": "Hard"
         }
       ],
       "after": [
         {
-          "label": "Minutes lost to chaos",
-          "value": "2 min"
+          "label": "Walks logged",
+          "value": "5 / week"
+        },
+        {
+          "label": "Plan readable",
+          "value": "Large text"
         }
       ],
       "video": {
@@ -150,13 +253,13 @@
         "webm": "khalid/story.webm",
         "vtt": "khalid/story.vtt",
         "poster": "khalid/poster.jpg",
-        "transcript": "Khalid Mansour opens the app and completes a fictional sample flow."
+        "transcript": "Khalid logs walks and light weights across phone and iPad, reviews with family on laptop. Fictional."
       },
       "features_used": [
-        "smart-coach",
-        "exercise-library"
+        "exercise-library",
+        "recovery-readiness"
       ],
-      "quote": "The coach reads my history on the phone.",
+      "quote": "Slow is still training.",
       "fictional": true,
       "needs": [
         "health"
