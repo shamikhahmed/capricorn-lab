@@ -5,7 +5,7 @@
 - **Ten themes** — Capricorn, Capricorn Night, Aurora, Synthwave, Terminal, Truck Art, Mughal, Paper, Pixel 95, Brutal. Each one reskins wallpaper (new canvas painter per theme), glass, type, window chrome, widgets, dock, lock screen, boot log and UI sound timbre. Circular reveal on switch (View Transitions). Persisted; shareable via `?theme=`.
 - **Appearance app** (desktop window + iOS sheet) with live-painted previews, Surprise me, Copy theme link. Theme row in Control Center; themes in Spotlight; right-click → Next Theme / Surprise Me; Apple menu → Appearance…
 - **iPad mode** — new tablet surface for touch screens 600–1366px: wide widget board, roomy icon grid, 9-app dock + App Library, centred form sheets, banner below status bar.
-- **Phone** — dock shows 4 favourites (was 17 squeezed into slivers); widgets/icons open an app sheet (details, screenshot, Launch, Try it here); iOS-style banner notifications; Themes, Privacy and Library on the home grid.
+- **Phone** — dock shows 4 favourites (was 17 squeezed into slivers); widgets/icons open an app sheet (details, screenshot, Launch); iOS-style banner notifications; Themes, Privacy and Library on the home grid.
 - **Launch PWA** — the real Cap runs inside its desktop window (phone frame or full width) or a full sheet on touch devices.
 - **Live catalog** — versions read at runtime from each Cap's VERSION.json.
 - **Privacy Monitor** — measured requests by origin; clock widget, lock screen and certificate now show measured numbers.
