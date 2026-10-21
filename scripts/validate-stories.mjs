@@ -43,8 +43,9 @@ for (const file of bundles) {
   }
   req(bundle, ['slug', 'fictional', 'disclaimer', 'personas'], ctx);
   if (bundle.fictional !== true) fail(`${ctx} fictional must be true`);
-  if (!/fictional|illustrative|example/i.test(String(bundle.disclaimer || ''))) {
-    fail(`${ctx} disclaimer must say fictional / illustrative / example`);
+  const DISCLAIMER = 'Illustrative story. People and data are fictional.';
+  if (String(bundle.disclaimer || '').trim() !== DISCLAIMER) {
+    fail(`${ctx} disclaimer must be exactly: ${DISCLAIMER}`);
   }
   const app = appsBySlug[bundle.slug];
   if (!app) fail(`${ctx} unknown slug ${bundle.slug}`);

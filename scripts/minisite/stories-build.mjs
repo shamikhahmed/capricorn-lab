@@ -155,7 +155,7 @@ export function buildStoriesForApp(app, bundle, ctx) {
 <body data-app="${esc(app.slug)}" data-story="1">
 ${topbar(app, true, true)}
 <main id="main" class="story-main">
-  <p class="story-fictional"><span class="chip">Fictional example</span> ${esc(bundle.disclaimer)}</p>
+  <p class="story-fictional"><span class="chip">Illustrative story</span> ${esc(bundle.disclaimer || 'Illustrative story. People and data are fictional.')}</p>
   <section class="story-hero" aria-labelledby="story-h1">
     <div class="story-hero__text prose">
       <p class="eyebrow">${esc(app.name)} · ${esc(p.city)}</p>
