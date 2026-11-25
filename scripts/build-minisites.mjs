@@ -320,6 +320,9 @@ function renderApp(app, ctx) {
     ['Where is my data?', `${priv.stays} It lives in this browser on this device — clearing site data erases it, so export a backup first.`],
     ...(FAQ[app.slug] || []),
     ...(app.privateBeta ? [] : [['Does it work offline?', app.slug === 'ledgercap' ? 'Your portfolio does. Market prices need a connection.' : app.slug === 'travelcap' ? 'Your trips and documents do. Search, maps and weather need a connection.' : 'Yes, after the first visit.']]),
+    ['Do I need an account?', 'No. Open the Cap and use it — no signup wall.'],
+    ...(app.privateBeta ? [] : [['How do I install it?', 'Open the Cap, then Add to Home Screen (iPhone/iPad) or Install app (Android / desktop Chrome). About 30 seconds. See the Install section above.']]),
+    ['Can I export or leave?', 'Yes. Use the Cap’s Settings export/backup where offered, or clear site data for that Cap’s URL in your browser.'],
   ];
   const data = JSON.stringify(shots).replace(/</g, '\\u003c');
   const hasStories = Boolean(storyBundle?.personas?.length);
@@ -388,7 +391,7 @@ ${topbar(app, true, hasStories)}
   </section>
 
   ${app.privateBeta ? '' : `<section class="section" id="install" aria-labelledby="install-h">
-    <div class="section__head"><div><h2 id="install-h">Put it on your Home Screen</h2><p>${esc(app.name)} is a web app — installing takes a few seconds and it opens full-screen, offline.</p></div></div>
+    <div class="section__head"><div><h2 id="install-h">Put it on your Home Screen</h2><p>${esc(app.name)} is a web app — installing takes about 30 seconds and it opens full-screen, offline.</p></div></div>
     <ol class="install">
       <li class="card"><h3>iPhone &amp; iPad</h3><p>Open ${esc(app.name)} in Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>.</p></li>
       <li class="card"><h3>Mac</h3><p>In Safari choose <b>File → Add to Dock</b>. In Chrome or Edge, click the install icon in the address bar.</p></li>
@@ -412,7 +415,12 @@ ${topbar(app, true, hasStories)}
 </main>
 <footer class="foot">
   <p class="foot__label">More Caps</p>
-  <ul class="foot__caps">${others.map((o) => `<li><a href="/apps/${esc(o.slug)}/"><img src="/apps/assets/icons/${esc(o.slug)}.svg" alt="" width="40" height="40" loading="lazy"><span>${esc(o.name)}</span></a></li>`).join('')}</ul>
+  <ul class="foot__caps">${others.map((o) => {
+    const href = o.wip && !o.privateBeta && (o.slug === 'ideacap' || o.slug === 'carcap')
+      ? (o.slug === 'ideacap' ? '/IdeaCap/' : '/CarCap/')
+      : `/apps/${esc(o.slug)}/`;
+    return `<li><a href="${href}"><img src="/apps/assets/icons/${esc(o.slug)}.svg" alt="" width="40" height="40" loading="lazy"><span>${esc(o.name)}</span></a></li>`;
+  }).join('')}</ul>
   <nav class="foot__links" aria-label="Footer"><a href="/apps/">All Caps</a><a href="/stories/">Examples</a><a href="/">Capricorn OS</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav>
   <p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p>
 </footer>
@@ -431,25 +439,36 @@ ${shots.length ? `<script type="application/json" id="shots" data-schemes="${esc
 
 function renderIndex(apps, versions) {
   const pal = palette({ accent: '#c9a227', accent2: '#8a6a1a', bg: '#121110' });
-  const cards = apps.map((a) => `<li><a class="capcard" href="/apps/${esc(a.slug)}/" style="--c:${esc(a.accent)}">
+  const live = apps.filter((a) => !a.wip || a.privateBeta);
+  const retired = apps.filter((a) => a.wip && !a.privateBeta);
+  const card = (a, retiredHref = false) => {
+    const href = retiredHref
+      ? (a.slug === 'ideacap' ? '/IdeaCap/' : a.slug === 'carcap' ? '/CarCap/' : `/apps/${esc(a.slug)}/`)
+      : `/apps/${esc(a.slug)}/`;
+    return `<li><a class="capcard" href="${href}" style="--c:${esc(a.accent)}">
     <img src="/apps/assets/icons/${esc(a.slug)}.svg" alt="" width="64" height="64" loading="lazy">
-    <span class="capcard__name">${esc(a.name)}${a.privateBeta ? ' <em>Private beta</em>' : ''}</span>
+    <span class="capcard__name">${esc(a.name)}${a.privateBeta ? ' <em>Private beta</em>' : ''}${retiredHref ? ' <em>Retired</em>' : ''}</span>
     <span class="capcard__desc">${esc(DESC[a.slug] || a.tagline)}</span>
-    <span class="capcard__meta">${esc(a.category)} · v${esc(versions[a.slug] || a.ver)}</span>
-  </a></li>`).join('');
-  return `${head({ title: 'Cap apps — Capricorn Systems', desc: 'Thirteen Cap apps by Capricorn Systems. Each one looks different; none has ads or analytics, and each says plainly what stays on your device.', canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
+    <span class="capcard__meta">${esc(a.category)} · ${retiredHref ? 'retired' : `v${esc(versions[a.slug] || a.ver)}`}</span>
+  </a></li>`;
+  };
+  const liveCount = live.length;
+  const liveLabel = liveCount === 11 ? 'Eleven' : String(liveCount);
+  const desc = `${liveLabel} Cap apps by Capricorn Systems. Open a Cap, install in about 30 seconds. No ads, no analytics, no mandatory account.`;
+  return `${head({ title: 'Cap apps — Capricorn Systems', desc, canonical: `${BASE}/apps/`, og: `${BASE}/assets/og.png`, pal })}
 <body>
 ${topbar(null, false)}
 <main id="main">
   <section class="hero hero--index" aria-labelledby="h1">
     <div class="hero__text">
       <p class="eyebrow">Capricorn Systems</p>
-      <h1 id="h1">Thirteen Caps. One rule.</h1>
-      <p class="hero__lead">Every Cap looks and feels different. None of them has ads or analytics, and each page says plainly what stays on your device — and what, if anything, leaves it.</p>
-      <div class="hero__cta"><a class="btn btn--fill" href="/">Open Capricorn OS</a><a class="btn btn--ghost" href="/support.html">Support</a></div>
+      <h1 id="h1">${liveLabel} Caps. One rule.</h1>
+      <p class="hero__lead">Open a Cap as a PWA. Install in about 30 seconds. No ads, no analytics, no mandatory account — each page says what stays on your device.</p>
+      <div class="hero__cta"><a class="btn btn--fill" href="/">Enter Capricorn OS</a><a class="btn btn--ghost" href="/support.html#how-to-install">How to install</a></div>
     </div>
   </section>
-  <section class="section" aria-label="All Caps"><ul class="capgrid">${cards}</ul></section>
+  <section class="section" aria-label="Live Caps"><ul class="capgrid">${live.map((a) => card(a)).join('')}</ul></section>
+  ${retired.length ? `<section class="section" aria-labelledby="retired-h"><div class="section__head"><div><h2 id="retired-h">Retired Caps</h2><p>Still reachable for history — not part of the live install fleet.</p></div></div><ul class="capgrid capgrid--retired">${retired.map((a) => card(a, true)).join('')}</ul></section>` : ''}
 </main>
 <footer class="foot"><nav class="foot__links" aria-label="Footer"><a href="/">Capricorn OS</a><a href="/stories/">Examples</a><a href="/support.html">Support</a><a href="/privacy.html">Privacy</a><a href="https://github.com/shamikhahmed">GitHub</a></nav><p class="foot__fine">© ${new Date().getFullYear()} Capricorn Systems, Karachi.</p></footer>
 <script src="/apps/assets/minisite.js" defer></script>
@@ -479,12 +498,19 @@ cpSync(join(LAB, 'scripts', 'minisite', 'minisite.js'), join(OUT, 'assets', 'min
 for (const a of APPS) cpSync(join(LAB, 'assets', 'icons', `${a.slug}.svg`), join(OUT, 'assets', 'icons', `${a.slug}.svg`));
 rmSync(join(OUT, 'assets', 'gallery'), { recursive: true, force: true });
 
+const only = new Set(
+  (process.env.MINISITE_ONLY || '')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean),
+);
 const versions = {};
 const ogJobs = [];
 for (const app of APPS) {
   const repoPath = join(FLEET, REPO[app.slug]);
   const version = readJson(join(repoPath, 'VERSION.json'))?.version || app.ver;
   versions[app.slug] = version;
+  if (only.size && !only.has(app.slug)) continue; // preserve sibling shot dirs under concurrent fleet builds
   const dir = join(OUT, app.slug);
   rmSync(join(dir, 'assets'), { recursive: true, force: true }); // previous generator's layout
   mkdirSync(dir, { recursive: true });
